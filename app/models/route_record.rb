@@ -5,7 +5,8 @@ class RouteRecord < ActiveRecord::Base
   
   has_many :fav_relations, :foreign_key => "route_id", :dependent => :destroy
   has_many :match_relations, :foreign_key => "route_id", :dependent => :destroy
-
+  has_many :request_relations, :foreign_key => "reqed_id", :dependent => :destroy
+  
   validates :from, :presence => true, :length => { :maximum => 20 }
   validates :to, :presence => true, :length => { :maximum => 20 }
 

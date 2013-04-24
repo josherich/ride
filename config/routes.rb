@@ -38,6 +38,7 @@ Ride::Application.routes.draw do
 
   resources :route_records
   resources :fav_relations, :only => [:create, :destroy]
+  resources :request_relations, :only => [:create, :destroy]
   resources :match_requests
 
 end

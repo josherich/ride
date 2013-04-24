@@ -1,0 +1,1 @@
+$("#toggle_req_<%= @route_record.id %>").html("<%= escape_javascript(render '/route_records/send_req', :match_result_id => @route_record.id) %>");

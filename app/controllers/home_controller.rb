@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   		format.json { render json:current_user }
   	end
 
-    MatchRouteRecord.perform_in(5.hours)
+    MatchRouteRecord.perform_async
 
   	rescue ActiveRecord::RecordNotFound
   	  redirect_to root_path

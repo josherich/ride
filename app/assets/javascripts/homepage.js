@@ -17,12 +17,10 @@ var R = {
                 function() { $(this).width(240);}
             );
         } else if ( document.title == "Home" ) {
+            alert("callback");
             this.setcallback();
             this.getInput();
-            if(this.bdmap.locate_me()) {
-                this.getInput();
-                this.handleGPS( "src", from_str );
-            }
+            this.bdmap.locate_me();
         }
         this.ajaxRequest('GET', '/conversations');
     },
@@ -182,6 +180,7 @@ var R = {
     bdmap: {
 
         init: function() {
+            this.r = window.R;
             this.map = new BMap.Map("map_container");
             var initPoint = new BMap.Point(121.608477, 31.207143);
             this.map.enableContinuousZoom();
@@ -222,7 +221,10 @@ var R = {
                     gc.getLocation(r.point, function(rs){
                         var addComp = rs.addressComponents;
                         that.from.setInputValue( addComp.city + addComp.district + addComp.street + addComp.streetNumber );
-                        return true;
+                        // TODO ugly
+                        that.r.getInput();
+                        that.r.handleGPS( "src", that.r.from_str );
+                        alert("locate");
                         // alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
                     });
                 }

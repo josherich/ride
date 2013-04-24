@@ -10,14 +10,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% @match_results.each do |res| %>
-			<tr>
-				<td class="id"><%= res.id %></td>
-				<td class="from"><%= res.from %></td>
-				<td class="to"><%= res.to %></td>
-				<td class="created"><%= time_ago_in_words(res.created_at) %> ago</td>
-			</tr>
-			<% end %>
+			<%= render :partial => "match_result", :collection => @match_results %>
 		</tbody>
 	</table>
 </div>

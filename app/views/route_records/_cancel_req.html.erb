@@ -1,0 +1,3 @@
+<%= form_for @match_request.request_relations.find_by_reqed_id(match_result_id), :html => { :method => :delete }, :remote => true do |f| %>
+<div class="actions"><%= f.submit "cancel" %></div>
+<% end %>

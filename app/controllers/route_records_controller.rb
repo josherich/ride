@@ -38,8 +38,13 @@ class RouteRecordsController < ApplicationController
 
 	def show
 		@title = "route_records"
+		reqed_id = params[:id]
 		@route_record = RouteRecord.find(params[:id])
-		respond_with(@route_record)
+		@requests = RequestRelation.where("reqed_id=" + reqed_id.to_s)
+
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	# search api json
