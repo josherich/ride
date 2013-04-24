@@ -1,0 +1,28 @@
+<header>
+	<div class="hheader">
+		<div class="nav-bar">
+			<div id="homeicon">
+				<a href="/"><%= image_tag("rails.png", :alt => "demo", :class => "round icon") %></a>
+			</div>
+			<ul class="haccount">
+				<% unless user_signed_in? %>
+				<li><%= link_to "Sign in", new_user_session_path %></li>
+				<li><%= link_to "Sign up", new_user_registration_path %></li>
+				<li class="sns weibo">
+					<a title="微博登陆" href="#">
+						<div class="weibo-icon">
+							<%= image_tag("loginbtn_04.png", :alt => "weibo", :class => "round") %>
+						</div>
+					</a>
+				</li>
+				<li class="sns qq">
+					<a title="QQ登陆" href="#">
+						<div class="weibo-icon">
+							<%= image_tag("loginbtn_03.png", :alt => "QQ", :class => "round") %>
+						</div>
+					</a>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	</header>

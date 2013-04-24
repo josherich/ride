@@ -1,0 +1,24 @@
+<div class="scroll_table">
+	<table class="table table-hover conversation_thread">
+		<thead>
+			<tr>
+				<th>content</th>
+				<th>sub</th>
+				<th>From</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @messages.reverse.each do |msg| %>
+			<tr>
+				<td><%= msg.body %></td>
+				<td><%= msg.subject %></td>
+				<td><%= User.find_by_id(msg.sender_id).email if User.find_by_id(msg.sender_id) != current_user %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= form_tag('/conversations/' + @conversation.id.to_s + '/reply', :method => 'put', :remote => true) do %>
+	<%= text_field_tag(:body) %>
+	<%= submit_tag("Send") %>
+	<% end %>
+</div>

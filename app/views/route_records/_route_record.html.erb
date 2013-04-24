@@ -1,0 +1,20 @@
+<tr id="route_record_<%= route_record.id %>">
+	<td class="id"><%= route_record.id %></td>
+	<td class="from"><%= route_record.from %></td>
+	<td class="to"><%= route_record.to %></td>
+	<td class="lng_s"><%= route_record.lng_s %></td>
+	<td class="lng_d"><%= route_record.lng_d %></td>
+	<td class="created"><%= time_ago_in_words(route_record.created_at) %> ago</td>
+	<td><%= link_to "Del", route_record, method: :delete %></td>
+	<td id="toggle_<%= route_record.id %>" class="button">
+		<% if current_user.following?(route_record) %>
+		
+		<%= render "/route_records/unfollow", :route_record_id => route_record.id %>
+
+		<% else %>
+
+		<%= render "/route_records/follow", :route_record_id => route_record.id %>
+
+		<% end %>
+	</td>
+</tr>

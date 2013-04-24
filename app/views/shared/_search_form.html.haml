@@ -1,0 +1,16 @@
+.search_bar
+	.search_form.center
+		= simple_form_for @route_record do |f|
+			#search_from
+				= f.input :from, label: false, placeholder: "起点", input_html: { id: "from" }
+			#search_to
+				= f.input :to, label: false, placeholder: "终点", input_html: { id: "to" }
+			= f.input :lng_s, as: :hidden
+			= f.input :lat_s, as: :hidden
+			= f.input :lng_d, as: :hidden
+			= f.input :lat_d, as: :hidden
+			= f.input :data , as: :hidden
+			#search_btn
+				%button(name="search" type="submit" class="btn btn-success") 搜
+			#new_btn
+				%button(id="new_form_btn" name="commit" type="submit" class="btn btn-primary") 新建

@@ -1,0 +1,11 @@
+<% @messages.each do |msg| %>
+  <div class="conversation_thread">
+    <div>message ID:<%= msg.id %></div>
+    <div>from:<%= User.find_by_id(msg.sender_id).email %></div>
+    <div>sub:<%= msg.subject %></div>
+    <div>body:<%= msg.body %></div>
+    <div><%= link_to 'Show', msg %></div>
+    <div><%= link_to 'Destroy', msg, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+  <br>
+<% end %>

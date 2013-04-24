@@ -1,0 +1,10 @@
+-if user_signed_in?
+	#dashboard
+		%li.dropdown
+			%a.dropdown-toggle(data-toggle="dropdown" href="#")
+			%ul.dropdown-list
+				%li
+					= link_to("我的", dashboard_path)
+				%li
+					= link_to("退出", destroy_user_session_path, :method => 'delete')
+

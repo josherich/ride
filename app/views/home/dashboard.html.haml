@@ -1,0 +1,52 @@
+%ul.nav.nav-tabs
+	%li.active.tab.home
+		%a(href="#home" data-toggle="tab")
+			我的路线
+			= @user.route_records.count
+	%li.tab.saved_routes
+		%a(href="#saved_routes" data-toggle="tab")
+			我收藏的路线
+			= @user.fav_relations.count
+	%li.tabl.match
+		%a(href="#match" data-toggle="tab")
+			匹配线路
+			= @match_count
+	%li.tab.profile
+		%a(href="#profile" data-toggle="tab")
+			账号
+
+.tab-content
+	.tab-pane.active#home
+		.row-fluid
+			.span3
+				#map_wrapper
+					#map_left.imgborder
+						#map_container.imgborder
+			.span9
+				= render 'table'
+
+	.tab-pane#saved_routes
+		.row-fluid
+			.span3
+				#map_wrapper
+					#map_left.imgborder
+						#map_container.imgborder
+			.span9
+				= render 'table_fav'
+	.tab-pane#match
+		.row-fluid
+			.span3
+				#map_wrapper
+					#map_left.imgborder
+						#map_container.imgborder
+			.span9
+				#match_request_wrap
+					#match_request_back
+						&lt;
+					#match_results
+						= render 'table_match'
+	.tab-pane#profile
+		%p
+			profile page
+	
+

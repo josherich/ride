@@ -1,0 +1,23 @@
+<div class="scroll_table">
+	<table class="table table-hover match_results" summary="User match_results">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>起点</th>
+				<th>终点</th>
+				<th>创建时间</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @match_results.each do |res| %>
+			<tr>
+				<td class="id"><%= res.id %></td>
+				<td class="from"><%= res.from %></td>
+				<td class="to"><%= res.to %></td>
+				<td class="created"><%= time_ago_in_words(res.created_at) %> ago</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

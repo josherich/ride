@@ -1,0 +1,19 @@
+<% unless @route_records.empty? %>
+<table class="table table-hover route_records" summary="User route_record">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>起点</th>
+			<th>终点</th>
+			<th>Data</th>
+			<th>lng_s</th>
+			<th>lng_d</th>
+			<th>创建时间</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render @route_records %>
+	</tbody>
+</table>
+<% end %>

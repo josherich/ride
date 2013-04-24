@@ -1,0 +1,6 @@
+<tr>
+	<% lastmessage = @conversation.last_message %>
+	<td><%= lastmessage.body %></td>
+	<td><%= lastmessage.subject %></td>
+	<td><%= User.find_by_id(lastmessage.sender_id).email %></td>
+</tr>

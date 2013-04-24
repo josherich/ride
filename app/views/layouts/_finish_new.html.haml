@@ -1,0 +1,98 @@
+.finishnew_overlay
+	.finishnew_overlay_back
+		&lt;
+	.finishnew_overlay_close
+		x
+	#finishnew_overlay_wrapper
+		%header
+		%section(id="finishnew_overlay_body")
+			#finishnew_overlay_inner
+				%ul.nav.nav-tabs
+					%li.active.tab.new_details
+						%a(href="#new_details" data-toggle="tab")
+							我是乘客
+					%li.tab.new_details_more
+						%a(href="#new_details_more" data-toggle="tab")
+							我是司机
+				
+				.tab-content
+					.tab-pane.active#new_details
+						.detailsContent
+							= form_for(@match_request, :url => {:controller => 'match_requests', :action => 'create'}) do |f| 
+								#search_from
+									= f.text_field :from, :placeholder => "起点", :id => "request_from"
+							
+								#search_to
+									= f.text_field :to, :placeholder => "终点", :id => "request_to"
+							
+
+								.isregular
+									%label.checkbox
+										%input(type="checkbox" name="isregular" value="" checked)
+											常规线路(工作日上下班)
+
+								.setup_time
+									出发时刻：
+									= f.text_field :arrive_time, :value => "08:00", :id => 'timepicker'
+									%span.date-icon
+
+								= f.hidden_field :lat_s, :id => "request_lat_s"
+								= f.hidden_field :lng_s, :id => "request_lng_s"
+								= f.hidden_field :lat_d, :id => "request_lat_d"
+								= f.hidden_field :lng_d, :id => "request_lng_d"
+
+								.submit_form
+								= f.submit "提交" 
+
+					.tab-pane#new_details_more
+						= form_for(@route_record, :url => {:controller => 'route_records', :action => 'create'}) do |f| 
+							#search_from
+								= f.text_field :from, :placeholder => "起点", :id => "new_from"
+							
+							#search_to
+								= f.text_field :to, :placeholder => "终点", :id => "new_to"
+							
+							.setup_date
+								出发时间：
+								= f.text_field :set_date, :value => "2013-03-03" , :id => 'datepicker'
+								%span.date-icon
+							
+							.isregular
+								%label.checkbox
+									%input(type="checkbox" name="isregular" value="" checked)
+									常规线路
+
+							.setup_time
+								出发时刻： 
+								= f.text_field :set_time, :id => 'timepicker', :value => "08:00" 
+								%span.date-icon
+							
+							.timespan
+								时长： 
+								= f.text_field :timespan, :value => "12" 
+							
+							.seats
+								座位数： 
+								= f.text_field :seat_stat, :value => "2" 
+							
+							.price
+								价格：
+								= f.text_field :price, :value=> "12" 
+							
+							= f.hidden_field :isactive, :id => "isactive" 
+							= f.hidden_field :lat_s, :id => "new_lat_s" 
+							= f.hidden_field :lng_s, :id => "new_lng_s" 
+							= f.hidden_field :lat_d, :id => "new_lat_d" 
+							= f.hidden_field :lng_d, :id => "new_lng_d" 
+
+							.submit_form
+								= f.submit "提交"
+						
+						
+						
+
+					
+				
+			
+
+	

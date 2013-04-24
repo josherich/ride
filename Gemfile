@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
 gem 'rails', '3.2.13'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -28,3 +28,14 @@ gem "quiet_assets", ">= 1.0.2", :group => :development
 gem "figaro", ">= 0.6.3"
 gem "better_errors", ">= 0.7.2", :group => :development
 gem "binding_of_caller", ">= 0.7.1", :group => :development, :platforms => [:mri_19, :rbx]
+
+gem 'will_paginate'
+gem 'sunspot_rails'
+gem 'sunspot_solr', :group => :development
+gem 'rabl-rails'
+gem 'geocoder'
+gem 'mailboxer'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'haml'

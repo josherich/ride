@@ -11,7 +11,83 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422130656) do
+ActiveRecord::Schema.define(:version => 20130423141414) do
+
+  create_table "conversations", :force => true do |t|
+    t.string   "subject",    :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "fav_relations", :force => true do |t|
+    t.integer  "follower_id"
+    t.integer  "route_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "fav_relations", ["follower_id"], :name => "index_fav_relations_on_follower_id"
+  add_index "fav_relations", ["route_id"], :name => "index_fav_relations_on_route_id"
+
+  create_table "match_relations", :force => true do |t|
+    t.integer  "match_request_id"
+    t.integer  "route_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "match_relations", ["match_request_id"], :name => "index_match_relations_on_match_request_id"
+  add_index "match_relations", ["route_id"], :name => "index_match_relations_on_route_id"
+
+  create_table "match_requests", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "lat_s"
+    t.string   "lng_s"
+    t.string   "lat_d"
+    t.string   "lng_d"
+    t.integer  "user_id"
+    t.integer  "freq_pattern"
+    t.time     "arrive_time"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "match_requests", ["user_id"], :name => "index_match_requests_on_user_id"
+
+  create_table "notifications", :force => true do |t|
+    t.string   "type"
+    t.text     "body"
+    t.string   "subject",              :default => ""
+    t.integer  "sender_id"
+    t.string   "sender_type"
+    t.integer  "conversation_id"
+    t.boolean  "draft",                :default => false
+    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                              :null => false
+    t.integer  "notified_object_id"
+    t.string   "notified_object_type"
+    t.string   "notification_code"
+    t.string   "attachment"
+    t.boolean  "global",               :default => false
+    t.datetime "expires"
+  end
+
+  add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
+
+  create_table "receipts", :force => true do |t|
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.integer  "notification_id",                                  :null => false
+    t.boolean  "is_read",                       :default => false
+    t.boolean  "trashed",                       :default => false
+    t.boolean  "deleted",                       :default => false
+    t.string   "mailbox_type",    :limit => 25
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "receipts", ["notification_id"], :name => "index_receipts_on_notification_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +99,27 @@ ActiveRecord::Schema.define(:version => 20130422130656) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "route_records", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "data"
+    t.string   "lat_s"
+    t.string   "lng_s"
+    t.string   "lat_d"
+    t.string   "lng_d"
+    t.integer  "timespan"
+    t.integer  "freq_pattern"
+    t.integer  "seat_stat"
+    t.integer  "price"
+    t.boolean  "isactive"
+    t.boolean  "isdriver"
+    t.time     "set_time"
+    t.date     "set_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -49,5 +146,9 @@ ActiveRecord::Schema.define(:version => 20130422130656) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  add_foreign_key "notifications", "conversations", :name => "notifications_on_conversation_id"
+
+  add_foreign_key "receipts", "notifications", :name => "receipts_on_notification_id"
 
 end

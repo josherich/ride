@@ -1,0 +1,6 @@
+<%= link_to "", :controller => "messages", :action => "index" %>
+<div id="conversation_<%= conversation.id %>">
+	<div class="subject"><%= conversation.subject %></div>
+	<div class="created"><%= time_ago_in_words(conversation.created_at) %> ago</div>
+</div>
+<% end %>

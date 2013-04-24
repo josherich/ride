@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>From:</b>
+  <%= @route_record.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%= @route_record.to %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= @route_record.data %>
+</p>
+
+<%= link_to 'Edit', edit_route_record_path(@route_record) %> |
+<%= link_to 'Back', route_records_path %>
