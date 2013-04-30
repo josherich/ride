@@ -15,6 +15,10 @@ body, label, input, textarea, select, button {
 	background-color: #f7f7f7;
 }
 
+.tab-content {
+	overflow: visible;
+}
+
 .imgborder {
 	border: 1px  solid #eeeeee;
 }
@@ -53,6 +57,10 @@ li {
 	border-radius: 5px;
 }
 
+footer {
+	margin-top: 50px;
+}
+
 footer li {
 	display: inline;
 	text-align: center;
@@ -69,23 +77,25 @@ a:hover {
 }
 
 #main_map {
-	height: 260px;
-	width: 95%;
 	margin: 0 auto;
 	box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
-
-#map_container {
-	height: 100%;
+#map_container_home {
+	height: 250px;
 	width: 100%;
+}
+#map_container {
+	height: 98%;
+	width: 98%;
 }
 
 #map_left {
 	height: 260px;
-	/*width: 260px;*/
-	/*float: left;*/
-	/*padding-left: 10px;*/
+	// float: left;
+	margin-top: 20px;
+	border: 1px solid #b8b8b8;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+	box-sizing: border-box;
 }
 
 /*TODO*/
@@ -103,9 +113,36 @@ a:hover {
 	width: 560px;
 	margin: 0 auto;
 }
-.search_bar button {
-	margin-bottom: 10px;
+
+.search_form {
+	height: 40px;
+	// background: rgba(57, 60, 61, 0.5);
+	// border-radius: 3px;
+	// box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
+.search_form div {
+	display: inline;
+	// margin-left: 4px;
+	// float: left;
+	// margin-top: 4px;
+}
+
+#search_from {
+	float: left;
+}
+
+#search_to, #search_btn, #new_btn {
+	margin-left: 6px;
+	float: left;
+	// margin-top: 4px;
+}
+
+#search_btn, #new_btn {
+	margin-top: 3px;
+}
+// .search_bar button {
+// 	margin-bottom: 10px;
+// }
 
 .scroll_table {
 	height: 500px;
@@ -119,7 +156,7 @@ a:hover {
 #homeicon {
 	position: fixed;
 	left: 40px;
-	top: 40px;
+	top: 30px;
 	width: 40px;
 	height: 40px;
 	border-radius: 10%;
@@ -130,7 +167,7 @@ a:hover {
 #dashboard {
 	position: fixed;
 	right: 40px;
-	top: 90px;
+	top: 80px;
 	width: 40px;
 	height: 40px;
 	border-radius: 10%;
@@ -180,10 +217,11 @@ a:hover {
 	z-index: 1;
 }
 
+//////////////////// Mailbox //////////////////////
 #mailbox-btn {
 	position: fixed;
 	left: 40px;
-	top: 90px;
+	top: 80px;
 	width: 40px;
 	height: 40px;
 	border-radius: 3px;
@@ -204,7 +242,7 @@ a:hover {
 	height: 500px;
 	position: fixed;
 	left: 40px;
-	top: 90px;
+	top: 80px;
 /*	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 	-ms-transition: all .5s;
@@ -250,18 +288,30 @@ body.mailbox_sidebar_enabled .container {
 	text-align: center;
 	cursor: pointer;
 	position: absolute;
-	color: #646462;
-	font-size: 22px;
+	color: #dfdede;
+	font-size: 18px;
 	font-family: Arial;
 	background: #ffffff;
 }
 
-#match_request_back {
+.btn_back {
 	@include back-btn;
 	position: relative;
 	display: none;
-	top: 10px;
-	left: 10px;
+	// top: 10px;
+	// left: 10px;
+}
+
+body.match_requests_back_enabled #match_requests_back {
+	display: block;
+}
+
+body.my_routes_back_enabled #my_routes_back {
+	display: block;
+}
+
+body.saved_routes_back_enabled #saved_routes_back {
+	display: block;
 }
 
 .mailbox_sidebar_back {
@@ -278,9 +328,7 @@ body.mailbox_sidebar_enabled .container {
 	right: 10px;
 }
 
-body.match_request_back_enabled #match_request_back {
-	display: block;
-}
+
 
 body.mailbox_sidebar_enabled .mailbox_sidebar_close {
 	display: block;
@@ -291,7 +339,7 @@ body.mailbox-back-enabled .mailbox_sidebar_back {
 }
 
 .mailbox_sidebar_close:hover, .finishnew_overlay_close:hover {
-    background: #dededc;
+    background: #232323;
 }
 
 #mailbox_sidebar_wrapper, #finishnew_overlay_wrapper {
@@ -326,6 +374,7 @@ body.mailbox-back-enabled .mailbox_sidebar_back {
 	height: 400px;
 }*/
 
+///////////////// Overlay ///////////////
 @mixin overlay($x: 0.1, $y: 0.1) {
 	opacity: 0;
 	filter :alpha(opacity=0);
@@ -369,23 +418,7 @@ body.mailbox-back-enabled .mailbox_sidebar_back {
 
 }
 
-.search_form {
-	height: 38px;
-	background: rgba(57, 60, 61, 0.5);
-	border-radius: 3px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-.search_form div {
-	display: inline;
-	// margin-left: 4px;
-	float: left;
-	// margin-top: 4px;
-}
 
-#search_from, #search_to, #search_btn, #new_btn {
-	margin-left: 4px;
-	margin-top: 4px;
-}
 
 .finishnew_overlay {
 	@include overlay(0,0);
@@ -423,4 +456,100 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 
 .finishnew_overlay_inner {
 
+}
+///////////////////////////////
+.unfold_list {
+	width: 100%;
+	float: left;
+	margin-left: 1px;
+	margin-top: 20px;
+	// border: 1px solid #555555;
+}
+
+.requestor_list {
+	width: 95%;
+	float: left;
+	margin-top: 20px;
+	padding: 7px 9px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.requestor_list:hover {
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.requestor_list .request_info {
+	width: 60%;
+	float: left;
+}
+
+.requestor_list .request_action {
+	width: 30%;
+	float: left;
+}
+
+.request_action div {
+	display: inline;
+	margin-left: 8px;
+}
+.avatar {
+	width: 10%;
+	float: left;
+}
+
+//////////////////
+.route_block {
+	width: 95%;
+	// height: 300px;
+	float: left;
+	display: block;
+	margin-top: 20px;
+	padding: 7px 9px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.route_block:hover {
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.route_info {
+	width: 80%;
+	float: left;
+}
+.route_action {
+	margin-top: 120px;
+	// padding-left: 10px;
+	width: 20%;
+	float: left;
+}
+.seat_stat {
+	width: 300px;
+}
+
+#view_switch {
+	float: right;
+}
+
+
+
+//////////////////////filter panel/////////////////
+#filter_wrapper {
+	position: absolute;
+	width: 220px;
+	// top: 50px;
+	// left: 0;
+}
+
+#filter_panel {
+	margin-top: 30px;
+	border: 1px solid #b8b8b8;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.panel_title {
+	padding: 10px 15px;
+	background-color: rgba(250,250,250,0.8);
+}
+.filter_container {
+	margin: a auto;
+	padding: 10px 15px;
 }

@@ -1,0 +1,25 @@
+.requestor_list
+	.avatar
+		%img(src="/assets/rails.png" class="img-circle")
+	.request_info
+		.request_name
+			= match_request.user.email
+		.request_from
+			= match_request.from
+		.request_to
+			= match_request.to
+		.request_arrive
+			= match_request.arrive_time
+		.request_freq
+			= match_request.freq_pattern
+	.request_info.hidden
+		.request_lat_s
+			= match_request.lat_s
+		.request_lng_s
+			= match_request.lng_s
+		.request_lat_d
+			= match_request.lat_d
+		.request_lng_d
+			= match_request.lng_d
+		.request_freq
+			= match_request.freq_pattern

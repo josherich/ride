@@ -7,4 +7,5 @@ class RequestRelation < ActiveRecord::Base
   validates :req_id, :presence => true
   validates :stat_id, :presence => true
   validates :reqed_id, :presence => true
+
 end

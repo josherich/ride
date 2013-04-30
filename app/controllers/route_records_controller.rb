@@ -13,9 +13,14 @@ class RouteRecordsController < ApplicationController
 		@route_record = current_user.route_records.build(params[:route_record])
 
 		# new search request
-		if params[:search] || !@route_record.save
+		if params[:search]
 			@results = do_search(from_str, from_co, to_co)
 			render 'search'
+		end
+
+		if !@route_record.save
+			flash[:alert] = ""
+			redirect_to root_path
 		end
 
 		# new route record
@@ -33,7 +38,9 @@ class RouteRecordsController < ApplicationController
 		if params[:user_id]
 			@route_records = RouteRecord.where(:user_id => params[:user_id]).paginate(:page => params[:page])
 		end
-		respond_with(@route_records)
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	def show
@@ -41,6 +48,14 @@ class RouteRecordsController < ApplicationController
 		reqed_id = params[:id]
 		@route_record = RouteRecord.find(params[:id])
 		@requests = RequestRelation.where("reqed_id=" + reqed_id.to_s)
+
+		req_ids = []
+		@requests.each do |req|
+			req_ids.push(req.req_id)
+		end
+		logger.info req_ids
+		
+		@match_requests = MatchRequest.find(req_ids)
 
 		respond_to do |format|
 			format.js

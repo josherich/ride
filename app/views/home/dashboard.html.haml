@@ -1,49 +1,62 @@
 %ul.nav.nav-tabs
-	%li.active.tab.home
-		%a(href="#home" data-toggle="tab")
+	%li.active.tab.my_routes
+		%a(href="#my_routes" data-toggle="tab")
 			我的路线
 			= @user.route_records.count
 	%li.tab.saved_routes
 		%a(href="#saved_routes" data-toggle="tab")
 			我收藏的路线
 			= @user.fav_relations.count
-	%li.tabl.match
-		%a(href="#match" data-toggle="tab")
+	%li.tabl.match_requests
+		%a(href="#match_requests" data-toggle="tab")
 			匹配线路
 			= @match_count
 	%li.tab.profile
 		%a(href="#profile" data-toggle="tab")
 			账号
+	#view_switch.btn-group{"data-toggle"=>"buttons-radio"}
+		%a#view_list.btn.btn-primary.active
+			列表
+		%a#view_chart.btn.btn-primary
+			时间表
+		%a#view_map.btn.btn-primary
+			地图
 
 .tab-content
-	.tab-pane.active#home
+	#search_panel
+		= render 'shared/search_panel'
+	#filter_wrapper
+		#map_left.imgborder
+			#map_container.imgborder
+		#filter_panel
+			= render 'shared/filter_panel'
+	.tab-pane.active#my_routes
 		.row-fluid
 			.span3
-				#map_wrapper
-					#map_left.imgborder
-						#map_container.imgborder
-			.span9
-				= render 'table'
 
+			.span9
+				.btn_back#my_routes_back
+					&lt;
+				.route_table#table_mine
+					= render 'table_mine'
 	.tab-pane#saved_routes
 		.row-fluid
 			.span3
-				#map_wrapper
-					#map_left.imgborder
-						#map_container.imgborder
+				#filter_wrapper
 			.span9
-				= render 'table_fav'
-	.tab-pane#match
+				.btn_back#saved_routes_back
+					&lt;
+				.route_table#table_fav
+					= render 'table_fav'
+	.tab-pane#match_requests
 		.row-fluid
 			.span3
-				#map_wrapper
-					#map_left.imgborder
-						#map_container.imgborder
+				#filter_wrapper
 			.span9
 				#match_request_wrap
-					#match_request_back
+					.btn_back#match_requests_back
 						&lt;
-					#match_results
+					.route_table#table_match
 						= render 'table_match'
 	.tab-pane#profile
 		%p

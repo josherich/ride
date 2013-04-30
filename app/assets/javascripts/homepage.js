@@ -7,17 +7,20 @@ var R = {
     data: "",
 
     init: function() {
-        this.bdmap.init();
+        
         this.bind_event();
         if ( document.title == "Dashboard") {
+            this.bdmap.init("map_container");
             this.bind_click_record();
-            this.move_map();
-            $("#map_left").hover(
-                function() { $(this).width(700);},
-                function() { $(this).width(240);}
-            );
+            // this.move_map();
+            $('#view_switch').button();
+            // $("#map_left").hover(
+            //     function() { $(this).width(700);},
+            //     function() { $(this).width(220);}
+            // );
         } else if ( document.title == "Home" ) {
-            alert("callback");
+            // alert("callback");
+            this.bdmap.init("map_container_home");
             this.setcallback();
             this.getInput();
             this.bdmap.locate_me();
@@ -142,18 +145,25 @@ var R = {
         this.ajaxRequest('GET', '/match_requests');
     },
 
+    backToMyRoutes: function(){
+        this.ajaxRequest('GET', '/route_records');
+    },
+
+    backToSavedRoutes: function(){
+        this.ajaxRequest('GET', '/fav_relations');
+    },
 
     bind_event: function() {
         // var that = this;
-        $(window).scroll(function() {
-            var t = $(window).scrollTop();
-            if(t >= 30){
-                $('#main_map').addClass('fixtop');
-            }
-            if (t < 30){
-                $('#main_map').removeClass('fixtop');
-            }
-        });
+        // $(window).scroll(function() {
+        //     var t = $(window).scrollTop();
+        //     if(t >= 30){
+        //         $('#main_map').addClass('fixtop');
+        //     }
+        //     if (t < 30){
+        //         $('#main_map').removeClass('fixtop');
+        //     }
+        // });
 
         $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
         $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
@@ -163,8 +173,12 @@ var R = {
             this.updateOverlayInput();
             this.openOverlay('finishnew_overlay_enabled')();
         }, this));
+
         $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
-        $('#match_request_back').click($.proxy(this.backToMatchRequests, this));
+        
+        $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
+        $('#saved_routes_back').click($.proxy(this.backToSavedRoutes, this));
+        $('#match_requests_back').click($.proxy(this.backToMatchRequests, this));
     },
 
     ajaxRequest: function(method, url) {
@@ -179,9 +193,9 @@ var R = {
 
     bdmap: {
 
-        init: function() {
+        init: function(el) {
             this.r = window.R;
-            this.map = new BMap.Map("map_container");
+            this.map = new BMap.Map(el);
             var initPoint = new BMap.Point(121.608477, 31.207143);
             this.map.enableContinuousZoom();
             this.map.enableScrollWheelZoom();
@@ -224,7 +238,7 @@ var R = {
                         // TODO ugly
                         that.r.getInput();
                         that.r.handleGPS( "src", that.r.from_str );
-                        alert("locate");
+                        // alert("locate");
                         // alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
                     });
                 }

@@ -15,6 +15,11 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+if defined?(Rails) && (Rails.env == 'development')
+  Rails.logger = Logger.new(STDOUT)
+end
+
+
 module Ride
   class Application < Rails::Application
 

@@ -1,5 +1,5 @@
 <%= form_for current_user.fav_relations.find_by_route_id(route_record_id), 
 :html => { :method => :delete },
 :remote => true do |f| %>
-<div class="actions"><%= f.submit "x" %></div>
+<div class="btn"><%= f.submit "unfollow" %></div>
 <% end %>

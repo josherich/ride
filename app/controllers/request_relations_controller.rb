@@ -24,5 +24,38 @@ class RequestRelationsController < ApplicationController
 			format.js
 		end
 	end
+
+	def accept
+		
+		@relation = RequestRelation.find_by_id(params[:id])
+		@route_record = RouteRecord.find_by_id(@relation.reqed_id)
+
+		toggle_accept_stat(@relation)
+
+		# update_seats_stat(@route_record)
+
+		# logger.info "@@@@@@@@@@@@@"
+		# logger.info params[:test]
+		# logger.info @relation.stat_id
+
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def toggle_accept_stat(relation)
+		if relation.stat_id == 1
+			relation.update_attributes(:stat_id => 2)
+		else
+			relation.update_attributes(:stat_id => 1)
+		end
+	end
+
+	def update_seats_stat(route_record)
+		
+
+	end
+
+
 		
 end

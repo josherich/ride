@@ -24,7 +24,7 @@ class MatchRouteRecord
 	end
 
 	def search_radius(lat, lng, radius)
-		search = RouteRecord.search do
+		search = Sunspot.search(RouteRecord) do
 			with(:location).in_radius(lat, lng, radius)
 			order_by_geodist(:location, lat, lng)
 		end
