@@ -1,5 +1,0 @@
-<%= form_for @match_request.request_relations.build(:reqed_id => match_result_id, :req_id => @match_request.id), :remote => true do |f| %>
-<div><%= f.hidden_field :reqed_id %></div>
-<div><%= f.hidden_field :req_id %></div>
-<div class="actions"><%= f.submit "send" %></div>
-<% end %>

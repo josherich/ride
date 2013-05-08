@@ -1,0 +1,45 @@
+- rel = RequestRelation.where("req_id=?", @match_request.id)
+- stat = 0
+- accept_id = 0
+- if rel.count > 0
+	- stat = rel.first.stat_id
+	- accept_id = rel.first.accept_id
+
+%div.route_block{:id => "match_result_#{match_result.id}"}
+	.route_info
+		.from
+			= match_result.from
+		.to
+			= match_result.to
+		.set_date
+			出发日期：
+			= match_result.set_date
+		.set_time
+			出发时刻：
+			= match_result.set_time
+		.t_length
+			= match_result.timespan
+			分钟后到达
+		.price
+			座位单价: 
+			= match_result.price
+		.seat_stat
+			.seat_text
+				= seats_text(match_result.seat_stat)
+			.progress
+				.bar(style="width:#{seats_bar(match_result.seat_stat)}%")
+	.route_action
+		- if match_result.requestors.include?(@match_request)
+			- if stat == 2 and accept_id == match_result.id
+				%a(href="#" data-remote="true")
+					%button.btn.btn-success
+						已接受
+				%a(href="#" data-remote="true")
+					%button.btn.btn-success
+						查看
+			- else
+				= render "/match_requests/cancel_req", :reqed_id => match_result.id
+		- elsif other_match_sent?(match_result.id)
+			= render "/match_requests/sent_req", :reqed_id => match_result.id
+		- else
+			= render "/match_requests/send_req", :reqed_id => match_result.id

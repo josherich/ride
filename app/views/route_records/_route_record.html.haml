@@ -16,15 +16,24 @@
 		.price
 			座位单价: 
 			= route_record.price
+			= route_record.id
 		.seat_stat
 			.seat_text
 				= seats_text(route_record.seat_stat)
 			.progress
 				.bar(style="width:#{seats_bar(route_record.seat_stat)}%")
+		.lat_s.hidden
+			= route_record.lat_s
+		.lng_s.hidden
+			= route_record.lng_s
+		.lat_d.hidden
+			= route_record.lat_d
+		.lng_d.hidden
+			= route_record.lng_d
 	.route_action
 		%a(href="/route_records/#{route_record.id}" data-remote="true")
 			%button.btn#view-btn
-				查看
+				查看请求
 		%a(href="/route_records/#{route_record.id}" data-method="delete" data-remote="true" rel="nofollow")
 			%button.btn#del-btn
 				删除

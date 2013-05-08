@@ -1,0 +1,11 @@
+%a(href="/route_records/#{reqed_id}" data-remote="true")
+	%button.btn.detail-btn
+		详细
+- if @new_request
+	- req_id = @new_request.id
+	- request_relation_id = RequestRelation.find_by_req_id(req_id)
+	%button.btn.cancel-btn
+		= link_to '申请', request_relations_path(:id => request_relation_id, :opt => 'direct'), :remote => true, :method => :post
+- else
+	%button.btn.cancel-btn
+		= link_to '申请', request_relations_path(:reqed_id => reqed_id, :req_id => @match_request.id), :remote => true, :method => :post

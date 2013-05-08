@@ -2,9 +2,9 @@
 	#dashboard
 		%li.dropdown
 			%a.dropdown-toggle(data-toggle="dropdown" href="#")
+				<span class="fui-man-24"></span>
 			%ul.dropdown-list
 				%li
 					= link_to("我的", dashboard_path)
 				%li
 					= link_to("退出", destroy_user_session_path, :method => 'delete')
-

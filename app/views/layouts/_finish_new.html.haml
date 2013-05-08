@@ -1,3 +1,5 @@
+- match_request = MatchRequest.new
+- route_record = RouteRecord.new
 .finishnew_overlay
 	.finishnew_overlay_back
 		&lt;
@@ -14,11 +16,10 @@
 					%li.tab.new_details_more
 						%a(href="#new_details_more" data-toggle="tab")
 							我是司机
-				
 				.tab-content
 					.tab-pane.active#new_details
 						.detailsContent
-							= form_for(@match_request, :url => {:controller => 'match_requests', :action => 'create'}) do |f| 
+							= form_for(match_request, :url => {:controller => 'match_requests', :action => 'create'}) do |f| 
 								#search_from
 									= f.text_field :from, :placeholder => "起点", :id => "request_from"
 							
@@ -45,7 +46,7 @@
 								= f.submit "提交" 
 
 					.tab-pane#new_details_more
-						= form_for(@route_record, :url => {:controller => 'route_records', :action => 'create'}) do |f| 
+						= form_for(route_record, :url => {:controller => 'route_records', :action => 'create'}) do |f| 
 							#search_from
 								= f.text_field :from, :placeholder => "起点", :id => "new_from"
 							
@@ -67,7 +68,7 @@
 								= f.text_field :set_time, :id => 'timepicker', :value => "08:00" 
 								%span.date-icon
 							
-							.timespan
+							.duration
 								时长： 
 								= f.text_field :timespan, :value => "12" 
 							

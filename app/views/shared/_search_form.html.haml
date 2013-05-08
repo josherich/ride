@@ -1,6 +1,7 @@
+- route_record = RouteRecord.new
 .search_bar
 	.search_form.center
-		= simple_form_for @route_record do |f|
+		= simple_form_for route_record, :remote => true, :url => search_route_records_path, :html => { :method => 'GET' } do |f|
 			#search_from
 				= f.input :from, label: false, placeholder: "起点", input_html: { id: "from" }
 			#search_to
@@ -13,4 +14,4 @@
 			#search_btn
 				%button(name="search" type="submit" class="btn btn-success") 搜
 			#new_btn
-				%button(id="new_form_btn" name="commit" type="submit" class="btn btn-primary") 新建
+				%button(id="new_form_btn" name="commit" type="" class="btn btn-primary") 新建

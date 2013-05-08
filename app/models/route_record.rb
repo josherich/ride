@@ -5,8 +5,13 @@ class RouteRecord < ActiveRecord::Base
   
   has_many :fav_relations, :foreign_key => "route_id", :dependent => :destroy
   has_many :match_relations, :foreign_key => "route_id", :dependent => :destroy
-  has_many :request_relations, :foreign_key => "reqed_id", :dependent => :destroy
   
+  # has_many :request_relations, :foreign_key => "reqed_id", :dependent => :destroy
+  has_many :reverse_request_relations, :foreign_key => "reqed_id", 
+                                      :class_name => "RequestRelation", 
+                                      :dependent => :destroy
+  has_many :requestors, :through => :reverse_request_relations, :source => :req
+
   validates :from, :presence => true, :length => { :maximum => 20 }
   validates :to, :presence => true, :length => { :maximum => 20 }
 
@@ -18,7 +23,10 @@ class RouteRecord < ActiveRecord::Base
   	double	:lng_d
   	double	:lat_d
   	time	:created_at
-  	latlon(:location) {
+    latlon(:location_d) {
+      Sunspot::Util::Coordinates.new(lat_d, lng_d)
+    }
+  	latlon(:location_s) {
   		Sunspot::Util::Coordinates.new(lat_s, lng_s)
   	}
   end

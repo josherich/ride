@@ -174,11 +174,11 @@ a:hover {
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15)
 }
 
-#dashboard li a{
+#dashboard li a {
 	width:40px;
 	height:40px;
-	text-align:center; 
-	line-height: 40px; 
+	text-align:center;
+	line-height: 40px;
 	padding:0;
 	display: block
 }
@@ -232,9 +232,13 @@ a:hover {
 	background: rgba(0,0,0,0.8);
 }
 #mailbox-btn {
-	text-indent: -9999em;
+	// text-indent: -9999em;
 }
 
+#mailbox-btn {
+	text-align: center;
+	line-height: 40px;
+}
 .mailbox_sidebar {
 	opacity: 0;
 	filter: alpha(opacity=0);
@@ -520,6 +524,13 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 	// padding-left: 10px;
 	width: 20%;
 	float: left;
+}
+.route_action button {
+	margin-top: 8px;
+}
+.route_action a span {
+	margin-left: 10px;
+	margin-top: 8px; 
 }
 .seat_stat {
 	width: 300px;

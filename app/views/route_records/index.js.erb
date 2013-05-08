@@ -1,2 +1,3 @@
-$('div#table_mine').html("<%= escape_javascript(render @route_records) %>");
+
+$('#table_mine').html("<%= escape_javascript(render :partial => 'route_records/route_record', :collection => @my_routes, :as => :route_record) %>");
 $('body').removeClass('my_routes_back_enabled');

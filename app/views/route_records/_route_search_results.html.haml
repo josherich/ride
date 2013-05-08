@@ -1,0 +1,31 @@
+%div.route_block{:id => "route_record_#{route_record.id}"}
+	.route_info
+		.from
+			= route_record.from
+		.to
+			= route_record.to
+		.set_date
+			出发日期：
+			= route_record.set_date
+		.set_time
+			出发时刻：
+			= route_record.set_time
+		.t_length
+			= route_record.timespan
+			分钟后到达
+		.price
+			座位单价: 
+			= route_record.price
+			= route_record.id
+		.seat_stat
+			.seat_text
+				= seats_text(route_record.seat_stat)
+			.progress
+				.bar(style="width:#{seats_bar(route_record.seat_stat)}%")
+	.route_action
+		%a(href="/route_records/#{route_record.id}" data-remote="true")
+			%button.btn.detail-btn
+				详细
+		%button.btn.send-btn
+			= link_to '申请', request_relations_path(:opt => 'direct', :route_id => route_record.id), :remote => true, :method => :post
+			

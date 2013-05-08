@@ -2,9 +2,6 @@ require 'nokogiri'
 class HomeController < ApplicationController
   def index
     @title = "Home"
-    @users = User.all
-    @route_record = RouteRecord.new
-    @match_request = MatchRequest.new
   end
 
   def dashboard
@@ -12,7 +9,11 @@ class HomeController < ApplicationController
 
     @user = current_user
   	@route_records = current_user.route_records
+
   	@match_requests = current_user.match_requests
+    
+    # @requests = RequestRelation.find(req_ids)
+
   	@following = current_user.following
   	@match_count = match_count
     
@@ -25,11 +26,24 @@ class HomeController < ApplicationController
   		format.json { render json:current_user }
   	end
     # RouteRecordCrawler.perform_async
-    MatchRouteRecord.perform_async
+    # MatchRouteRecord.perform_async
 
   	rescue ActiveRecord::RecordNotFound
   	  redirect_to root_path
   end
+
+  def timechart
+    case params[:view]
+    when "match_results"
+      @match_request = current_user.match_requests.find_by_id(params[:id])
+      @match_results = @match_request.match_route
+      render 'route_records/route_record_chart'
+    when "requests"
+    end
+      
+  end
+
+
 
   def destroy
   end

@@ -1,0 +1,2 @@
+result = $('#search_result');
+$("<%= escape_javascript(render :partial => 'route_search_results', :collection => @results, :as => :route_record) %>").appendTo(result);

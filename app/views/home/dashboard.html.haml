@@ -9,22 +9,20 @@
 			= @user.fav_relations.count
 	%li.tabl.match_requests
 		%a(href="#match_requests" data-toggle="tab")
-			匹配线路
+			我的请求
 			= @match_count
-	%li.tab.profile
-		%a(href="#profile" data-toggle="tab")
-			账号
+	%li.tab.new_search
+		%a(href="#new_search" data-toggle="tab")
+			+搜索
 	#view_switch.btn-group{"data-toggle"=>"buttons-radio"}
 		%a#view_list.btn.btn-primary.active
 			列表
 		%a#view_chart.btn.btn-primary
-			时间表
+			时间轴
 		%a#view_map.btn.btn-primary
 			地图
 
 .tab-content
-	#search_panel
-		= render 'shared/search_panel'
 	#filter_wrapper
 		#map_left.imgborder
 			#map_container.imgborder
@@ -58,8 +56,11 @@
 						&lt;
 					.route_table#table_match
 						= render 'table_match'
-	.tab-pane#profile
-		%p
-			profile page
+	.tab-pane#new_search
+		.row-fluid
+			.span12
+				#search_panel
+					= render 'search_view'
+				#search_result
 	
 

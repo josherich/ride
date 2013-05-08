@@ -1,19 +1,24 @@
-- id = @requests.where("req_id=" + match_request.id.to_s).first.id
-- stat = @requests.where("req_id=" + match_request.id.to_s).first.stat_id
+- id = @requests_relations.where("req_id=" + match_request.id.to_s).first.id
+- stat = @requests_relations.where("req_id=" + match_request.id.to_s).first.stat_id
+- accept_id = @requests_relations.where("req_id=" + match_request.id.to_s).first.accept_id
+
 .requestor_list
 	.avatar
 		%img(src="/assets/rails.png" class="img-circle")
 	.request_info
-		.request_name
+		.name
 			= match_request.user.email
-		.request_from
+		.from
 			= match_request.from
-		.request_to
+		.to
 			= match_request.to
-		.request_arrive
+		.arrive_time
 			= match_request.arrive_time
-		.request_freq
+		.freq_pattern
 			= match_request.freq_pattern
+			= stat
+			= accept_id
+			= match_request.id
 	.request_info.hidden
 		.request_lat_s
 			= match_request.lat_s

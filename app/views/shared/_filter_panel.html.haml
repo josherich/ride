@@ -1,16 +1,46 @@
 %h5.panel_title
+	排序
+#filter_sort.filter_container
+	%label.radio
+		%span.icon
+		%span.icon-to-fade
+		%input#optionsRadio1{"type"=>"radio", "name"=>"sort_opts", "value"=>"option1", "checked"=>""}
+		综合算法
+	%label.radio
+		%span.icon
+		%span.icon-to-fade
+		%input#optionsRadio2{"type"=>"radio", "name"=>"sort_opts", "value"=>"option2"}
+		距离
+	%label.radio
+		%span.icon
+		%span.icon-to-fade
+		%input#optionsRadio3{"type"=>"radio", "name"=>"sort_opts", "value"=>"option3"}
+		到达时刻
+	%label.radio
+		%span.icon
+		%span.icon-to-fade
+		%input#optionsRadio4{"type"=>"radio", "name"=>"sort_opts", "value"=>"option4"}
+		单价
+	%label.radio
+		%span.icon
+		%span.icon-to-fade
+		%input#optionsRadio5{"type"=>"radio", "name"=>"sort_opts", "value"=>"option5"}
+		路程时间
+		
+%h5.panel_title
 	筛选
 #filter_type.filter_container
-	%label.radio
+	%label.checkbox.checked{"for"=>"checkbox1"}
 		%span.icon
 		%span.icon-to-fade
-		%input#optionsRadio1{"type"=>"radio", "name"=>"optionsRadios", "value"=>"option1", "checked"=>""}
+		%input#checkbox1{"type"=>"checkbox", "value"=>""}
 		常规线路
-	%label.radio
+	%label.checkbox.checked{"for"=>"checkbox2"}
 		%span.icon
 		%span.icon-to-fade
-		%input#optionsRadio2{"type"=>"radio", "name"=>"optionsRadios", "value"=>"option2"}
-		单次线路
+		%input#checkbox2{"type"=>"checkbox", "value"=>""}
+		单次线路	
+
 %h5.panel_title
 	距离
 #filter_dist.filter_container
@@ -20,14 +50,4 @@
 		.ui-slider-segment
 		.ui-slider-range.ui-widget-header.ui-slider-range-min(style="width: 25%;")
 		%a.ui-slider-handle.ui-state-default.ui-corner-all(href="#" style="left: 25%;")
-%h5.panel_title
-	出发时刻
-#filter_set.filter_container
-	#slider.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all(aria-disabled="false")
-		.ui-slider-segment
-		.ui-slider-segment
-		.ui-slider-segment
-		.ui-slider-range.ui-widget-header.ui-slider-range-min(style="width: 25%;")
-		%a.ui-slider-handle.ui-state-default.ui-corner-all(href="#" style="left: 25%;")
-
 

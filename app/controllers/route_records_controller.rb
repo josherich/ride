@@ -1,6 +1,6 @@
 class RouteRecordsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:create, :destroy]
-	respond_to :html, :json
+	respond_to :html, :js, :json
 
 	def create
 		params[:route_record][:isactive] = true
@@ -34,48 +34,48 @@ class RouteRecordsController < ApplicationController
 
 	def index
 		@title = "route_records"
-		@route_records = RouteRecord.paginate(:page => params[:page])
+		
 		if params[:user_id]
 			@route_records = RouteRecord.where(:user_id => params[:user_id]).paginate(:page => params[:page])
 		end
+		@my_routes = current_user.route_records
 		respond_to do |format|
-			format.js
+			format.js {}
 		end
 	end
 
 	def show
-		@title = "route_records"
 		reqed_id = params[:id]
-		@route_record = RouteRecord.find(params[:id])
-		@requests = RequestRelation.where("reqed_id=" + reqed_id.to_s)
+		@route_record = RouteRecord.find(reqed_id)
+		@requests_relations = RequestRelation.where("reqed_id=" + reqed_id.to_s)
+		@match_requests = @route_record.requestors.where("stat_id = 1 OR accept_id = ?", reqed_id)
 
-		req_ids = []
-		@requests.each do |req|
-			req_ids.push(req.req_id)
-		end
-		logger.info req_ids
-		
-		@match_requests = MatchRequest.find(req_ids)
-
-		respond_to do |format|
-			format.js
-		end
+		respond_with(@route_record)
 	end
 
 	# search api json
 	def search
-		@title = "search result"
-		kw = params[:kw]
-		col = params[:col]
-		search = RouteRecord.search do
-			fulltext kw do
-				fields(col)
-			end
-			order_by :created_at, :desc
+		radius_s = 10
+		radius_d = 10
+		from_str = params[:route_record][:from]
+		to_str = params[:route_record][:to]
+		from_p = [params[:route_record][:lat_s], params[:route_record][:lng_s]]
+		to_p = [params[:route_record][:lat_d], params[:route_record][:lng_d]]
+
+		search = Sunspot.search(RouteRecord) do
+			with(:location_s).in_radius(from_p[0], from_p[1], radius_s)
+			with(:location_d).in_radius(to_p[0], to_p[1], radius_d)
+			order_by_geodist(:location_s, from_p[0], from_p[1])
 		end
 		@results = search.results
-		respond_with(@results)
+		respond_with(@results) do |format|
+			format.html { render :partial => 'route_record', :collection => @results, :as => :route_record}
+			format.js {}
+			format.json
+		end
 	end
+
+	# Parameters: {"utf8"=>"✓", "route_record"=>{"from"=>"上海市浦东新区晨晖路", "to"=>"上海市浦东新区峨山路陆家嘴软件园", "lng_s"=>"121.609634", "lat_s"=>"31.207321", "lng_d"=>"121.538711", "lat_d"=>"31.220777", "data"=>""}, "search"=>""}
 
 	def edit
 		@route_record = RouteRecord.find(params[:id])

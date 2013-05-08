@@ -17,6 +17,7 @@ class MatchRequestsController < ApplicationController
 		end
 	end
 
+	# show searching results
 	def show
 		@match_request = current_user.match_requests.find_by_id(params[:id])
 		@match_results = @match_request.match_route

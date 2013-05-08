@@ -2,15 +2,15 @@
 	.avatar
 		%img(src="/assets/rails.png" class="img-circle")
 	.request_info
-		.request_name
+		.name
 			= match_request.user.email
-		.request_from
+		.from
 			= match_request.from
-		.request_to
+		.to
 			= match_request.to
-		.request_arrive
+		.arrive_time
 			= match_request.arrive_time
-		.request_freq
+		.freq_pattern
 			= match_request.freq_pattern
 	.request_info.hidden
 		.request_lat_s
@@ -23,3 +23,10 @@
 			= match_request.lng_d
 		.request_freq
 			= match_request.freq_pattern
+	.request_action
+		%a(href="/match_requests/#{match_request.id}" data-remote="true")
+			%button.btn#view-btn
+				匹配结果
+		%a(href="/match_requests/#{match_request.id}" data-method="delete" data-remote="true" rel="nofollow")
+			%button.btn#del-btn
+				删除

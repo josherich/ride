@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428115729) do
+ActiveRecord::Schema.define(:version => 20130503160207) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20130428115729) do
     t.integer  "stat_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "accept_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -142,24 +143,24 @@ ActiveRecord::Schema.define(:version => 20130428115729) do
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "route_records", :force => true do |t|
-    t.string   "from"   :null => false
-    t.string   "to"     :null => false
+    t.string   "from"
+    t.string   "to"
     t.string   "data"
-    t.string   "lat_s"  :null => false
-    t.string   "lng_s"  :null => false
-    t.string   "lat_d"  :null => false
-    t.string   "lng_d"  :null => false
+    t.string   "lat_s"
+    t.string   "lng_s"
+    t.string   "lat_d"
+    t.string   "lng_d"
     t.integer  "timespan"
     t.integer  "freq_pattern"
     t.integer  "price"
-    t.boolean  "isactive"      :default => true, :null => false
-    t.boolean  "isdriver"      :null => false
-    t.time     "set_time"      :null => false
+    t.boolean  "isactive"
+    t.boolean  "isdriver"
+    t.time     "set_time"
     t.date     "set_date"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "user_id"
-    t.float    "seat_stat"     :default => "1.1", :null => false
+    t.float    "seat_stat"
   end
 
   create_table "users", :force => true do |t|
@@ -176,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20130428115729) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
