@@ -7,27 +7,20 @@
 <div class="mailbox_sidebar">
 	<div class="mailbox_sidebar_back">&lt;</div>
 	<div class="mailbox_sidebar_close">x</div>
-	<div id="mailbox_sidebar_wrapper">
-		<header></header>
-		<section id="mailbox_sidebar_body">
-			<div id="mailbox_sidebar_inner">
-				<ul class="nav nav-tabs">
-					<li class="active tab conversations"><a href="#conversations" data-toggle="tab">对话</a></li>
-					<li class="tab contacts"><a href="#contacts" data-toggle="tab">联系人</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="conversations">
-						<div class="scrollableArea scrollableAreaShadow">
-							<div class="convContent">
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane" id="contacts">
-					</div>
-			
+	<div id="mailbox_sidebar_body">
+		<ul class="nav nav-tabs">
+			<li class="active tab conversations"><a href="#conversations" data-toggle="tab">对话</a></li>
+			<li class="tab contacts"><a href="#contacts" data-toggle="tab">联系人</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="conversations">
+				<div id="msg-body">
+
 				</div>
 			</div>
-		</section>
+			<div class="tab-pane" id="contacts">
+			</div>
+		</div>
 	</div>
 </div>
 <% else %>

@@ -8,62 +8,62 @@ class HomeController < ApplicationController
   	@title = 'Dashboard'
 
     @user = current_user
-  	@route_records = current_user.route_records
+    @route_records = current_user.route_records
 
-  	@match_requests = current_user.match_requests
+    @match_requests = current_user.match_requests
     
     # @requests = RequestRelation.find(req_ids)
 
-  	@following = current_user.following
-  	@match_count = match_count
+    @following = current_user.following
+    @match_count = match_count
     
     @new_route = RouteRecord.new
     # sync_update @route_records
 
     # perform
-  	respond_to do |format|
-  		format.html
-  		format.json { render json:current_user }
-  	end
+    respond_to do |format|
+      format.html
+      format.json { render json:current_user }
+    end
     # RouteRecordCrawler.perform_async
     # MatchRouteRecord.perform_async
 
-  	rescue ActiveRecord::RecordNotFound
-  	  redirect_to root_path
+  rescue ActiveRecord::RecordNotFound
+   redirect_to root_path
+ end
+
+ def timechart
+  case params[:view]
+  when "match_results"
+    @match_request = current_user.match_requests.find_by_id(params[:id])
+    @match_results = @match_request.match_route
+    render 'route_records/route_record_chart'
+  when "requests"
   end
-
-  def timechart
-    case params[:view]
-    when "match_results"
-      @match_request = current_user.match_requests.find_by_id(params[:id])
-      @match_results = @match_request.match_route
-      render 'route_records/route_record_chart'
-    when "requests"
-    end
-      
-  end
-
-
-
-  def destroy
-  end
-
-  private
-
-  def match_count
-  	count = 0
-  	@match_requests.each do |m|
-  	  count += m.match_route.count
-  	end
-  	return count
-  end
-
-  def init
-    @url = ["http://shanghai.baixing.com/shangxiabanpinche/",
-      "http://sh.ganji.com/pincheshangxiaban/",
-      "http://sh.58.com/pinche/"]
-    @opt = []
   
+end
+
+
+
+def destroy
+end
+
+private
+
+def match_count
+ count = 0
+ @match_requests.each do |m|
+   count += m.match_route.count
+ end
+ return count
+end
+
+def init
+  @url = ["http://shanghai.baixing.com/shangxiabanpinche/",
+    "http://sh.ganji.com/pincheshangxiaban/",
+    "http://sh.58.com/pinche/"]
+    @opt = []
+    
     @locate_list = ["#pinned-list ul li p a", ".layoutlist dl dt > a", "#infolist table tr td > a"]
     @locate_detail = ["#meta-table tr"]
     @norm_reg = []

@@ -1,3 +1,21 @@
+@mixin back-btn {
+	-webkit-transition: background-color .2s;
+	-moz-transition: background-color .2s;
+	-ms-transition: background-color .2s;
+	-o-transition: background-color .2s;
+	transition: background-color .2s;
+	width: 30px;
+	height: 30px;
+	line-height: 29px;
+	text-align: center;
+	cursor: pointer;
+	position: absolute;
+	color: #dfdede;
+	font-size: 18px;
+	font-family: Arial;
+	background: #ffffff;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -12,11 +30,11 @@ body, label, input, textarea, select, button {
 	margin: 0 auto;
 	padding: 0 10px;
 	max-width: 960px;
-	background-color: #f7f7f7;
+	// background-color: #f7f7f7;
 }
 
 .tab-content {
-	overflow: visible;
+	overflow: auto;
 }
 
 .imgborder {
@@ -48,9 +66,6 @@ li {
 	padding-left: 15px;
 }
 
-.content {
-	
-}
 .round {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -85,17 +100,19 @@ a:hover {
 	width: 100%;
 }
 #map_container {
-	height: 98%;
-	width: 98%;
+	height: 99%;
+	width: 99%;
 }
 
 #map_left {
 	height: 260px;
 	// float: left;
 	margin-top: 20px;
-	border: 1px solid #b8b8b8;
+	// border: 1px solid #b8b8b8;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px; 
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-	box-sizing: border-box;
+	// box-sizing: border-box;
 }
 
 /*TODO*/
@@ -229,7 +246,7 @@ a:hover {
 }
 #mailbox-btn:hover {
 	background: #111110;
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.4);
 }
 #mailbox-btn {
 	// text-indent: -9999em;
@@ -258,7 +275,6 @@ a:hover {
 	-o-transform: scale3d(0, 1, 1);
 	transform: scale3d(0, 1, 1);*/
 	display: block;
-	line-height: 0;
 	overflow: hidden;
 	z-index: 100;
 	border-radius: 3px;
@@ -280,25 +296,122 @@ body.mailbox_sidebar_enabled .container {
 	width: 70%;
 }
 
-@mixin back-btn {
-	-webkit-transition: background-color .2s;
-	-moz-transition: background-color .2s;
-	-ms-transition: background-color .2s;
-	-o-transition: background-color .2s;
-	transition: background-color .2s;
-	width: 40px;
-	height: 40px;
-	line-height: 39px;
-	text-align: center;
-	cursor: pointer;
-	position: absolute;
-	color: #dfdede;
-	font-size: 18px;
-	font-family: Arial;
-	background: #ffffff;
+
+.mailbox_sidebar {
+	background: #dfdede;
 }
 
-.btn_back {
+.mailbox_sidebar_back {
+	@include back-btn;
+	display: none;
+	top: 10px;
+	left: 10px;
+}
+
+.mailbox_sidebar_close, .finishnew_overlay_close {
+	@include back-btn;
+	display: none;
+	top: 10px;
+	right: 10px;
+}
+
+body.mailbox_sidebar_enabled .mailbox_sidebar_close {
+	display: block;
+}
+
+body.mailbox-back-enabled .mailbox_sidebar_back {
+	display: block;
+}
+
+.mailbox_sidebar_close:hover, .finishnew_overlay_close:hover {
+    background: #232323;
+}
+
+#finishnew_overlay_wrapper {
+	height: 100%;
+	
+}
+
+#mailbox_sidebar_body {
+	margin-top: 10px;
+}
+
+#mailbox_sidebar_body ul {
+	margin-left: 45px;
+}
+
+.convContent {
+	padding: 3px 3px;
+	margin: 3px 0;
+	width: 100%;
+}
+
+#msg-body {
+	padding: 0 5px;
+}
+#msg-body input#body {
+	width: 112px;
+}
+.conv-list {
+	height: 80%;
+	width: 100%;
+}
+.msg-list {
+	overflow: auto;
+	height: 400px;
+}
+.conv-item, .msg-item {
+	height: 40px;
+	padding: 5px 5px;
+}
+.last-msg {
+	float: left;
+	width: 70%;
+}
+.enter-con {
+	float: left;
+	width: 15%;
+}
+.del-con {
+	float: left;
+	width: 15%;
+}
+
+.msg-other {
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	background-color: #34D0B6;
+	text-align: right;
+	float: right;
+	width: 70%;
+}
+.msg-sender {
+	text-align: right;
+	float: right;
+	width: 40%;
+}
+.msg-me {
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	background-color: #5FBDCE;
+	float: left;
+	width: 70%
+}
+
+/*.chat_table {
+	height: 400px;
+}
+.chat_table tr {
+	border: 1px solid;
+}
+.conversation_thread {
+	height: 400px;
+}*/
+
+
+
+
+.route-back-btn {
 	@include back-btn;
 	position: relative;
 	display: none;
@@ -318,65 +431,6 @@ body.saved_routes_back_enabled #saved_routes_back {
 	display: block;
 }
 
-.mailbox_sidebar_back {
-	@include back-btn;
-	display: none;
-	top: 10px;
-	left: 10px;
-}
-
-.mailbox_sidebar_close, .finishnew_overlay_close {
-	@include back-btn;
-	display: none;
-	top: 10px;
-	right: 10px;
-}
-
-
-
-body.mailbox_sidebar_enabled .mailbox_sidebar_close {
-	display: block;
-}
-
-body.mailbox-back-enabled .mailbox_sidebar_back {
-	display: block;
-}
-
-.mailbox_sidebar_close:hover, .finishnew_overlay_close:hover {
-    background: #232323;
-}
-
-#mailbox_sidebar_wrapper, #finishnew_overlay_wrapper {
-	height: 100%;
-	padding: 5px;
-	margin: 0 auto;
-	background: #dfdede;
-}
-
-#mailbox_sidebar_body {
-	height: 90%;
-	padding: 3px;
-	margin: 0;
-}
-
-#mailbox_sidebar_inner {
-	height: 100%;
-	margin: 0;
-}
-
-.convContent {
-	height: 300px;
-}
-
-/*.chat_table {
-	height: 400px;
-}
-.chat_table tr {
-	border: 1px solid;
-}
-.conversation_thread {
-	height: 400px;
-}*/
 
 ///////////////// Overlay ///////////////
 @mixin overlay($x: 0.1, $y: 0.1) {
@@ -552,15 +606,25 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 
 #filter_panel {
 	margin-top: 30px;
-	border: 1px solid #b8b8b8;
+	// border: 1px solid #b8b8b8;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
+
 .panel_title {
 	padding: 10px 15px;
 	background-color: rgba(250,250,250,0.8);
+	border-bottom: 1px solid #b8b8b8;
 }
 .filter_container {
 	margin: a auto;
 	padding: 10px 15px;
+}
+
+// ======================override=======================
+.nav-tabs > li > a {
+	padding-bottom: 0px;
+	padding-left: 7px;
+	padding-right: 7px;
 }

@@ -23,36 +23,39 @@ var C = C || (function (undefined){
 
     Collection.prototype = {
         constructor: Collection,
-        sort_by_distance: function(){// algorithm;distance;price;set_time;arrive_time;timespan
-            var orderList = this.orderList;
-            for (var route in this.hash) {
-                console.log(orderList);
-                var r = this.hash[route];
-                var l = orderList.length;
-                if (!orderList) {
-                    orderList.push(r);
-                    continue;
-                }
-                for (var i = 0; i < l; i++) {
-                    if (r.distance >= orderList[i].distance)
-                        continue;
-                    else {
-                        var j = l;
-                        while (j > i) {
-                            orderList[j] = orderList[j - 1];
-                            j--;
-                        }
-                        orderList[i] = r;
-                        break;
-                    }
-                }
-                orderList.push(r);
+        sort_by: function(key){// algorithm;dist_s;price;set_time;arrive_time;timespan
+            for (var a in this.hash)
+                this.orderHash[this.hash[a].info[key]] = [];
+            for (var h in this.hash) {
+                var r = this.hash[h];
+                // console.log(r.info[key]);
+                this.orderHash[r.info[key]].push(r);
+                this.orderList.push(r.info[key]);
+                // console.log(this.orderList);
             }
-            console.log(orderList);
+            this.orderList.sort();
+            console.log(this.orderHash);
+            console.log(this.orderList);
+            this.el.children().detach();
+            var last = 0;
+            for (var i in this.orderList) {
+                console.log(last);
+                var d = this.orderList[i];
+                if (d != last) {
+                    for (var j in this.orderHash[d])
+                        this.orderHash[d][j].el.appendTo(this.el);
+                    last = d;
+                }
+            }
+
         },
 
-        filter: function(clause){//freq_pattern;
-
+        filter: function(clause){ // freq_pattern; distance
+            this.el.children().detach();
+            for (var i in this.hash) {
+                if (clause(this.hash[i].info))
+                    this.hash[i].el.appendTo(this.el);
+            }
         },
         
         animate: function(){
@@ -66,10 +69,11 @@ var C = C || (function (undefined){
                 self.current_pos = point;
                 for (var route in self.hash) {
                     var r = self.hash[route];
-                    var source_pos = new BMap.Point(
+                    var pos_s = new BMap.Point(
                         r.info["lng_s hidden"],r.info["lat_s hidden"]);
-                    r.setDistance(map.getDistance(point, source_pos));
-                    
+                    var pos_d = new BMap.Point(
+                        r.info["lng_d hidden"],r.info["lat_d hidden"]);
+                    r.setDistance(map.getDistance(point, pos_s), map.getDistance(point, pos_d));
                 }
             });
         },
@@ -115,11 +119,13 @@ var C = C || (function (undefined){
             this.info = {};
             var self = this;
             info.children().each(function(i, el) {
-                self.info[$(el).attr('class')] = $(el).html().trim();
+                self.info[$(el).attr('class')] = $(el).find('p').html().trim();
             });
         },
-        setDistance: function(d) {
-            this.distance = d;
+        setDistance: function(src, des) {
+            this.info['dist_s'] = src;
+            this.info['dist_d'] = des;
+            this.info['dist_w'] = src + des; // weighted distance
         }
         
     };
@@ -405,11 +411,9 @@ bdmap.prototype = {
 
 
 R.init();
-// var btn = $('#optionsRadio2').click(function() {
+
 var list = new C.Collection($('#table_mine'));
-    // console.log(list.current_pos);
-console.log(list.hash['route_record_17'].info);
-// });
 
-
-
+var btn = $('#optionsRadio2').click(function() {
+    list.sort_by('dist_s');
+});

@@ -1,35 +1,45 @@
 %div.route_block{:id => "route_record_#{route_record.id}"}
 	.route_info
 		.from
-			= route_record.from
+			%p
+				= route_record.from
 		.to
-			= route_record.to
+			%p
+				= route_record.to
 		.set_date
 			出发日期：
-			= route_record.set_date
+			%p
+				= route_record.set_date
 		.set_time
 			出发时刻：
-			= route_record.set_time
+			%p
+				= route_record.set_time
 		.t_length
-			= route_record.timespan
+			%p
+				= route_record.timespan
 			分钟后到达
 		.price
 			座位单价: 
-			= route_record.price
+			%p
+				= route_record.price
 			= route_record.id
 		.seat_stat
-			.seat_text
+			%p
 				= seats_text(route_record.seat_stat)
 			.progress
 				.bar(style="width:#{seats_bar(route_record.seat_stat)}%")
 		.lat_s.hidden
-			= route_record.lat_s
+			%p
+				= route_record.lat_s
 		.lng_s.hidden
-			= route_record.lng_s
+			%p
+				= route_record.lng_s
 		.lat_d.hidden
-			= route_record.lat_d
+			%p
+				= route_record.lat_d
 		.lng_d.hidden
-			= route_record.lng_d
+			%p
+				= route_record.lng_d
 	.route_action
 		%a(href="/route_records/#{route_record.id}" data-remote="true")
 			%button.btn#view-btn
