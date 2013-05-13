@@ -50,7 +50,7 @@ class HomeController < ApplicationController
 
  private
  def perform
-  @radius = 10 # 2km
+  @radius = 10 # 10km
   User.all.each do |user|
     match_task(user)
   end

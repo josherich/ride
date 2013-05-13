@@ -47,8 +47,8 @@ class RouteRecordsController < ApplicationController
 	def show
 		reqed_id = params[:id]
 		@route_record = RouteRecord.find(reqed_id)
-		@requests_relations = RequestRelation.where("reqed_id=" + reqed_id.to_s)
-		@match_requests = @route_record.requestors.where("stat_id = 1 OR accept_id = ?", reqed_id)
+		# @requests_relations = RequestRelation.where("reqed_id=" + reqed_id.to_s)
+		# @match_requests = @route_record.requestors.where("stat_id = 1 OR accept_id = ?", reqed_id)
 
 		respond_with(@route_record)
 	end

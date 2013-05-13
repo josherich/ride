@@ -307,22 +307,25 @@ body.mailbox_sidebar_enabled .container {
 	left: 10px;
 }
 
-.mailbox_sidebar_close, .finishnew_overlay_close {
+.mailbox_sidebar_close, .finishnew_overlay_close, .route_detail_overlay_close {
 	@include back-btn;
 	display: none;
 	top: 10px;
 	right: 10px;
 }
-
-body.mailbox_sidebar_enabled .mailbox_sidebar_close {
+.mailbox-back-enabled .mailbox_sidebar_back {
 	display: block;
 }
 
-body.mailbox-back-enabled .mailbox_sidebar_back {
+.mailbox_sidebar_enabled .mailbox_sidebar_close {
 	display: block;
 }
 
-.mailbox_sidebar_close:hover, .finishnew_overlay_close:hover {
+.route_detail_overlay_enabled .route_detail_overlay_close {
+	display: block;
+}
+
+.mailbox_sidebar_close:hover, .finishnew_overlay_close:hover, .route_detail_overlay_close:hover {
     background: #232323;
 }
 
@@ -449,23 +452,7 @@ body.saved_routes_back_enabled #saved_routes_back {
 	-o-transform: scale3d(#{$x}, #{$y}, 1);
 	transform: scale3d(#{$x}, #{$y}0.1);
 }
-
-.search_overlay {
-	@include overlay;
-	width: 100%;
-	height: 0;
-	line-height: 0;
-	overflow: hidden;
-	z-index: 100;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: rgba(237,237,235,0.98);
-
-}
-
-.search_overlay_enabled .search_overlay{
-	height: 500px;
+@mixin overlay_enabled {
 	opacity: 1;
 	filter: alpha(opacity=0);
 	-khtml-opacity: 1;
@@ -475,10 +462,23 @@ body.saved_routes_back_enabled #saved_routes_back {
 	-ms-transform: scale3d(1, 1, 1);
 	-o-transform: scale3d(1, 1, 1);
 	transform: scale3d(1, 1, 1);
-
 }
 
+#route_detail_overlay {
+	@include overlay(0,0);
+	width: 700px;
+	height: 0;
+	overflow: hidden;
+	z-index: 100;
+	position: fixed;
+	left: 300px;
+	top: 100px;
+}
 
+.route_detail_overlay_enabled #route_detail_overlay {
+	@include overlay_enabled;
+	height: 600px;
+}
 
 .finishnew_overlay {
 	@include overlay(0,0);
@@ -492,20 +492,13 @@ body.saved_routes_back_enabled #saved_routes_back {
 	z-index: 100;
 }
 
-body.finishnew_overlay_enabled .finishnew_overlay {
+.finishnew_overlay_enabled .finishnew_overlay {
+	@include overlay_enabled;
 	height: 700px;
-	opacity: 1;
-	filter: alpha(opacity=0);
-	-khtml-opacity: 1;
-	-moz-opacity: 1;
-	-webkit-transform: scale3d(1, 1, 1);
-	-moz-transform: scale3d(1, 1, 1);
-	-ms-transform: scale3d(1, 1, 1);
-	-o-transform: scale3d(1, 1, 1);
-	transform: scale3d(1, 1, 1);
+
 }
 
-body.finishnew_overlay_enabled .finishnew_overlay_close {
+.finishnew_overlay_enabled .finishnew_overlay_close {
 	display: block;
 }
 

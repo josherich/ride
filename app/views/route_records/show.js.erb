@@ -1,7 +1,5 @@
-// alert("<%= escape_javascript( @match_requests.count.to_s ) %>");
-// var toggle_fold = $("div#route_record_<%= @route_record.id %> div#toggle_fold > a");
-var match_requests = $("<%= escape_javascript( render 'show' ) %></div>");
-var target = $('#route_record_overlay');
+var content = $("<%= escape_javascript( render :partial => 'show_overlay', :object => @route_record, :as => :route_record ) %></div>");
+var target = $('#route_detail_content');
 
-$('body').addClass('my_routes_back_enabled');
-target.html(match_requests);
+$('body').addClass('route_detail_overlay_enabled');
+target.html(content);

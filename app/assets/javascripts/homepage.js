@@ -4,6 +4,7 @@ var C = C || (function (undefined){
         where: ""
     };
     setup();
+
     function setup(){
     }
 
@@ -146,6 +147,8 @@ var C = C || (function (undefined){
 
 }());
 
+
+// ================ page controller =============== //
 var R = {
     from_str: "",
     to_str: "",
@@ -154,23 +157,46 @@ var R = {
     init: function() {
         this.bind_event();
         this.ajaxRequest('GET', '/conversations');
+        this.map_d = new bdmap("map_container");
+        this.map_h = new bdmap("map_container_home", "from", "to");
+        this.filter = $("#filter_wrapper");
+        this.record_clickable();
 
         if ( document.title == "Dashboard") {
-            this.filter = $("#filter_wrapper");
-            this.map_d = new bdmap("map_container");
-            this.map_h = new bdmap("map_container_home", "from", "to");
-            this.record_clickable();
+            F.init();
+            this.bindList("#table_mine");
             this.manu_map();
-            
         } else if ( document.title == "Home" ) {
-            this.map_h = new bdmap("map_container_home", "from", "to");
-            this.map_h.locate_me(function(point, map) {
-                this.getAddress(point);
-                this.r.handleGPS(map);
+            this.filter.detach();
+            var map = this.map_h;
+            map.locate_me(function(point, Map) {
+                Map.getAddress(point);
+                Map.r.handleGPS(Map);
             });
         }
         
         this.ajaxRequest('GET', '/conversations');
+    },
+
+    bindList: function(table) {
+        this.list = new C.Collection($(table));
+        this.setFilter();
+    },
+
+    setFilter: function() {
+        var list = this.list;
+        var sort_dist_s = $('#optionsRadio2').click(function() {
+            list.sort_by('dist_s');
+        });
+        var sort_dist_w = $('#optionsRadio1').click(function() {
+            list.sort_by('dist_w');
+        });
+        var sort_price = $('#optionsRadio4').click(function() {
+            list.sort_by('price');
+        });
+        var sort_tspan = $('#optionsRadio5').click(function() {
+            list.sort_by('t_length');
+        });
     },
 
     manu_map: function() {
@@ -268,7 +294,7 @@ var R = {
 
     closeOverlay: function(overlay){
         return function() {
-                $('body').removeClass(overlay);
+            $('body').removeClass(overlay);
         };
     },
 
@@ -299,28 +325,31 @@ var R = {
         //         $('#main_map').removeClass('fixtop');
         //     }
         // });
-        var self = this;
-        $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
-        $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
-        $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
-        $('#new_form_btn').click($.proxy(function(event) {
-            event.preventDefault();
-            this.updateOverlayInput();
-            this.openOverlay('finishnew_overlay_enabled')();
-        }, this));
-        $('#new_search_btn').click(function() {
-            self.filter.prependTo('#search_result_wrapper');
-        });
-        $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
-        
-        $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
-        $('#saved_routes_back').click($.proxy(this.backToSavedRoutes, this));
-        $('#match_requests_back').click($.proxy(this.backToMatchRequests, this));
+    var self = this;
+    $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
+    $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
+    $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
+    $('#new_form_btn').click($.proxy(function(event) {
+        event.preventDefault();
+        this.updateOverlayInput();
+        this.openOverlay('finishnew_overlay_enabled')();
+    }, this));
+    $('#new_search_btn').click(function() {
+        $('#main_map').detach();
+        self.filter.prependTo('#search_result_wrapper');
+        F.init();
+        $('.search_form').removeClass('center');
+    });
+    $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
+    $('.route_detail_overlay_close').click($.proxy(this.closeOverlay('route_detail_overlay_enabled'), this));
+    $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
+    $('#saved_routes_back').click($.proxy(this.backToSavedRoutes, this));
+    $('#match_requests_back').click($.proxy(this.backToMatchRequests, this));
 
-        $(".btn-group a").click(function() {
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-            });
+    $(".btn-group a").click(function() {
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+    });
     },
 
     ajaxRequest: function(method, url) {
@@ -420,20 +449,89 @@ bdmap.prototype = {
     }
 };
 
+// ================ flat-ui ======================//
+var F = {
+    toggleHandler: function(toggle) {
+        var toggle = toggle;
+        var radio = $(toggle).find("input");
+
+        var checkToggleState = function() {
+            if (radio.eq(0).is(":checked")) {
+                $(toggle).removeClass("toggle-off");
+            } else {
+                $(toggle).addClass("toggle-off");
+            }
+        };
+
+        checkToggleState();
+
+        radio.eq(0).click(function() {
+            $(toggle).toggleClass("toggle-off");
+        });
+
+        radio.eq(1).click(function() {
+            $(toggle).toggleClass("toggle-off");
+        });
+    },
+
+    setupLabel: function() {
+        // Checkbox
+        var checkBox = ".checkbox";
+        var checkBoxInput = checkBox + " input[type='checkbox']";
+        var checkBoxChecked = "checked";
+        var checkBoxDisabled = "disabled";
+
+        // Radio
+        var radio = ".radio";
+        var radioInput = radio + " input[type='radio']";
+        var radioOn = "checked";
+        var radioDisabled = "disabled";
+
+        // Checkboxes
+        if ($(checkBoxInput).length) {
+            $(checkBox).each(function(){
+                $(this).removeClass(checkBoxChecked);
+            });
+            $(checkBoxInput + ":checked").each(function(){
+                $(this).parent(checkBox).addClass(checkBoxChecked);
+            });
+            $(checkBoxInput + ":disabled").each(function(){
+                $(this).parent(checkBox).addClass(checkBoxDisabled);
+            });
+        }
+
+        // Radios
+        if ($(radioInput).length) {
+            $(radio).each(function(){
+                $(this).removeClass(radioOn);
+            });
+            $(radioInput + ":checked").each(function(){
+                $(this).parent(radio).addClass(radioOn);
+            });
+            $(radioInput + ":disabled").each(function(){
+                $(this).parent(radio).addClass(radioDisabled);
+            });
+        }
+    },
+
+    init: function() {
+        $("html").addClass("has-js");
+
+        // First let's prepend icons (needed for effects)
+        $(".checkbox, .radio").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
+
+        $(".checkbox, .radio").click(function(){
+            setupLabel();
+        });
+        setupLabel();
+        $("#slider").slider({
+            min: 1,
+            max: 5,
+            value: 2,
+            orientation: "horizontal",
+            range: "min"
+        });
+    }
+};
 
 R.init();
-
-var list = new C.Collection($('#table_mine'));
-
-var sort_dist_s = $('#optionsRadio2').click(function() {
-    list.sort_by('dist_s');
-});
-var sort_dist_w = $('#optionsRadio1').click(function() {
-    list.sort_by('dist_w');
-});
-var sort_price = $('#optionsRadio4').click(function() {
-    list.sort_by('price');
-});
-var sort_tspan = $('#optionsRadio5').click(function() {
-    list.sort_by('t_length');
-});
