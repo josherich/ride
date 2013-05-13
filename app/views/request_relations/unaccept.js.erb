@@ -1,0 +1,3 @@
+var target = $("div#<%= @request_relation.id %> .request_action");
+var content = $("<%= escape_javascript( render :partial => 'users/accept', :locals => { :reqed_id => @reqed_id, :request_relation => @request_relation })%>");
+target.html(content);

@@ -76,6 +76,7 @@ class ConversationsController < ApplicationController
 	def get_conversations
 		@mailbox ||= current_user.mailbox
 		@conversations = @mailbox.conversations
+		@notifications = current_user.mailbox.notifications
 	end
 
 	def check_conversation

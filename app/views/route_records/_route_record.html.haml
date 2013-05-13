@@ -19,11 +19,12 @@
 				= route_record.timespan
 			分钟后到达
 		.price
-			座位单价: 
+			座位单价：
 			%p
 				= route_record.price
-			= route_record.id
+			/ = route_record.id
 		.seat_stat
+			座位情况：
 			%p
 				= seats_text(route_record.seat_stat)
 			.progress
@@ -41,7 +42,7 @@
 			%p
 				= route_record.lng_d
 	.route_action
-		%a(href="/route_records/#{route_record.id}" data-remote="true")
+		%a(href="/route_records/#{route_record.id}/requestors" data-remote="true")
 			%button.btn#view-btn
 				查看请求
 		%a(href="/route_records/#{route_record.id}" data-method="delete" data-remote="true" rel="nofollow")

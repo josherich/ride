@@ -16,38 +16,45 @@ var C = C || (function (undefined){
         this.hash = {};
         this.orderHash = {};
         this.orderList = [];
+        this.sort_result = [];
         this.current_pos = undefined;
+
         this.pushAll(el);
         this.updateDistance();
     }
 
     Collection.prototype = {
-        constructor: Collection,
-        sort_by: function(key){// algorithm;dist_s;price;set_time;arrive_time;timespan
-            for (var a in this.hash)
-                this.orderHash[this.hash[a].info[key]] = [];
-            for (var h in this.hash) {
-                var r = this.hash[h];
-                // console.log(r.info[key]);
-                this.orderHash[r.info[key]].push(r);
-                this.orderList.push(r.info[key]);
-                // console.log(this.orderList);
-            }
-            this.orderList.sort();
-            console.log(this.orderHash);
-            console.log(this.orderList);
-            this.el.children().detach();
-            var last = 0;
-            for (var i in this.orderList) {
-                console.log(last);
-                var d = this.orderList[i];
-                if (d != last) {
-                    for (var j in this.orderHash[d])
-                        this.orderHash[d][j].el.appendTo(this.el);
-                    last = d;
-                }
-            }
 
+        constructor: Collection,
+
+        sort_by: function(key) {
+            var map = [];
+            for (var i in this.orderList) {
+                map.push({
+                    index: i,
+                    value: this.orderList[i].info[key]
+                });
+            }
+            map.sort(this.compare_int);
+            console.log(map);
+            for (var j in map)
+                this.sort_result.push(this.orderList[map[j].index]);
+            this.updateDOM();
+        },
+
+        updateDOM: function() {
+            if (!this.sort_result)
+                return;
+            this.el.children().detach();
+            console.log(this.sort_result);
+            for (var i in this.sort_result) {
+                this.sort_result[i].el.appendTo(this.el);
+            }
+            this.sort_result = [];
+        },
+
+        compare_int: function(a, b) {
+            return a.value - b.value;
         },
 
         filter: function(clause){ // freq_pattern; distance
@@ -83,6 +90,8 @@ var C = C || (function (undefined){
             el.children().each(function() {
                 self.add($(this));
             });
+            for (var a in this.hash)
+                this.orderList.push(this.hash[a]);
         },
 
         add: function(el){
@@ -92,7 +101,6 @@ var C = C || (function (undefined){
 
             if (this.hash[id])
                 return;
-
             this.hash[id] = newItem;
         },
 
@@ -130,11 +138,11 @@ var C = C || (function (undefined){
         
     };
 
-    // ================> Expose <===================
+    // ================> Expose <=================== //
     C.Collection = Collection;
     C.Route = Route;
     return C;
-    // =============================================
+    // ============================================= //
 
 }());
 
@@ -148,6 +156,7 @@ var R = {
         this.ajaxRequest('GET', '/conversations');
 
         if ( document.title == "Dashboard") {
+            this.filter = $("#filter_wrapper");
             this.map_d = new bdmap("map_container");
             this.map_h = new bdmap("map_container_home", "from", "to");
             this.record_clickable();
@@ -290,7 +299,7 @@ var R = {
         //         $('#main_map').removeClass('fixtop');
         //     }
         // });
-
+        var self = this;
         $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
         $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
         $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
@@ -299,7 +308,9 @@ var R = {
             this.updateOverlayInput();
             this.openOverlay('finishnew_overlay_enabled')();
         }, this));
-
+        $('#new_search_btn').click(function() {
+            self.filter.prependTo('#search_result_wrapper');
+        });
         $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
         
         $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
@@ -414,6 +425,15 @@ R.init();
 
 var list = new C.Collection($('#table_mine'));
 
-var btn = $('#optionsRadio2').click(function() {
+var sort_dist_s = $('#optionsRadio2').click(function() {
     list.sort_by('dist_s');
+});
+var sort_dist_w = $('#optionsRadio1').click(function() {
+    list.sort_by('dist_w');
+});
+var sort_price = $('#optionsRadio4').click(function() {
+    list.sort_by('price');
+});
+var sort_tspan = $('#optionsRadio5').click(function() {
+    list.sort_by('t_length');
 });

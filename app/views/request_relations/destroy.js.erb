@@ -1,1 +1,3 @@
-$("#match_result_<%= @route_record.id %> .route_action").html("<%= escape_javascript(render '/match_requests/send_req', :reqed_id => @route_record.id) %>");
+var content = $("<%= escape_javascript(render :partial => 'route_records/send_req', :locals => { :reqed_id => @reqed_id }) %>");
+$("#match_record_<%= @reqed_id %> .route_action").html(content);
+$("#route_record_fav_<%= @reqed_id %> .route_action").html(content.clone());

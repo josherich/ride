@@ -53,6 +53,13 @@ class RouteRecordsController < ApplicationController
 		respond_with(@route_record)
 	end
 
+	def requestors
+		route_record = RouteRecord.find_by_id(params[:id])
+		@reqed_id = route_record.id
+		@requestors = route_record.requestors
+		respond_with(@requestors)
+	end
+
 	# search api json
 	def search
 		radius_s = 10

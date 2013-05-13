@@ -19,7 +19,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #f7f7f7;
+	// background-color: #f7f7f7;
 }
 
 body, label, input, textarea, select, button {
@@ -30,7 +30,6 @@ body, label, input, textarea, select, button {
 	margin: 0 auto;
 	padding: 0 10px;
 	max-width: 960px;
-	// background-color: #f7f7f7;
 }
 
 .tab-content {
@@ -97,8 +96,8 @@ a:hover {
 }
 #map_container_home {
 	height: 250px;
-	width: 100%;
 }
+
 #map_container {
 	height: 99%;
 	width: 99%;
@@ -346,7 +345,8 @@ body.mailbox-back-enabled .mailbox_sidebar_back {
 	width: 100%;
 }
 
-#msg-body {
+
+#msg-body, #notif-body {
 	padding: 0 5px;
 }
 #msg-body input#body {
@@ -434,8 +434,10 @@ body.saved_routes_back_enabled #saved_routes_back {
 
 ///////////////// Overlay ///////////////
 @mixin overlay($x: 0.1, $y: 0.1) {
-	opacity: 0;
-	filter :alpha(opacity=0);
+	padding: 10px 12px;
+	background-color: #EEEEEE;
+	opacity: 0.2;
+	filter :alpha(opacity=0.2);
 	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 	-ms-transition: all .5s;
@@ -486,7 +488,6 @@ body.saved_routes_back_enabled #saved_routes_back {
 	left: 300px;
 	top: 100px;
 	display: block;
-	line-height: 0;
 	overflow: hidden;
 	z-index: 100;
 }
@@ -515,16 +516,10 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 .finishnew_overlay_inner {
 
 }
-///////////////////////////////
-.unfold_list {
-	width: 100%;
-	float: left;
-	margin-left: 1px;
-	margin-top: 20px;
-	// border: 1px solid #555555;
-}
 
-.requestor_list {
+//=================requestors table in tab1==================//
+
+.requestor_block {
 	width: 95%;
 	float: left;
 	margin-top: 20px;
@@ -532,21 +527,21 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
-.requestor_list:hover {
+.requestor_block:hover {
 	box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
-.requestor_list .request_info {
+.requestor_block .request_info {
 	width: 60%;
 	float: left;
 }
 
-.requestor_list .request_action {
+.requestor_block .request_action {
 	width: 30%;
 	float: left;
 }
 
-.request_action div {
+.request_action button {
 	display: inline;
 	margin-left: 8px;
 }
@@ -555,7 +550,29 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 	float: left;
 }
 
-//////////////////
+.request_list {
+	width: 95%;
+	float: left;
+	margin-top: 20px;
+	padding: 7px 9px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.request_list:hover {
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.request_list .request_info {
+	width: 60%;
+	float: left;
+}
+
+.request_list .request_action {
+	width: 30%;
+	float: left;
+}
+
+//=================route_block=================//
 .route_block {
 	width: 95%;
 	// height: 300px;
@@ -568,10 +585,19 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 .route_block:hover {
 	box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
-
+.route_fav {
+	font-size: 24px;
+	float: right;
+}
+span.fui-heart-24 {
+	color: #D50065;
+}
 .route_info {
 	width: 80%;
 	float: left;
+}
+.route_info p {
+	display: inline;
 }
 .route_action {
 	margin-top: 120px;
@@ -594,9 +620,13 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 	float: right;
 }
 
+//====================search result=====================//
+#search_result {
+	margin-left: 30%;
+}
 
 
-//////////////////////filter panel/////////////////
+//====================filter panel======================//
 #filter_wrapper {
 	position: absolute;
 	width: 220px;
@@ -622,9 +652,11 @@ body.finishnew_overlay_enabled .finishnew_overlay_close {
 	padding: 10px 15px;
 }
 
-// ======================override=======================
+// ======================override=======================//
 .nav-tabs > li > a {
 	padding-bottom: 0px;
 	padding-left: 7px;
 	padding-right: 7px;
 }
+
+

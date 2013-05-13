@@ -1,7 +1,7 @@
 // alert("<%= escape_javascript( @match_requests.count.to_s ) %>");
 // var toggle_fold = $("div#route_record_<%= @route_record.id %> div#toggle_fold > a");
-var match_requests = $("<div class='unfold_list' id='match_requests_<%= @route_record.id %>'><%= escape_javascript( render :partial => 'match_requests/unfold_list', :collection => @match_requests, :as => :match_request ) %></div>");
-var target = $('#table_mine');
+var match_requests = $("<%= escape_javascript( render 'show' ) %></div>");
+var target = $('#route_record_overlay');
 
 $('body').addClass('my_routes_back_enabled');
 target.html(match_requests);

@@ -41,11 +41,14 @@ Ride::Application.routes.draw do
   	collection do
   		get 'search'
   	end
+    member do
+      get 'requestors'
+    end
   end
 
   resources :request_relations do
     member do
-      put 'accept'
+      put 'accept', 'unaccept'
     end
   end
   

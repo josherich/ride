@@ -1,1 +1,4 @@
-$("#match_result_<%= @route_record.id %> .route_action").html("<%= escape_javascript(render :partial => '/match_requests/cancel_req', :locals => { :reqed_id => @route_record.id }) %>");
+var content = $("<%= escape_javascript(render :partial => 'route_records/unsend_req', :locals => { :reqed_id => @reqed_id, :request_relation => @request_relation }) %>");
+
+$("#match_record_<%= @reqed_id %> .route_action").html(content);
+$("#route_record_fav_<%= @reqed_id %> .route_action").html(content.clone());

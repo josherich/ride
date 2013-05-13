@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   has_many :fav_relations, :foreign_key => "follower_id", :dependent => :destroy
   has_many :following, :through => :fav_relations, :source => :route
 
+  has_many :request_relations, :foreign_key => "req_id", :dependent => :destroy
+  has_many :requesting, :through => :request_relations, :source => :reqed
+  
   def name
   	return :name
   end
@@ -41,4 +44,7 @@ class User < ActiveRecord::Base
   	fav_relations.find_by_route_id(route).destroy
   end
 
+  def request_destroy(reqed_id)
+    request_relations.find_by_reqed_id(reqed_id).destroy
+  end
 end

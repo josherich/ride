@@ -1,0 +1,5 @@
+%a(href="/route_records/#{reqed_id}" data-remote="true")
+	%button.btn.detail-btn
+		详细
+%button.btn.accept-btn
+	= link_to '接受', accept_request_relation_path(request_relation, :reqed_id => reqed_id), :remote => true, :method => :put

@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
-<a id="mailbox-btn" href="javascript:void(0)" data-original-title="信箱">
+<a class="active" id="mailbox-btn" href="javascript:void(0)" data-original-title="信箱">
 	<span class="fui-mail-24"></span>
-	<span class="navbar-unread">1</span>
+	<span class="navbar-unread"><%= @notifications.count %></span>
 </a>
 
 <div class="mailbox_sidebar">
@@ -9,16 +9,19 @@
 	<div class="mailbox_sidebar_close">x</div>
 	<div id="mailbox_sidebar_body">
 		<ul class="nav nav-tabs">
-			<li class="active tab conversations"><a href="#conversations" data-toggle="tab">对话</a></li>
-			<li class="tab contacts"><a href="#contacts" data-toggle="tab">联系人</a></li>
+			<li class="active tab notif"><a href="#notif" data-toggle="tab">提醒</a></li>
+			<li class="tab conversations"><a href="#conversations" data-toggle="tab">对话</a></li>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane active" id="conversations">
+			<div class="tab-pane active" id="notif">
+				<div id="notif-body">
+					
+				</div>
+			</div>
+			<div class="tab-pane" id="conversations">
 				<div id="msg-body">
 
 				</div>
-			</div>
-			<div class="tab-pane" id="contacts">
 			</div>
 		</div>
 	</div>

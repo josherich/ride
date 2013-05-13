@@ -1,0 +1,20 @@
+- rel = user.request_relations.find_by_reqed_id(reqed_id)
+- stat = rel.stat_id
+.requestor_block{:id => rel.id}
+	.avatar
+		%img(src="/assets/rails.png" class="img-circle")
+	.request_info
+		.name
+			= user.email
+	.request_info.hidden
+
+	.request_action
+		%a
+			.detail.btn
+				详情
+		- if stat == 2
+			%button.btn.unaccept-btn
+				= link_to "撤销", unaccept_request_relation_path(rel, :opt => 'unaccept'), :method => 'put', :remote => true
+		- else
+			%button.btn.accept-btn
+				= link_to "接受", accept_request_relation_path(rel, :opt => 'accept'), :method => 'put', :remote => true

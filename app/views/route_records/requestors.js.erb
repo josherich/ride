@@ -1,0 +1,5 @@
+var requestors = $("<div class='requestor_list' id='route_record_<%= @reqed_id %>'><%= escape_javascript( render :partial => 'users/requestors', :collection => @requestors, :as => :user, :locals => { :reqed_id => @reqed_id } ) %></div>");
+var target = $('#table_mine');
+
+$('body').addClass('my_routes_back_enabled');
+target.html(requestors);

@@ -2,4 +2,4 @@
 	%button.btn.detail-btn
 		详细
 %button.btn.cancel-btn
-	已发送
+	= link_to '申请', request_relations_path(:reqed_id => reqed_id), :remote => true, :method => :post

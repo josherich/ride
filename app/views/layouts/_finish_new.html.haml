@@ -1,8 +1,6 @@
 - match_request = MatchRequest.new
 - route_record = RouteRecord.new
 .finishnew_overlay
-	.finishnew_overlay_back
-		&lt;
 	.finishnew_overlay_close
 		x
 	#finishnew_overlay_wrapper
@@ -20,58 +18,49 @@
 					.tab-pane.active#new_details
 						.detailsContent
 							= form_for(match_request, :url => {:controller => 'match_requests', :action => 'create'}) do |f| 
-								#search_from
-									= f.text_field :from, :placeholder => "起点", :id => "request_from"
-							
-								#search_to
-									= f.text_field :to, :placeholder => "终点", :id => "request_to"
-							
-
 								.isregular
 									%label.checkbox
 										%input(type="checkbox" name="isregular" value="" checked)
-											常规线路(工作日上下班)
+										常规线路(工作日上下班)
+								.from
+									= f.text_field :from, :placeholder => "起点", :id => "request_from"
+							
+								.to
+									= f.text_field :to, :placeholder => "终点", :id => "request_to"
 
 								.setup_time
-									出发时刻：
-									= f.text_field :arrive_time, :value => "08:00", :id => 'timepicker'
+									= f.text_field :arrive_time, :placeholder => "出发时刻", :id => 'timepicker'
 									%span.date-icon
-
-								= f.hidden_field :lat_s, :id => "request_lat_s"
-								= f.hidden_field :lng_s, :id => "request_lng_s"
-								= f.hidden_field :lat_d, :id => "request_lat_d"
-								= f.hidden_field :lng_d, :id => "request_lng_d"
-
+								.info.hidden
+									= f.hidden_field :lat_s, :id => "request_lat_s"
+									= f.hidden_field :lng_s, :id => "request_lng_s"
+									= f.hidden_field :lat_d, :id => "request_lat_d"
+									= f.hidden_field :lng_d, :id => "request_lng_d"
 								.submit_form
-								= f.submit "提交" 
+									= f.button "提交", :class => "btn"
 
 					.tab-pane#new_details_more
 						= form_for(route_record, :url => {:controller => 'route_records', :action => 'create'}) do |f| 
-							#search_from
-								= f.text_field :from, :placeholder => "起点", :id => "new_from"
-							
-							#search_to
-								= f.text_field :to, :placeholder => "终点", :id => "new_to"
-							
-							.setup_date
-								出发时间：
-								= f.text_field :set_date, :value => "2013-03-03" , :id => 'datepicker'
-								%span.date-icon
-							
 							.isregular
 								%label.checkbox
 									%input(type="checkbox" name="isregular" value="" checked)
 									常规线路
-
-							.setup_time
-								出发时刻： 
-								= f.text_field :set_time, :id => 'timepicker', :value => "08:00" 
+							.from
+								= f.text_field :from, :placeholder => "起点", :id => "new_from"
+							.to
+								= f.text_field :to, :placeholder => "终点", :id => "new_to"
+							.setup_date
+								= f.text_field :set_date, :placeholder => "出发时间" , :id => 'datepicker'
 								%span.date-icon
 							
+
+
+							.setup_time
+								= f.text_field :set_time, :id => 'timepicker', :placeholder => "出发时刻" 
+								%span.date-icon
 							.duration
 								时长： 
 								= f.text_field :timespan, :value => "12" 
-							
 							.seats
 								座位数： 
 								= f.text_field :seat_stat, :value => "1-3" 
@@ -79,15 +68,14 @@
 							.price
 								价格：
 								= f.text_field :price, :value=> "12" 
-							
-							= f.hidden_field :isactive, :id => "isactive" 
-							= f.hidden_field :lat_s, :id => "new_lat_s" 
-							= f.hidden_field :lng_s, :id => "new_lng_s" 
-							= f.hidden_field :lat_d, :id => "new_lat_d" 
-							= f.hidden_field :lng_d, :id => "new_lng_d" 
-
+							.info.hidden
+								= f.hidden_field :isactive, :id => "isactive" 
+								= f.hidden_field :lat_s, :id => "new_lat_s" 
+								= f.hidden_field :lng_s, :id => "new_lng_s" 
+								= f.hidden_field :lat_d, :id => "new_lat_d" 
+								= f.hidden_field :lng_d, :id => "new_lng_d" 
 							.submit_form
-								= f.submit "提交"
+								= f.submit "提交", :class => 'btn'
 						
 						
 						

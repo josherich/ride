@@ -6,9 +6,6 @@ class MatchRequest < ActiveRecord::Base
   has_many :match_relations, :foreign_key => "match_request_id", :dependent => :destroy
   has_many :match_route, :through => :match_relations, :source => :route
 
-  has_many :request_relations, :foreign_key => "req_id", :dependent => :destroy
-  has_many :requesting, :through => :request_relations, :source => :reqed
-
   def match_push(route_id)
   	match_relations.create!(:route_id => route_id)
   end
@@ -19,22 +16,14 @@ class MatchRequest < ActiveRecord::Base
   	end
   end
 
-  def request_push(route_id, stat_id)
-    if requesting.include?(RouteRecord.find(route_id))
-      return false
-    end
-    request_relations.create!(:reqed_id => route_id, :stat_id => stat_id)
-  end
+  # def request_push(route_id, stat_id)
+  #   if requesting.include?(RouteRecord.find(route_id))
+  #     return false
+  #   end
+  #   request_relations.build(:reqed_id => route_id, :stat_id => stat_id)
+  # end
 
-  def request_destroy(route_id)
-    request_relations.find_by_reqed_id(route_id).destroy
-  end
-
-  def request_sent?(route_id)
-    request_relations.find_by_reqed_id(route_id)
-  end
-
-  
-
-
+  # def request_destroy(route_id)
+  #   request_relations.find_by_reqed_id(route_id).destroy
+  # end
 end

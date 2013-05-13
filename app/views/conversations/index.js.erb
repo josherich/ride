@@ -1,2 +1,3 @@
 $('#msg-body').html("<%= escape_javascript(render 'conversations/index') %>");
+$('#notif-body').html("<%= escape_javascript(render :partial => 'conversations/notifications', :collection => @notifications, :as => :notif) %>");
 $('body').removeClass("mailbox-back-enabled");

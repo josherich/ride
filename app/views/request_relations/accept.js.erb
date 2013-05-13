@@ -1,18 +1,5 @@
 alert("gotcha");
-target = $("div#<%= @relation.id %> > div.accept > a");
-prograss_bar = $('div#route_record_<%= @relation.reqed_id %> div.progress > div');
-
-toggle_html(target, "接受", "取消");
-// prograss_bar.css("width")
-
-function toggle_html(target, text1, text2) {
-	if (target.html() == text1) {
-		target.html(text2);
-	} else {
-		target.html(text1);
-	}
-}
-
-// function update_progress_bar(target) {
-// 	target.css("width", per)
-// }
+var target = $("#<%= @request_relation.id %> .request_action");
+var prograss_bar = $('div#route_record_<%= @request_relation.reqed_id %> div.progress > div');
+var content = $("<%= escape_javascript(render :partial => 'users/unaccept', :locals => { :reqed_id => @reqed_id, :request_relation => @request_relation }) %>");
+target.html(content);
