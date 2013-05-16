@@ -1,11 +1,13 @@
 var C = C || (function (undefined){
+    
     var C = {
         what: "controller of route collections and items",
-        where: ""
+        version: "0.1.0"
     };
     setup();
 
     function setup(){
+
     }
 
     function log(){
@@ -105,10 +107,11 @@ var C = C || (function (undefined){
             this.hash[id] = newItem;
         },
 
-        remove: function() {
+        remove: function(el) {
             var parent = this;
-            
-            return this;
+            var id = el.attr('id');
+            if (this.hash[id])
+                delete this.hash[id];
         }
     };
 
@@ -153,6 +156,20 @@ var R = {
     from_str: "",
     to_str: "",
     data: "",
+    copy2overlay: {
+        '#new_from': '#from',
+        '#new_to': '#to',
+        '#request_from': '#from',
+        '#request_to': '#to',
+        '#new_lat_s': '#route_record_lat_s',
+        '#new_lng_s': '#route_record_lng_s',
+        '#new_lat_d': '#route_record_lat_d',
+        '#new_lng_d': '#route_record_lng_d',
+        '#request_lat_s': '#route_record_lat_s',
+        '#request_lng_s': '#route_record_lng_s',
+        '#request_lat_d': '#route_record_lat_d',
+        '#request_lng_d': '#route_record_lng_d'
+    },
 
     init: function() {
         this.bind_event();
@@ -230,18 +247,8 @@ var R = {
     },
     
     updateOverlayInput: function() {
-        $('#new_from').val($('#from').val());
-        $('#new_to').val($('#to').val());
-        $('#request_from').val($('#from').val());
-        $('#request_to').val($('#to').val());
-        $('#new_lat_s').val($('#route_record_lat_s').val());
-        $('#new_lng_s').val($('#route_record_lng_s').val());
-        $('#new_lat_d').val($('#route_record_lat_d').val());
-        $('#new_lng_d').val($('#route_record_lng_d').val());
-        $('#request_lat_s').val($('#route_record_lat_s').val());
-        $('#request_lng_s').val($('#route_record_lng_s').val());
-        $('#request_lat_d').val($('#route_record_lat_d').val());
-        $('#request_lng_d').val($('#route_record_lng_d').val());
+        for (var i in this.copy2overlay)
+            $(i).val($(this.copy2overlay[i]));
     },
 
     handleGPS: function(map) {
@@ -288,8 +295,6 @@ var R = {
         return function() {
             $('body').addClass(overlay);
         };
-        // jQuery('#feedbackForm input:submit').removeClass('disabled').removeAttr('disabled');
-        // jQuery('#feedbackForm').fadeIn();
     },
 
     closeOverlay: function(overlay){
@@ -325,31 +330,31 @@ var R = {
         //         $('#main_map').removeClass('fixtop');
         //     }
         // });
-    var self = this;
-    $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
-    $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
-    $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
-    $('#new_form_btn').click($.proxy(function(event) {
-        event.preventDefault();
-        this.updateOverlayInput();
-        this.openOverlay('finishnew_overlay_enabled')();
-    }, this));
-    $('#new_search_btn').click(function() {
-        $('#main_map').detach();
-        self.filter.prependTo('#search_result_wrapper');
-        F.init();
-        $('.search_form').removeClass('center');
-    });
-    $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
-    $('.route_detail_overlay_close').click($.proxy(this.closeOverlay('route_detail_overlay_enabled'), this));
-    $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
-    $('#saved_routes_back').click($.proxy(this.backToSavedRoutes, this));
-    $('#match_requests_back').click($.proxy(this.backToMatchRequests, this));
+        var self = this;
+        $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
+        $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
+        $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
+        $('#new_form_btn').click($.proxy(function(event) {
+            event.preventDefault();
+            this.updateOverlayInput();
+            this.openOverlay('finishnew_overlay_enabled')();
+        }, this));
+        $('#new_search_btn').click(function() {
+            $('#main_map').detach();
+            self.filter.prependTo('#search_result_wrapper');
+            F.init();
+            $('.search_form').removeClass('center');
+        });
+        $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
+        $('.route_detail_overlay_close').click($.proxy(this.closeOverlay('route_detail_overlay_enabled'), this));
+        $('#my_routes_back').click($.proxy(this.backToMyRoutes, this));
+        $('#saved_routes_back').click($.proxy(this.backToSavedRoutes, this));
+        $('#match_requests_back').click($.proxy(this.backToMatchRequests, this));
 
-    $(".btn-group a").click(function() {
-        $(this).siblings().removeClass("active");
-        $(this).addClass("active");
-    });
+        $(".btn-group a").click(function() {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+        });
     },
 
     ajaxRequest: function(method, url) {

@@ -12,9 +12,6 @@ class User < ActiveRecord::Base
   
   acts_as_messageable
 
-  # attr_accessor :password
-  # attr_accessible :email, :name, :password, :password_confirmation
-
   has_many :route_records, :dependent => :destroy
   has_many :match_requests, :dependent => :destroy
 
