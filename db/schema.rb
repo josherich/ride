@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130511071757) do
+ActiveRecord::Schema.define(:version => 20130523022309) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -161,6 +161,29 @@ ActiveRecord::Schema.define(:version => 20130511071757) do
     t.datetime "updated_at",   :null => false
     t.integer  "user_id"
     t.float    "seat_stat"
+  end
+
+  add_index "route_records", ["user_id"], :name => "index_route_records_on_user_id"
+
+  create_table "routes", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "data"
+    t.string   "lat_s"
+    t.string   "lng_s"
+    t.string   "lat_d"
+    t.string   "lng_d"
+    t.integer  "user_id"
+    t.integer  "timespan"
+    t.integer  "freq_pattern"
+    t.integer  "seat_stat"
+    t.integer  "price"
+    t.boolean  "isactive"
+    t.boolean  "isdriver"
+    t.time     "set_time"
+    t.date     "set_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|

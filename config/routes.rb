@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Ride::Application.routes.draw do
+  require 'api'
+
   root :to => "home#index"
   
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -11,7 +13,7 @@ Ride::Application.routes.draw do
   end
 
   devise_for :users do
-  ActiveAdmin.routes(self)
+    ActiveAdmin.routes(self)
     get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
   end
 
@@ -22,40 +24,62 @@ Ride::Application.routes.draw do
 
 
   # resources
-  resources :users
-  resources :users do
-  	resources :route_records
-  	resources :match_requests
+  resources :routes do
+    member do
+      get 'requestors'
+      post 'favorite'
+      post 'requests'
+    end
+    collection do
+      get 'search'
+    end
   end
 
   resources :conversations do
     member do
-      put 'trash', 'untrash', 'reply'
+      post 'trash'
+      post 'reply'
+    end
+  end
+
+  # resources :route_records do
+  # 	collection do
+  # 		get 'search'
+  # 	end
+  #   member do
+  #     get 'requestors'
+  #     post 'favorite'
+  #   end
+  # end
+
+  resources :request_relations do
+    member do
+      post 'accept'
     end
   end
 
   resources :messages
   resources :notifications
 
-  resources :route_records do
-  	collection do
-  		get 'search'
-  	end
-    member do
-      get 'requestors'
-    end
-  end
-
-  resources :request_relations do
-    member do
-      put 'accept', 'unaccept'
-    end
-  end
-  
-
-  resources :route_records
   resources :fav_relations, :only => [:create, :destroy]
   resources :request_relations, :only => [:create, :destroy, :update]
   resources :match_requests
+
+  mount Ride::API => "/"
+  
+  resources :users do
+    resources :routes
+    resources :match_requests
+  end
+
+  # if Rails.env.development?
+  #   app = ActionDispatch::Static.new(
+  #     lambda{ |env| [404, { 'X-Cascade' => 'pass'}, []] },
+  #     Rails.application.config.paths['public'].first,
+  #     Rails.application.config.static_cache_control
+  #   )
+
+  #   mount app, :at => '/', :as => :public
+  # end
 
 end

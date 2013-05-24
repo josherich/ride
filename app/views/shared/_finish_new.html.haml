@@ -1,5 +1,5 @@
 - match_request = MatchRequest.new
-- route_record = RouteRecord.new
+- route = Route.new
 .finishnew_overlay
 	.finishnew_overlay_close
 		x
@@ -40,7 +40,7 @@
 									= f.button "提交", :class => "btn"
 
 					.tab-pane#new_details_more
-						= form_for(route_record, :url => {:controller => 'route_records', :action => 'create'}) do |f| 
+						= form_for(route, :url => {:controller => 'routes', :action => 'create'}) do |f| 
 							.isregular
 								%label.checkbox
 									%input(type="checkbox" name="isregular" value="" checked)

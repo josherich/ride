@@ -5,7 +5,7 @@ class MatchRequestsController < ApplicationController
 	def create
 		@request = current_user.match_requests.build(params[:match_request])
 		if @request.save
-			redirect_to '/users/'+current_user.id.to_s
+			redirect_to dashboard_path
 			return
 		end
 	end
@@ -23,9 +23,6 @@ class MatchRequestsController < ApplicationController
 		@match_results = @match_request.match_route
 
 		respond_to do |format|
-			format.html {
-				render 'show'
-			}
 			format.js
 		end
 	end

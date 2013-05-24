@@ -1,2 +1,2 @@
-- unless @route_records.empty?
-	= render @route_records
+- unless @routes.empty?
+	= render :partial => 'routes/route_mine', :collection => @routes, :as => :route

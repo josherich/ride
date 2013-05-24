@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   acts_as_messageable
 
-  has_many :route_records, :dependent => :destroy
+  has_many :routes, :dependent => :destroy
   has_many :match_requests, :dependent => :destroy
 
   has_many :fav_relations, :foreign_key => "follower_id", :dependent => :destroy
@@ -29,8 +29,9 @@ class User < ActiveRecord::Base
   	return :email
   end
 
+  # follow route
   def following?(route)
-  	fav_relations.find_by_route_id(route)
+  	fav_relations.find_by_route_id(route.id)
   end
 
   def follow!(route)
@@ -38,10 +39,41 @@ class User < ActiveRecord::Base
   end
 
   def unfollow!(route)
-  	fav_relations.find_by_route_id(route).destroy
+  	fav_relations.find_by_route_id(route.id).destroy
+  end
+
+
+  # send request
+  def requested?(reqed_id)
+    request_relations.find_by_reqed_id(reqed_id)
+  end
+
+  def request_push(reqed_id)
+    request_relations.create!(:reqed_id => reqed_id, :stat_id => 1)
   end
 
   def request_destroy(reqed_id)
     request_relations.find_by_reqed_id(reqed_id).destroy
   end
+
+
+  # accept request
+  def request_accept(relation)
+    request_relation = RequestRelation.find_by_id(relation)
+
+    # TODO disable conflicts request once accpeted by one
+    if route_records.find_by_id(request_relation.reqed_id)
+      request_relation.update_attributes(:stat_id => 2)
+    end
+  end
+
+  def request_unaccept(relation)
+    request_relation = RequestRelation.find_by_id(relation)
+    
+    if route_records.find_by_id(request_relation.reqed_id)
+      request_relation.update_attributes(:stat_id => 1)
+    end
+  end
+
+
 end

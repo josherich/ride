@@ -10,6 +10,7 @@ Ride in Rails
 * Push alert to users who save the routes
 
 ##TODO
+* wrap a series of database action to comply ACID
 * JSON api for CRUD resources and match search
 * Refractory and cleanup mess code
 * One-page app for better and faster UX, using turbolinks

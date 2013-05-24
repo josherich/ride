@@ -1,4 +1,4 @@
-%div.route_block{:id => "route_record_#{route_record.id}"}
+= div_for(route_record, :class => "route_block") do
 	.route_info
 		.from
 			%p
@@ -14,6 +14,14 @@
 			出发时刻：
 			%p
 				= route_record.set_time
+		- if route_record.freq_pattern == 2
+			.freq_regular
+				%p
+					周一至周五
+		- else
+			.freq_single
+				%p
+					单次线路
 		.t_length
 			%p
 				= route_record.timespan
@@ -42,10 +50,10 @@
 			%p
 				= route_record.lng_d
 	.route_action
-		%a(href="/route_records/#{route_record.id}/requestors" data-remote="true")
-			%button.btn#view-btn
-				查看请求
-		%a(href="/route_records/#{route_record.id}" data-method="delete" data-remote="true" rel="nofollow")
-			%button.btn#del-btn
-				删除
+		/ = link_to(requestors_route_record_path(route_record), :remote => true) do
+		/ 	%button.btn#view-btn
+		/ 		查看请求
+		/ = link_to(route_record_path(route_record), :method => :delete, :remote => true) do	
+		/ 	%button.btn#del-btn
+		/ 		删除
 			

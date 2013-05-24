@@ -1,6 +1,4 @@
-%div.route_block{:id => "route_record_fav_#{route_record.id}"}
-	.route_fav
-		%span.fui-heart-24
+= div_for(route_record, :class => "route_block") do
 	.route_info
 		.from
 			= route_record.from
@@ -18,7 +16,6 @@
 		.price
 			座位单价: 
 			= route_record.price
-			= route_record.id
 		.seat_stat
 			.seat_text
 				= seats_text(route_record.seat_stat)
@@ -28,6 +25,5 @@
 		%a(href="/route_records/#{route_record.id}" data-remote="true")
 			%button.btn#view-btn
 				详细
-		%a(href="/route_records/#{route_record.id}" data-remote="true")
-			%span.fui-eye-24
-			
+		.route_fav
+			%span.fui-heart-24

@@ -1,7 +1,7 @@
-- route_record = RouteRecord.new
+- route = Route.new
 .search_bar
 	.search_form.center
-		= simple_form_for route_record, :remote => true, :url => search_route_records_path, :html => { :method => 'GET' } do |f|
+		= simple_form_for route, :remote => true, :url => search_routes_path, :html => { :method => 'GET' } do |f|
 			#search_from
 				= f.input :from, label: false, placeholder: "起点", input_html: { id: "from" }
 			#search_to

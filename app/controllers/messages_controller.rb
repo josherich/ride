@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-
 	before_filter :get_conversation, :get_mailbox
 
 	def index

@@ -1,2 +1,2 @@
-- unless @user.fav_relations.empty?
-	= render @following
+- unless @user.following.empty?
+	= render :partial => 'routes/route_fav', :collection => @following, :as => :route

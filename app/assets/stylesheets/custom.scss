@@ -15,11 +15,15 @@
 	font-family: Arial;
 	background: #ffffff;
 }
+html {
+	height: 100%;
+}
 
 body {
+	height: 100%;
 	margin: 0;
 	padding: 0;
-	// background-color: #f7f7f7;
+	background-image: url('http://upload.wikimedia.org/wikipedia/commons/4/40/Xujiahui_2010.jpg');
 }
 
 body, label, input, textarea, select, button {
@@ -30,6 +34,12 @@ body, label, input, textarea, select, button {
 	margin: 0 auto;
 	padding: 0 10px;
 	max-width: 960px;
+}
+
+.content {
+	padding: 5px;
+	background-color: white;
+	opacity: 1;
 }
 
 .tab-content {
@@ -86,24 +96,16 @@ a {
 }
 
 a:hover {
-	color: #069;
-	text-decoration: underline;
+
 }
 
-#main_map {
+.main_map {
+	height: 260px;
 	margin: 0 auto;
 	box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
-#map_container_home {
-	height: 250px;
-}
 
-#map_container {
-	height: 99%;
-	width: 99%;
-}
-
-#map_left {
+.map_left {
 	height: 260px;
 	// float: left;
 	margin-top: 20px;
@@ -114,11 +116,18 @@ a:hover {
 	// box-sizing: border-box;
 }
 
+.map_container {
+	height: 99%;
+	width: 99%;
+}
+
 /*TODO*/
-/*.fixtop { 
+.fixtop { 
 	position: fixed;
 	top: 30px;
-}*/
+	left: 150px;
+	width: 220px;
+}
 
 .search_bar {
 	margin: 0 auto;
@@ -510,6 +519,19 @@ body.saved_routes_back_enabled #saved_routes_back {
 
 }
 
+//=================profile tab===============================//
+.profile {
+	text-align: center;
+	height: 300px;
+	border: 1px solid #b8b8b8;
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	margin: 5px 5px;
+	padding: 3px 3px;
+}
+
+.action-list {
+	text-align: center;
+}
 //=================requestors table in tab1==================//
 
 .requestor_block {
@@ -566,12 +588,17 @@ body.saved_routes_back_enabled #saved_routes_back {
 }
 
 //=================route_block=================//
+.route_table {
+	overflow: auto;
+}
+
 .route_block {
 	width: 95%;
 	// height: 300px;
 	float: left;
 	display: block;
 	margin-top: 20px;
+	margin-left: 5px;
 	padding: 7px 9px;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
@@ -580,7 +607,7 @@ body.saved_routes_back_enabled #saved_routes_back {
 }
 .route_fav {
 	font-size: 24px;
-	float: right;
+	float: left;
 }
 span.fui-heart-24 {
 	color: #D50065;
@@ -604,6 +631,10 @@ span.fui-heart-24 {
 .route_action a span {
 	margin-left: 10px;
 	margin-top: 8px; 
+}
+
+.route_comments {
+	float: left;
 }
 .seat_stat {
 	width: 300px;

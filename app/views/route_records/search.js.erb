@@ -1,6 +1,0 @@
-result = $('#search_result');
-result.children().remove();
-
-$("<%= escape_javascript(render :partial => 'route_search_results', :collection => @results, :as => :route_record) %>").appendTo(result);
-R.bindList('#search_result');
-R.record_clickable();

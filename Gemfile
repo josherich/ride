@@ -28,6 +28,7 @@ group :development do
 	gem "better_errors", ">= 0.7.2"
 	gem "binding_of_caller", ">= 0.7.1"
 	gem 'sunspot_solr'
+	gem 'capistrano'
 end
 
 gem 'jquery-rails'
@@ -52,3 +53,4 @@ gem 'activeadmin'
 gem 'faye'
 gem 'sync'
 gem 'grape'
+gem 'grape-entity'

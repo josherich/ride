@@ -1,16 +1,19 @@
 %ul.nav.nav-tabs
-	%li.active.tab.my_routes
+	%li.active.tab.me
+		%a(href="#me" data-toggle="tab")
+			自己
+	%li.tab.my_routes
 		%a(href="#my_routes" data-toggle="tab")
 			我的路线
-			= @user.route_records.count
-	%li.tab.saved_routes
-		%a(href="#saved_routes" data-toggle="tab")
-			我收藏的路线
-			= @user.fav_relations.count
+			= @user.routes.count
 	%li.tabl.match_requests
 		%a(href="#match_requests" data-toggle="tab")
 			我的请求
 			= @match_count
+	%li.tab.saved_routes
+		%a(href="#saved_routes" data-toggle="tab")
+			我收藏的路线
+			= @user.fav_relations.count
 	%li.tab.new_search
 		%a(href="#new_search" data-toggle="tab")
 			+搜索
@@ -23,43 +26,69 @@
 			地图
 
 .tab-content
-	#filter_wrapper
-		#map_left.imgborder
-			#map_container.imgborder
-		#filter_panel
-			= render 'shared/filter_panel'
-	.tab-pane.active#my_routes
+	.tab-pane.active#me
+		.row-fluid
+			.span4
+				.profile
+					.avatar
+					.name
+					.edit
+						编辑
+				.action-list
+					%ul
+						%li
+							%a(href="#new_search")
+								新的搜索
+						%li	
+							%a(href="#new_search")
+								新建线路
+			.span8
+				.activity-list
+
+	.tab-pane#my_routes
 		.row-fluid
 			.span3
-
+				.map_left.imgborder
+					.map_container#map_container_1
 			.span9
 				.route-back-btn#my_routes_back
 					&lt;
 				.route_table#table_mine
 					= render 'table_mine'
-	.tab-pane#saved_routes
-		.row-fluid
-			.span3
-				#filter_wrapper
-			.span9
-				.route-back-btn#saved_routes_back
-					&lt;
-				.route_table#table_fav
-					= render 'table_fav'
+
 	.tab-pane#match_requests
 		.row-fluid
 			.span3
-				#filter_wrapper
+				.map_left.imgborder
+					.map_container#map_container_2
 			.span9
 				#match_request_wrap
 					.route-back-btn#match_requests_back
 						&lt;
 					.route_table#table_match
 						= render 'table_match'
+	.tab-pane#saved_routes
+		.row-fluid
+			.span3
+				.map_left.imgborder
+					.map_container#map_container_3
+			.span9
+				.route-back-btn#saved_routes_back
+					&lt;
+				.route_table#table_fav
+					= render 'table_fav'
+
 	.tab-pane#new_search
 		.row-fluid
 			.span12
 				#search_panel
 					= render 'shared/search_view'
+				#filter_wrapper
+					.map_left.imgborder
+						#map_container.imgborder
+					#filter_panel
+						= render 'shared/filter_panel'
 				#search_result_wrapper
 					#search_result
+					
+= render 'shared/route_record_detail'

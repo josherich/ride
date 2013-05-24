@@ -14,7 +14,7 @@ class HomeController < ApplicationController
 
     begin
     # my routes
-    @route_records = current_user.route_records
+    @routes = current_user.routes
     # my requests
     @match_requests = current_user.match_requests
     # my fav routes
@@ -108,7 +108,7 @@ class HomeController < ApplicationController
 
 
   def get_conversations
-    @notifications = current_user.mailbox.notifications.unread
+    @notifications = current_user.mailbox.notifications.unread if current_user
   end
 
   def match_count

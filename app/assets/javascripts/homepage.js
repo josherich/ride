@@ -20,6 +20,7 @@ var C = C || (function (undefined){
         this.orderHash = {};
         this.orderList = [];
         this.sort_result = [];
+        this.current_order = 0;
         this.current_pos = undefined;
 
         this.pushAll(el);
@@ -161,30 +162,30 @@ var R = {
         '#new_to': '#to',
         '#request_from': '#from',
         '#request_to': '#to',
-        '#new_lat_s': '#route_record_lat_s',
-        '#new_lng_s': '#route_record_lng_s',
-        '#new_lat_d': '#route_record_lat_d',
-        '#new_lng_d': '#route_record_lng_d',
-        '#request_lat_s': '#route_record_lat_s',
-        '#request_lng_s': '#route_record_lng_s',
-        '#request_lat_d': '#route_record_lat_d',
-        '#request_lng_d': '#route_record_lng_d'
+        '#new_lat_s': '#route_lat_s',
+        '#new_lng_s': '#route_lng_s',
+        '#new_lat_d': '#route_lat_d',
+        '#new_lng_d': '#route_lng_d',
+        '#request_lat_s': '#route_lat_s',
+        '#request_lng_s': '#route_lng_s',
+        '#request_lat_d': '#route_lat_d',
+        '#request_lng_d': '#route_lng_d'
     },
 
     init: function() {
         this.bind_event();
         this.ajaxRequest('GET', '/conversations');
-        this.map_d = new bdmap("map_container");
         this.map_h = new bdmap("map_container_home", "from", "to");
-        this.filter = $("#filter_wrapper");
-        this.record_clickable();
+        this.filter = $("#filter_wrapper").detach();
+
+        // this.record_clickable();
 
         if ( document.title == "Dashboard") {
+            this.map_1 = new bdmap("map_container_1");
+            this.map_2 = new bdmap("map_container_2");
+            this.map_3 = new bdmap("map_container_3");
             F.init();
-            this.bindList("#table_mine");
-            this.manu_map();
         } else if ( document.title == "Home" ) {
-            this.filter.detach();
             var map = this.map_h;
             map.locate_me(function(point, Map) {
                 Map.getAddress(point);
@@ -195,13 +196,17 @@ var R = {
         this.ajaxRequest('GET', '/conversations');
     },
 
-    bindList: function(table) {
-        this.list = new C.Collection($(table));
+    setMap: function() {
+
+    },
+
+    bindTable: function(table) {
+        this.table = new C.Collection($(table));
         this.setFilter();
     },
 
     setFilter: function() {
-        var list = this.list;
+        var list = this.table;
         var sort_dist_s = $('#optionsRadio2').click(function() {
             list.sort_by('dist_s');
         });
@@ -214,26 +219,21 @@ var R = {
         var sort_tspan = $('#optionsRadio5').click(function() {
             list.sort_by('t_length');
         });
-    },
-
-    manu_map: function() {
-        var filter = null;
-        var map = this.map_h;
-        $("li.new_search").click(function() {
-            filter = $("#filter_wrapper").detach();
-            map.locate_me(function(point, Map) {
-                Map.getAddress(point);
-                Map.r.handleGPS(Map);
-            });
-        });
-        $("li.my_routes, li.saved_routes, li.match_requests").click($.proxy(function() {
-            if (filter) {
-                filter.prependTo(".content .tab-content");
-                filter = null;
-                this.map_d.reset();
-                this.record_clickable();
+        var ckbox_regular = $('#checkbox2').click(function() {
+            if ($(this).parent().hasClass('checked')) {
+                list.filter(function() {
+                    return true;
+                });
+            } else {
+                list.filter(function(info) {
+                    if (info['freq_single'])
+                        return true;
+                    else
+                        return false;
+                });
+                
             }
-        }, this));
+        });
     },
 
     record_clickable: function() {
@@ -248,7 +248,7 @@ var R = {
     
     updateOverlayInput: function() {
         for (var i in this.copy2overlay)
-            $(i).val($(this.copy2overlay[i]));
+            $(i).val($(this.copy2overlay[i]).val());
     },
 
     handleGPS: function(map) {
@@ -276,13 +276,13 @@ var R = {
 
         function setGPS( s, point ) {
             if ( s == "src" ) {
-                $("#route_record_lng_s").prop("value", point.lng);
-                $("#route_record_lat_s").prop("value", point.lat);
+                $("#route_lng_s").prop("value", point.lng);
+                $("#route_lat_s").prop("value", point.lat);
                 // this.data = point.lng + ":" + point.lat;
             }
             if ( s == "des") {
-                $("#route_record_lng_d").prop("value", point.lng);
-                $("#route_record_lat_d").prop("value", point.lat);
+                $("#route_lng_d").prop("value", point.lng);
+                $("#route_lat_d").prop("value", point.lat);
                 // this.data += ";" + point.lng + ":" + point.lat;
                 // $("#route_record_data").prop("value", data);
             } else {
@@ -312,7 +312,7 @@ var R = {
     },
 
     backToMyRoutes: function(){
-        this.ajaxRequest('GET', '/route_records');
+        this.ajaxRequest('GET', '/routes');
     },
 
     backToSavedRoutes: function(){
@@ -320,17 +320,23 @@ var R = {
     },
 
     bind_event: function() {
-        // var that = this;
-        // $(window).scroll(function() {
-        //     var t = $(window).scrollTop();
-        //     if(t >= 30){
-        //         $('#main_map').addClass('fixtop');
-        //     }
-        //     if (t < 30){
-        //         $('#main_map').removeClass('fixtop');
-        //     }
-        // });
+        var that = this;
+        $(window).scroll(function() {
+            var t = $(window).scrollTop();
+            if(t >= 50){
+                $('.map_left').addClass('fixtop');
+            }
+            if (t < 50){
+                $('.map_left').removeClass('fixtop');
+            }
+        });
         var self = this;
+        $("li.new_search").click(function() {
+            self.map_h.locate_me(function(point, Map) {
+                Map.getAddress(point);
+                Map.r.handleGPS(Map);
+            });
+        });
         $('#mailbox-btn').tooltip({ placement : 'right' }).click($.proxy(this.openOverlay('mailbox_sidebar_enabled'), this));
         $('.mailbox_sidebar_close').click($.proxy(this.closeOverlay('mailbox_sidebar_enabled'), this));
         $('.mailbox_sidebar_back').click($.proxy(this.backToConversations, this));
@@ -342,7 +348,6 @@ var R = {
         $('#new_search_btn').click(function() {
             $('#main_map').detach();
             self.filter.prependTo('#search_result_wrapper');
-            F.init();
             $('.search_form').removeClass('center');
         });
         $('.finishnew_overlay_close').click($.proxy(this.closeOverlay('finishnew_overlay_enabled'), this));
@@ -373,9 +378,9 @@ var bdmap = function(m, from, to){
     this.container = m;
     this.map = new BMap.Map(m);
     var initPoint = new BMap.Point(121.608477, 31.207143);
+    this.map.centerAndZoom(initPoint, 15);
     this.map.enableContinuousZoom();
     this.map.enableScrollWheelZoom();
-    this.map.centerAndZoom(initPoint, 15);
 
     this.driving = new BMap.DrivingRoute(this.map, {renderOptions:{map: this.map, autoViewport: true}});
     var traffic = new BMap.TrafficLayer();
@@ -400,9 +405,9 @@ bdmap.prototype = {
     reset: function(){
         this.map = new BMap.Map(this.container);
         var initPoint = new BMap.Point(121.608477, 31.207143);
+        this.map.centerAndZoom(initPoint, 15);
         this.map.enableContinuousZoom();
         this.map.enableScrollWheelZoom();
-        this.map.centerAndZoom(initPoint, 15);
     },
     locate_me: function(callback) {
         var that = this;
@@ -520,15 +525,16 @@ var F = {
     },
 
     init: function() {
+        var self = this;
         $("html").addClass("has-js");
 
         // First let's prepend icons (needed for effects)
-        $(".checkbox, .radio").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
+        $(".checkbox, .radio").prepend("<span class='icon'></span><span class='icon-to-fade'></span>").parent().addClass('checked');
 
-        $(".checkbox, .radio").click(function(){
-            setupLabel();
+        $(".checkbox, .radio").click(function() {
+            self.setupLabel();
         });
-        setupLabel();
+        this.setupLabel();
         $("#slider").slider({
             min: 1,
             max: 5,
