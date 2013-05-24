@@ -1,0 +1,15 @@
+= div_for(route, :class => "route_block") do
+	= render :partial => 'routes/route', :object => route
+	.route_action
+		= link_to(route_path(route), :remote => true) do
+			%button.btn.detail-btn
+				详细
+		- if current_user.requesting.include?(route)
+			= link_to requests_route_path(route, :type => 'unrequest'), :remote => true, :method => :post do
+				%button.btn.cancel-btn
+					取消
+
+		- else
+			= link_to requests_route_path(route, :type => 'request'), :remote => true, :method => :post do
+				%button.btn.send-btn
+					申请

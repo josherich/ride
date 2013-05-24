@@ -1,0 +1,50 @@
+.route_info
+	.from
+		%p
+			= route.from
+	.to
+		%p
+			= route.to
+	.set_date
+		出发日期：
+		%p
+			= route.set_date
+	.set_time
+		出发时刻：
+		%p
+			= route.set_time
+	- if route.freq_pattern == 2
+		.freq_regular
+			%p
+				周一至周五
+	- else
+		.freq_single
+			%p
+				单次线路
+	.t_length
+		%p
+			= route.timespan
+		分钟后到达
+	.price
+		座位单价：
+		%p
+			= route.price
+		/ = route.id
+	.seat_stat
+		座位情况：
+		%p
+			= seats_text(route.seat_stat)
+		.progress
+			.bar(style="width:#{seats_bar(route.seat_stat)}%")
+	.lat_s.hidden
+		%p
+			= route.lat_s
+	.lng_s.hidden
+		%p
+			= route.lng_s
+	.lat_d.hidden
+		%p
+			= route.lat_d
+	.lng_d.hidden
+		%p
+			= route.lng_d

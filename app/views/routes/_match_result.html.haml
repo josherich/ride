@@ -1,0 +1,38 @@
+%div.route_block{:id => "match_record_#{match_result.id}"}
+	- if current_user.following.include?(match_result)
+		.route_fav
+			%span.fui-heart-24
+	.route_info
+		.from
+			= match_result.from
+		.to
+			= match_result.to
+		.set_date
+			出发日期：
+			= match_result.set_date
+		.set_time
+			出发时刻：
+			= match_result.set_time
+		.t_length
+			= match_result.timespan
+			分钟后到达
+		.price
+			座位单价: 
+			= match_result.price
+		.seat_stat
+			.seat_text
+				= seats_text(match_result.seat_stat)
+			.progress
+				.bar(style="width:#{seats_bar(match_result.seat_stat)}%")
+	.route_action
+		- if current_user.requesting.include?(match_result)
+			- rel = current_user.request_relations.find_by_reqed_id(match_result.id)
+			- stat = rel.stat_id
+			- if stat == 2
+				%a(href="#" data-remote="true")
+					%button.btn.btn-success
+						已接受
+			- else
+				= render "/route_records/unsend_req", :reqed_id => match_result.id, :request_relation => rel
+		- else
+			= render "/route_records/send_req", :reqed_id => match_result.id, :request_relation => rel

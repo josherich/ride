@@ -1,0 +1,5 @@
+var content = $("<%= escape_javascript( render :partial => 'show_overlay', :object => @route, :as => :route ) %></div>");
+var target = $('#route_detail_content');
+
+$('body').addClass('route_detail_overlay_enabled');
+target.html(content);

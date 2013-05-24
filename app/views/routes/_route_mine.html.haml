@@ -1,0 +1,10 @@
+= div_for(route, :class => "route_block") do
+	= render :partial => 'routes/route', :object => route
+	.route_action
+		= link_to(requestors_route_path(route), :remote => true) do
+			%button.btn#view-btn
+				查看请求
+		= link_to(route_path(route), :method => :delete, :remote => true) do	
+			%button.btn#del-btn
+				删除
+			

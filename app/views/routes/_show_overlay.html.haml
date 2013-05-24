@@ -1,0 +1,9 @@
+.route_detail
+	= render :partial => 'routes/route', :object => route
+	.route_action
+		%a(href="/routes/#{route.id}/requestors" data-remote="true")
+			%button.btn#view-btn
+				发送到手机
+		%a(href="/routes/#{route.id}/requestors" data-remote="true")
+			%button.btn#view-btn
+				发送到邮箱

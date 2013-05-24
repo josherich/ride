@@ -1,0 +1,7 @@
+var unsend = $("<%= escape_javascript(render :partial => 'routes/unsend_req', :locals => { :route => @route }) %>");
+var send   = $("<%= escape_javascript(render :partial => 'routes/send_req',   :locals => { :route => @route }) %>");
+<% if @request %>
+	$("#route_<%= @route.id %> .route_action").html(unsend);
+<% else %>
+	$("#route_<%= @route.id %> .route_action").html(send);
+<% end %>

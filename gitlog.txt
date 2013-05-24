@@ -1,0 +1,1166 @@
+commit 58cd26408ec0eb7fcf880de0f97031639de3e8e1
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Thu May 16 19:16:27 2013 +0800
+
+    delete flatuijs
+
+ README.textile                      |   16 ------
+ app/assets/javascripts/flat-ui.js   |   90 -----------------------------------
+ app/views/home/_table_fav.html.erb  |    3 -
+ app/views/home/_table_mine.html.erb |    5 --
+ 4 files changed, 0 insertions(+), 114 deletions(-)
+
+commit 08bbd5fe99523529df2bf7374431e460b668190d
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Thu May 16 19:15:27 2013 +0800
+
+    clean up gem
+
+ Gemfile                                            |   41 ++-
+ Gemfile.lock                                       |   75 +++---
+ README.md                                          |   14 +-
+ app/assets/javascripts/homepage.js                 |   91 ++++---
+ app/controllers/home_controller.rb                 |  140 +++++-----
+ app/grape/api.rb                                   |  192 +-------------
+ app/models/user.rb                                 |    3 -
+ app/views/home/_table_fav.html.haml                |    2 +
+ app/views/home/_table_mine.html.haml               |    2 +
+ ...I-Icons-16-3dc5590f8a339802d15dc3edfa02d09c.eot |  Bin 0 -> 4640 bytes
+ ...I-Icons-16-8b54c92ee8d0881ab547682ea145d232.ttf |  Bin 0 -> 4432 bytes
+ ...I-Icons-16-a140c8faf613594ef0bd1c2814b51039.svg |  112 ++++++++
+ ...-Icons-16-d3d9a6bec9dc63fb8d17fa93128fafd2.woff |  Bin 0 -> 5700 bytes
+ ...ons-16.dev-baf0dd9e41c8e88de649dfad25c6d0f6.svg |  112 ++++++++
+ public/assets/Flat-UI-Icons-16.dev.svg             |  112 ++++++++
+ public/assets/Flat-UI-Icons-16.eot                 |  Bin 0 -> 4640 bytes
+ public/assets/Flat-UI-Icons-16.svg                 |  112 ++++++++
+ public/assets/Flat-UI-Icons-16.ttf                 |  Bin 0 -> 4432 bytes
+ public/assets/Flat-UI-Icons-16.woff                |  Bin 0 -> 5700 bytes
+ ...-Icons-24-2b834b516db933bd077ed453e494c501.woff |  Bin 0 -> 6076 bytes
+ ...I-Icons-24-2ca87ba4b82c1d2c893828d28a2b9a12.svg |  111 ++++++++
+ ...I-Icons-24-4d953a87c187fd40dc311f5e9c02f1d5.ttf |  Bin 0 -> 4520 bytes
+ ...I-Icons-24-ceaedd5f5dc0cc0872d91e040ad36579.eot |  Bin 0 -> 4728 bytes
+ ...ons-24.dev-aa73491a974438667f5c840bcdb33f12.svg |  111 ++++++++
+ public/assets/Flat-UI-Icons-24.dev.svg             |  111 ++++++++
+ public/assets/Flat-UI-Icons-24.eot                 |  Bin 0 -> 4728 bytes
+ public/assets/Flat-UI-Icons-24.svg                 |  111 ++++++++
+ public/assets/Flat-UI-Icons-24.ttf                 |  Bin 0 -> 4520 bytes
+ public/assets/Flat-UI-Icons-24.woff                |  Bin 0 -> 6076 bytes
+ ...ctive_admin-74c5a2a0ebd04577979929732488c14b.js |   43 +++
+ ...ve_admin-74c5a2a0ebd04577979929732488c14b.js.gz |  Bin 0 -> 98645 bytes
+ ...tive_admin-f6eab3903eabe26e294bb5e070593cb6.css |    1 +
+ ...e_admin-f6eab3903eabe26e294bb5e070593cb6.css.gz |  Bin 0 -> 8510 bytes
+ public/assets/active_admin.css                     |    1 +
+ public/assets/active_admin.css.gz                  |  Bin 0 -> 8301 bytes
+ public/assets/active_admin.js                      |   43 +++
+ public/assets/active_admin.js.gz                   |  Bin 0 -> 98645 bytes
+ ...notes_icon-25b05cd8197f7a271d0624853a6dbdd5.png |  Bin 0 -> 716 bytes
+ public/assets/active_admin/admin_notes_icon.png    |  Bin 0 -> 716 bytes
+ ...application-eb47a5772ba9abf0537773fee66f3132.js |    1 +
+ ...lication-eb47a5772ba9abf0537773fee66f3132.js.gz |  Bin 0 -> 1876 bytes
+ public/assets/active_admin/application.js          |    1 +
+ public/assets/active_admin/application.js.gz       |  Bin 0 -> 1876 bytes
+ ...-header-bg-6f0baad739953cb1a0413c031841e82f.png |  Bin 0 -> 1701 bytes
+ .../datepicker/datepicker-header-bg.png            |  Bin 0 -> 1701 bytes
+ ...input-icon-bfc0a6280a9bd52aa0048bda40a86ee2.png |  Bin 0 -> 1535 bytes
+ .../datepicker/datepicker-input-icon.png           |  Bin 0 -> 1535 bytes
+ ...-link-icon-0756e7b9d67c9ce07d8a73f05ad61fb2.png |  Bin 0 -> 1006 bytes
+ .../datepicker/datepicker-next-link-icon.png       |  Bin 0 -> 1006 bytes
+ ...ker-nipple-73672a71500080abed562eea4fee1f6a.png |  Bin 0 -> 1224 bytes
+ .../active_admin/datepicker/datepicker-nipple.png  |  Bin 0 -> 1224 bytes
+ ...-link-icon-a4db9262208d627eebe731826a9099c1.png |  Bin 0 -> 1004 bytes
+ .../datepicker/datepicker-prev-link-icon.png       |  Bin 0 -> 1004 bytes
+ ...block_icon-7b657421bc1a7f1b31529ac247a63150.svg |   10 +
+ .../active_admin/index_list_icons/block_icon.svg   |   10 +
+ .../blog_icon-b53006e07d079249dcc542247f90d634.svg |    4 +
+ .../active_admin/index_list_icons/blog_icon.svg    |    4 +
+ .../grid_icon-00e5c0a80ea6587d477a2233f8cc589a.svg |   13 +
+ .../active_admin/index_list_icons/grid_icon.svg    |   13 +
+ ...table_icon-9ab72523155bd633bddc022d0a53cff6.svg |    3 +
+ .../active_admin/index_list_icons/table_icon.svg   |    3 +
+ .../loading-09c1d6a0d3ba93d837f19a6f0fe13723.gif   |  Bin 0 -> 2079 bytes
+ public/assets/active_admin/loading.gif             |  Bin 0 -> 2079 bytes
+ ...menu_arrow-c4b3e54f9fb9b11993a2801e8ae15ae3.gif |  Bin 0 -> 70 bytes
+ public/assets/active_admin/nested_menu_arrow.gif   |  Bin 0 -> 70 bytes
+ ...arrow_dark-049c0831c99b0c5af34bb95d30ba8174.gif |  Bin 0 -> 70 bytes
+ .../assets/active_admin/nested_menu_arrow_dark.gif |  Bin 0 -> 70 bytes
+ .../orderable-10610e1e8f0057c16f178b54cc4d9631.png |  Bin 0 -> 220 bytes
+ public/assets/active_admin/orderable.png           |  Bin 0 -> 220 bytes
+ ...application-876355994e28feb41d57e689ad61f443.js |    1 +
+ ...lication-876355994e28feb41d57e689ad61f443.js.gz |  Bin 0 -> 244 bytes
+ public/assets/active_admin/pages/application.js    |    1 +
+ public/assets/active_admin/pages/application.js.gz |  Bin 0 -> 244 bytes
+ .../print-e2186aeecceb677443527e791ac876ed.css     |    1 +
+ .../print-e2186aeecceb677443527e791ac876ed.css.gz  |  Bin 0 -> 1882 bytes
+ public/assets/active_admin/print.css               |    1 +
+ public/assets/active_admin/print.css.gz            |  Bin 0 -> 1882 bytes
+ ...application-1603fc871af45344aa07744964c3f74d.js |  298 ++++++++++++++++++++
+ ...lication-1603fc871af45344aa07744964c3f74d.js.gz |  Bin 0 -> 130468 bytes
+ ...pplication-2f32067fa2521206e84a71efa0d957f3.css |    1 +
+ ...ication-2f32067fa2521206e84a71efa0d957f3.css.gz |  Bin 0 -> 39281 bytes
+ public/assets/application.css                      |    1 +
+ public/assets/application.css.gz                   |  Bin 0 -> 38942 bytes
+ public/assets/application.js                       |  298 ++++++++++++++++++++
+ public/assets/application.js.gz                    |  Bin 0 -> 130468 bytes
+ .../checkbox-0ad940edb7ea9be012faffb674eca35e.png  |  Bin 0 -> 1792 bytes
+ public/assets/checkbox.png                         |  Bin 0 -> 1792 bytes
+ .../favicon-1308b88429562a4f44a03246eb1af0bd.ico   |  Bin 0 -> 932 bytes
+ public/assets/favicon.ico                          |  Bin 0 -> 932 bytes
+ ...-halflings-2851b489e8c39f8fad44fc10efb99c3e.png |  Bin 0 -> 12799 bytes
+ ...ings-white-6cccd17a7aed91dbc0157d343c68c0d9.png |  Bin 0 -> 8777 bytes
+ public/assets/glyphicons-halflings-white.png       |  Bin 0 -> 8777 bytes
+ public/assets/glyphicons-halflings.png             |  Bin 0 -> 12799 bytes
+ ...jquery.min-6c267bfd2b3f36e6edccb2e584934c1c.map |    1 +
+ public/assets/jquery.min.map                       |    1 +
+ ...oginbtn_03-e295471fb769c0ef0e0901a5de7b9725.png |  Bin 0 -> 3227 bytes
+ public/assets/loginbtn_03.png                      |  Bin 0 -> 3227 bytes
+ ...oginbtn_04-667748dae51e53907fdf900e4bb3883c.png |  Bin 0 -> 2141 bytes
+ public/assets/loginbtn_04.png                      |  Bin 0 -> 2141 bytes
+ public/assets/manifest.yml                         |  109 +++++++
+ .../map-d7be0566b8fb77859803f8c7e7189060.png       |  Bin 0 -> 11549 bytes
+ public/assets/map.png                              |  Bin 0 -> 11549 bytes
+ .../radio-916b4ca97203608e0584ee554127c415.png     |  Bin 0 -> 2273 bytes
+ public/assets/radio.png                            |  Bin 0 -> 2273 bytes
+ .../rails-a3386665c05a2d82f711a4aaa72d247c.png     |  Bin 0 -> 6646 bytes
+ public/assets/rails.png                            |  Bin 0 -> 6646 bytes
+ .../done-2x-4dc749203a385779b62eaed6c27e497d.png   |  Bin 0 -> 1700 bytes
+ public/assets/todo/done-2x.png                     |  Bin 0 -> 1700 bytes
+ .../todo/done-ca2d738ddf508879d1db507ba4652dc8.png |  Bin 0 -> 1293 bytes
+ public/assets/todo/done.png                        |  Bin 0 -> 1293 bytes
+ .../search-2x-6e78d64369a80886b060f48a902984e2.png |  Bin 0 -> 1522 bytes
+ public/assets/todo/search-2x.png                   |  Bin 0 -> 1522 bytes
+ .../search-d6012d0374beb0f30ed34ae4c57faec3.png    |  Bin 0 -> 1213 bytes
+ public/assets/todo/search.png                      |  Bin 0 -> 1213 bytes
+ .../todo-2x-beb520843a1cb257891f1ce598256315.png   |  Bin 0 -> 1401 bytes
+ public/assets/todo/todo-2x.png                     |  Bin 0 -> 1401 bytes
+ .../todo/todo-be8cb281faf02f84189435c2d2b6683c.png |  Bin 0 -> 1134 bytes
+ public/assets/todo/todo.png                        |  Bin 0 -> 1134 bytes
+ .../block-off-1de5959d435085bc1a9648e0bc1bad48.png |  Bin 0 -> 961 bytes
+ public/assets/toggle/block-off.png                 |  Bin 0 -> 961 bytes
+ .../block-on-27c2a45af8eb0706bc8342963c848ed1.png  |  Bin 0 -> 954 bytes
+ public/assets/toggle/block-on.png                  |  Bin 0 -> 954 bytes
+ ...con-off-2x-9284c6b3f008592e148b9c64052a7ca1.png |  Bin 0 -> 1516 bytes
+ public/assets/toggle/icon-off-2x.png               |  Bin 0 -> 1516 bytes
+ .../icon-off-bfd51155a641038b99f29a4547582cdc.png  |  Bin 0 -> 1254 bytes
+ public/assets/toggle/icon-off.png                  |  Bin 0 -> 1254 bytes
+ ...icon-on-2x-189093103f9b44d09de95caeab1a246e.png |  Bin 0 -> 1610 bytes
+ public/assets/toggle/icon-on-2x.png                |  Bin 0 -> 1610 bytes
+ .../icon-on-5152e6717948b7cb511a35b11936e5f0.png   |  Bin 0 -> 1268 bytes
+ public/assets/toggle/icon-on.png                   |  Bin 0 -> 1268 bytes
+ .../wavegrid-75655454a9ab86b5734217d5a492f623.png  |  Bin 0 -> 1592 bytes
+ public/assets/wavegrid.png                         |  Bin 0 -> 1592 bytes
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ spec/factories/users.rb                            |    9 +-
+ 134 files changed, 1953 insertions(+), 373 deletions(-)
+
+commit 839839876a520a9d204456f0043c8e8723bc3553
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Tue May 14 09:14:26 2013 +0800
+
+    deploy settings
+
+ README.md                              |   14 ++++----------
+ app/assets/javascripts/application.js  |    1 -
+ app/views/layouts/application.html.erb |    1 -
+ config/application.rb                  |    2 +-
+ 4 files changed, 5 insertions(+), 13 deletions(-)
+
+commit 7fd39f653999b5b1db0d31054fee093654ce9747
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon May 13 22:37:29 2013 +0800
+
+    route detail overlay
+
+ app/assets/javascripts/homepage.js                 |  190 +++++++++++++++-----
+ app/assets/stylesheets/custom.scss                 |   59 +++----
+ app/controllers/home_controller.rb                 |    2 +-
+ app/controllers/route_records_controller.rb        |    4 +-
+ app/views/home/_search_view.html.haml              |    3 -
+ app/views/home/_settings.html.haml                 |    1 +
+ app/views/home/dashboard.html.haml                 |    4 +-
+ app/views/home/index.html.erb                      |    5 -
+ app/views/home/index.html.haml                     |    9 +
+ app/views/layouts/_finish_new.html.haml            |   87 ---------
+ app/views/layouts/application.html.erb             |    8 +-
+ .../route_records/_route_search_results.html.haml  |   37 +++-
+ app/views/route_records/_show_overlay.html.haml    |   49 +++++
+ app/views/route_records/search.js.erb              |    6 +-
+ app/views/route_records/show.js.erb                |   10 +-
+ app/views/shared/_filter_panel.html.haml           |    1 -
+ app/views/shared/_finish_new.html.haml             |   87 +++++++++
+ app/views/shared/_route_record_detail.html.erb     |   15 --
+ app/views/shared/_route_record_detail.html.haml    |    4 +
+ app/views/shared/_search_view.html.haml            |    5 +
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ 21 files changed, 373 insertions(+), 215 deletions(-)
+
+commit 7eb158588a075dd26010e34399c9ff560ed6a54f
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon May 13 12:51:14 2013 +0800
+
+    request relation is user to route
+
+ Gemfile                                            |    3 +-
+ Gemfile.lock                                       |   22 ++
+ README.md                                          |   22 ++
+ README.textile                                     |   14 +-
+ app/assets/javascripts/homepage.js                 |   74 ++++---
+ app/assets/stylesheets/application.css.scss        |    1 +
+ app/assets/stylesheets/custom.scss                 |   80 +++++--
+ app/controllers/conversations_controller.rb        |    1 +
+ app/controllers/home_controller.rb                 |  137 ++++++------
+ app/controllers/registrations_controller.rb        |    2 +-
+ app/controllers/request_relations_controller.rb    |   63 ++----
+ app/controllers/route_records_controller.rb        |    7 +
+ app/grape/api.rb                                   |  223 ++++++++++++++++++++
+ app/models/match_request.rb                        |   29 +--
+ app/models/request_relation.rb                     |   13 +-
+ app/models/user.rb                                 |    6 +
+ app/models/vehicle.rb                              |    3 +
+ app/views/conversations/_notifications.html.haml   |    8 +
+ app/views/conversations/index.js.erb               |    1 +
+ app/views/home/dashboard.html.haml                 |    5 +-
+ app/views/home/index.html.erb                      |    8 +-
+ app/views/layouts/_finish_new.html.haml            |   70 +++----
+ app/views/layouts/_mailbox.html.erb                |   17 +-
+ app/views/layouts/application.html.erb             |   12 +-
+ app/views/match_requests/_cancel_req.html.haml     |   13 --
+ app/views/match_requests/_match_request.html.haml  |    2 +-
+ app/views/match_requests/_match_result.html.haml   |   45 ----
+ app/views/match_requests/_send_req.html.haml       |   11 -
+ app/views/match_requests/_sent_req.html.haml       |    5 -
+ app/views/match_requests/_show.html.erb            |    2 +-
+ app/views/request_relations/accept.js.erb          |   21 +--
+ app/views/request_relations/create.js.erb          |    5 +-
+ app/views/request_relations/destroy.js.erb         |    4 +-
+ app/views/request_relations/unaccept.js.erb        |    3 +
+ app/views/route_records/_match_result.html.haml    |   38 ++++
+ app/views/route_records/_route_fav.html.haml       |    4 +-
+ app/views/route_records/_route_record.html.haml    |    7 +-
+ .../route_records/_route_search_results.html.haml  |    9 +-
+ app/views/route_records/_send_req.html.haml        |    5 +
+ app/views/route_records/_unsend_req.html.haml      |    5 +
+ app/views/route_records/index.js.erb               |    1 -
+ app/views/route_records/requestors.js.erb          |    5 +
+ app/views/route_records/show.html.erb              |   19 --
+ app/views/route_records/show.html.haml             |   49 +++++
+ app/views/route_records/show.js.erb                |    4 +-
+ app/views/shared/_filter_panel.html.haml           |   14 --
+ app/views/shared/_search_form.html.haml            |    2 +-
+ app/views/users/_accept.html.haml                  |    5 +
+ app/views/users/_form.html.erb                     |   12 +-
+ app/views/users/_requestors.html.haml              |   20 ++
+ app/views/users/_unaccept.html.haml                |    5 +
+ app/workers/match_route_record.rb                  |   44 +++--
+ config/initializers/mailboxer.rb                   |    2 +-
+ config/routes.rb                                   |    5 +-
+ db/migrate/20130511071757_create_vehicles.rb       |   16 ++
+ db/schema.rb                                       |   17 ++-
+ solr/data/development/index/_h.fdt                 |  Bin 0 -> 22 bytes
+ solr/data/development/index/_h.fdx                 |  Bin 0 -> 12 bytes
+ solr/data/development/index/_h.fnm                 |    2 +
+ solr/data/development/index/_h.frq                 |  Bin 0 -> 69 bytes
+ solr/data/development/index/_h.nrm                 |    1 +
+ solr/data/development/index/_h.prx                 |  Bin 0 -> 69 bytes
+ solr/data/development/index/_h.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_h.tis                 |  Bin 0 -> 817 bytes
+ solr/data/development/index/_i.fdt                 |  Bin 0 -> 22 bytes
+ solr/data/development/index/_i.fdx                 |  Bin 0 -> 12 bytes
+ solr/data/development/index/_i.fnm                 |    2 +
+ solr/data/development/index/_i.frq                 |  Bin 0 -> 70 bytes
+ solr/data/development/index/_i.nrm                 |    1 +
+ solr/data/development/index/_i.prx                 |  Bin 0 -> 70 bytes
+ solr/data/development/index/_i.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_i.tis                 |  Bin 0 -> 814 bytes
+ solr/data/development/index/_j.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_j.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_j.fnm                 |    2 +
+ solr/data/development/index/_j.frq                 |  Bin 0 -> 134 bytes
+ solr/data/development/index/_j.nrm                 |    1 +
+ solr/data/development/index/_j.prx                 |  Bin 0 -> 134 bytes
+ solr/data/development/index/_j.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_j.tis                 |  Bin 0 -> 797 bytes
+ solr/data/development/index/_j_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/segments.gen           |  Bin 20 -> 20 bytes
+ solr/data/development/index/segments_l             |  Bin 0 -> 888 bytes
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ spec/factories/vehicles.rb                         |    6 +
+ spec/models/vehicle_spec.rb                        |    5 +
+ 86 files changed, 814 insertions(+), 428 deletions(-)
+
+commit 6b1ee69b711a0f1c629d6518899931473d391fdc
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Thu May 9 16:42:46 2013 +0800
+
+    mailbox ui
+
+ app/assets/javascripts/homepage.js                 |   80 +++++----
+ app/assets/stylesheets/application.css.scss        |    1 -
+ app/assets/stylesheets/custom.scss                 |  184 +++++++++++++-------
+ app/controllers/home_controller.rb                 |   72 ++++----
+ app/views/conversations/_index.html.erb            |   36 +---
+ app/views/conversations/_lastmessage.html.erb      |   10 +-
+ app/views/conversations/_show.html.erb             |   38 ++---
+ app/views/conversations/index.js.erb               |    2 +-
+ app/views/conversations/reply.js.erb               |    2 +-
+ app/views/conversations/show.js.erb                |    2 +-
+ app/views/conversations/update.js.erb              |    2 +-
+ app/views/home/dashboard.html.haml                 |    6 +-
+ app/views/layouts/_mailbox.html.erb                |   31 ++--
+ app/views/layouts/application.html.erb             |    1 -
+ app/views/route_records/_route_record.html.haml    |   32 +++--
+ app/views/shared/_filter_panel.html.haml           |    4 +-
+ solr/data/development/index/_f.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_f.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_f.fnm                 |    2 -
+ solr/data/development/index/_f.frq                 |  Bin 140 -> 0 bytes
+ solr/data/development/index/_f.nrm                 |    1 -
+ solr/data/development/index/_f.prx                 |  Bin 140 -> 0 bytes
+ solr/data/development/index/_f.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_f.tis                 |  Bin 814 -> 0 bytes
+ solr/data/development/index/_f_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_g.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_g.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_g.fnm                 |    2 -
+ solr/data/development/index/_g.frq                 |  Bin 138 -> 0 bytes
+ solr/data/development/index/_g.nrm                 |    1 -
+ solr/data/development/index/_g.prx                 |  Bin 138 -> 0 bytes
+ solr/data/development/index/_g.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_g.tis                 |  Bin 817 -> 0 bytes
+ solr/data/development/index/_g_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/segments.gen           |  Bin 20 -> 20 bytes
+ solr/data/development/index/segments_i             |  Bin 674 -> 0 bytes
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ 37 files changed, 271 insertions(+), 240 deletions(-)
+
+commit 27ac35abc5e75c159b793f35e63f5696c8cff960
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Thu May 9 00:41:37 2013 +0800
+
+    polish UI and btns
+
+ README                                             |   35 +-
+ README.textile                                     |  102 +-
+ app/assets/fonts/Flat-UI-Icons-16.dev.svg          |  112 +
+ app/assets/fonts/Flat-UI-Icons-16.eot              |  Bin 0 -> 4640 bytes
+ app/assets/fonts/Flat-UI-Icons-16.svg              |  112 +
+ app/assets/fonts/Flat-UI-Icons-16.ttf              |  Bin 0 -> 4432 bytes
+ app/assets/fonts/Flat-UI-Icons-16.woff             |  Bin 0 -> 5700 bytes
+ app/assets/fonts/Flat-UI-Icons-24.dev.svg          |  111 +
+ app/assets/fonts/Flat-UI-Icons-24.eot              |  Bin 0 -> 4728 bytes
+ app/assets/fonts/Flat-UI-Icons-24.svg              |  111 +
+ app/assets/fonts/Flat-UI-Icons-24.ttf              |  Bin 0 -> 4520 bytes
+ app/assets/fonts/Flat-UI-Icons-24.woff             |  Bin 0 -> 6076 bytes
+ app/assets/images/checkbox.png                     |  Bin 0 -> 1792 bytes
+ app/assets/images/favicon.ico                      |  Bin 0 -> 932 bytes
+ app/assets/images/map.png                          |  Bin 0 -> 11549 bytes
+ app/assets/images/todo/done-2x.png                 |  Bin 0 -> 1700 bytes
+ app/assets/images/todo/done.png                    |  Bin 0 -> 1293 bytes
+ app/assets/images/todo/search-2x.png               |  Bin 0 -> 1522 bytes
+ app/assets/images/todo/search.png                  |  Bin 0 -> 1213 bytes
+ app/assets/images/todo/todo-2x.png                 |  Bin 0 -> 1401 bytes
+ app/assets/images/todo/todo.png                    |  Bin 0 -> 1134 bytes
+ app/assets/images/toggle/block-off.png             |  Bin 0 -> 961 bytes
+ app/assets/images/toggle/block-on.png              |  Bin 0 -> 954 bytes
+ app/assets/images/toggle/icon-off-2x.png           |  Bin 0 -> 1516 bytes
+ app/assets/images/toggle/icon-off.png              |  Bin 0 -> 1254 bytes
+ app/assets/images/toggle/icon-on-2x.png            |  Bin 0 -> 1610 bytes
+ app/assets/images/toggle/icon-on.png               |  Bin 0 -> 1268 bytes
+ app/assets/javascripts/homepage.js                 |  415 +++-
+ app/assets/stylesheets/custom.scss                 |   19 +-
+ app/assets/stylesheets/flat-ui.css                 | 2533 --------------------
+ app/assets/stylesheets/flat-ui.css.scss            | 2533 ++++++++++++++++++++
+ app/controllers/home_controller.rb                 |   22 +-
+ app/controllers/match_requests_controller.rb       |    1 +
+ app/controllers/registrations_controller.rb        |    5 +
+ app/controllers/request_relations_controller.rb    |   51 +-
+ app/controllers/route_records_controller.rb        |   52 +-
+ app/helpers/match_requests_helper.rb               |   19 +
+ app/models/match_request.rb                        |    8 +-
+ app/models/request_relation.rb                     |    2 +-
+ app/models/route_record.rb                         |   12 +-
+ app/models/user.rb                                 |    4 +-
+ app/views/home/_search_view.html.haml              |    3 +
+ app/views/home/_table_fav.html.erb                 |    2 +-
+ app/views/home/dashboard.html.haml                 |   21 +-
+ app/views/home/index.html.erb                      |    2 +-
+ app/views/layouts/_dashboard.html.haml             |    4 +-
+ app/views/layouts/_finish_new.html.haml            |    9 +-
+ app/views/layouts/_header.html.erb                 |    2 +-
+ app/views/layouts/_mailbox.html.erb                |    4 +-
+ app/views/match_requests/_cancel_req.html.haml     |   13 +
+ app/views/match_requests/_match_request.html.haml  |   19 +-
+ .../match_requests/_match_requests_chart.html.haml |   17 +
+ app/views/match_requests/_match_result.html.erb    |   17 -
+ app/views/match_requests/_match_result.html.haml   |   45 +
+ app/views/match_requests/_send_req.html.haml       |   11 +
+ app/views/match_requests/_sent_req.html.haml       |    5 +
+ app/views/match_requests/_show.html.erb            |   17 +-
+ app/views/match_requests/_unfold_list.html.haml    |   19 +-
+ app/views/match_requests/index.js.erb              |    2 +-
+ app/views/request_relations/create.js.erb          |    2 +-
+ app/views/request_relations/destroy.js.erb         |    2 +-
+ app/views/route_records/_cancel_req.html.erb       |    3 -
+ app/views/route_records/_route_fav.html.haml       |   31 +
+ app/views/route_records/_route_record.html.haml    |   11 +-
+ .../route_records/_route_record_chart.html.haml    |   17 +
+ .../route_records/_route_search_results.html.haml  |   31 +
+ app/views/route_records/_send_req.html.erb         |    5 -
+ app/views/route_records/index.html.erb             |   20 +-
+ app/views/route_records/index.js.erb               |    3 +-
+ app/views/route_records/index.json.rabl            |    4 +-
+ app/views/route_records/search.js.erb              |    2 +
+ app/views/shared/_filter_panel.html.haml           |   50 +-
+ app/views/shared/_search_form.html.haml            |    5 +-
+ app/views/shared/_time_chart.html.haml             |   10 +
+ config/environments/development.rb                 |    2 +
+ config/initializers/devise.rb                      |    2 +-
+ ...501144345_add_accept_id_to_request_relations.rb |    5 +
+ ...503160207_add_token_authenticatable_to_users.rb |    5 +
+ db/schema.rb                                       |   24 +-
+ solr/data/development/index/_6.fdt                 |  Bin 72 -> 0 bytes
+ solr/data/development/index/_6.fdx                 |  Bin 36 -> 0 bytes
+ solr/data/development/index/_6.fnm                 |    2 -
+ solr/data/development/index/_6.frq                 |  Bin 191 -> 0 bytes
+ solr/data/development/index/_6.nrm                 |    1 -
+ solr/data/development/index/_6.prx                 |  Bin 191 -> 0 bytes
+ solr/data/development/index/_6.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_6.tis                 |  Bin 1011 -> 0 bytes
+ solr/data/development/index/_7.fdt                 |  Bin 38 -> 0 bytes
+ solr/data/development/index/_7.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_7.fnm                 |    2 -
+ solr/data/development/index/_7.frq                 |    1 -
+ solr/data/development/index/_7.nrm                 |    1 -
+ solr/data/development/index/_7.prx                 |  Bin 90 -> 0 bytes
+ solr/data/development/index/_7.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_7.tis                 |  Bin 559 -> 0 bytes
+ solr/data/development/index/_7_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_8.fdt                 |  Bin 38 -> 0 bytes
+ solr/data/development/index/_8.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_8.fnm                 |    2 -
+ solr/data/development/index/_8.frq                 |    1 -
+ solr/data/development/index/_8.nrm                 |    1 -
+ solr/data/development/index/_8.prx                 |  Bin 88 -> 0 bytes
+ solr/data/development/index/_8.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_8.tis                 |  Bin 549 -> 0 bytes
+ solr/data/development/index/_8_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_9.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_9.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_9.fnm                 |    2 -
+ solr/data/development/index/_9.frq                 |    1 -
+ solr/data/development/index/_9.nrm                 |    1 -
+ solr/data/development/index/_9.prx                 |  Bin 102 -> 0 bytes
+ solr/data/development/index/_9.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_9.tis                 |  Bin 606 -> 0 bytes
+ solr/data/development/index/_9_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_a.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_a.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_a.fnm                 |    2 -
+ solr/data/development/index/_a.frq                 |  Bin 98 -> 0 bytes
+ solr/data/development/index/_a.nrm                 |    1 -
+ solr/data/development/index/_a.prx                 |  Bin 98 -> 0 bytes
+ solr/data/development/index/_a.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_a.tis                 |  Bin 570 -> 0 bytes
+ solr/data/development/index/_a_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_b.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_b.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_b.fnm                 |    2 -
+ solr/data/development/index/_b.frq                 |  Bin 98 -> 0 bytes
+ solr/data/development/index/_b.nrm                 |    1 -
+ solr/data/development/index/_b.prx                 |  Bin 98 -> 0 bytes
+ solr/data/development/index/_b.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_b.tis                 |  Bin 574 -> 0 bytes
+ solr/data/development/index/_b_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_c.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_c.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_c.fnm                 |    2 -
+ solr/data/development/index/_c.frq                 |  Bin 116 -> 0 bytes
+ solr/data/development/index/_c.nrm                 |    1 -
+ solr/data/development/index/_c.prx                 |  Bin 116 -> 0 bytes
+ solr/data/development/index/_c.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_c.tis                 |  Bin 602 -> 0 bytes
+ solr/data/development/index/_c_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_d.fdt                 |  Bin 40 -> 0 bytes
+ solr/data/development/index/_d.fdx                 |  Bin 20 -> 0 bytes
+ solr/data/development/index/_d.fnm                 |    2 -
+ solr/data/development/index/_d.frq                 |  Bin 108 -> 0 bytes
+ solr/data/development/index/_d.nrm                 |    1 -
+ solr/data/development/index/_d.prx                 |  Bin 108 -> 0 bytes
+ solr/data/development/index/_d.tii                 |  Bin 35 -> 0 bytes
+ solr/data/development/index/_d.tis                 |  Bin 616 -> 0 bytes
+ solr/data/development/index/_d_1.del               |  Bin 31 -> 0 bytes
+ solr/data/development/index/_e.fdt                 |  Bin 0 -> 74 bytes
+ solr/data/development/index/_e.fdx                 |  Bin 0 -> 36 bytes
+ solr/data/development/index/_e.fnm                 |    2 +
+ solr/data/development/index/_e.frq                 |  Bin 0 -> 263 bytes
+ solr/data/development/index/_e.nrm                 |    1 +
+ solr/data/development/index/_e.prx                 |  Bin 0 -> 263 bytes
+ solr/data/development/index/_e.tii                 |  Bin 0 -> 48 bytes
+ solr/data/development/index/_e.tis                 |  Bin 0 -> 1610 bytes
+ solr/data/development/index/_f.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_f.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_f.fnm                 |    2 +
+ solr/data/development/index/_f.frq                 |  Bin 0 -> 140 bytes
+ solr/data/development/index/_f.nrm                 |    1 +
+ solr/data/development/index/_f.prx                 |  Bin 0 -> 140 bytes
+ solr/data/development/index/_f.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_f.tis                 |  Bin 0 -> 814 bytes
+ solr/data/development/index/_f_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_g.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_g.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_g.fnm                 |    2 +
+ solr/data/development/index/_g.frq                 |  Bin 0 -> 138 bytes
+ solr/data/development/index/_g.nrm                 |    1 +
+ solr/data/development/index/_g.prx                 |  Bin 0 -> 138 bytes
+ solr/data/development/index/_g.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_g.tis                 |  Bin 0 -> 817 bytes
+ solr/data/development/index/_g_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/segments.gen           |  Bin 20 -> 20 bytes
+ solr/data/development/index/segments_f             |  Bin 1744 -> 0 bytes
+ solr/data/development/index/segments_i             |  Bin 0 -> 674 bytes
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ 180 files changed, 3770 insertions(+), 2973 deletions(-)
+
+commit e4088a1a89957adc41187f150bde310e1c8eda1e
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Tue Apr 30 16:58:30 2013 +0800
+
+    clean up depr files
+
+ app/assets/javascripts/route_records.js.coffee |    3 --
+ app/views/home/_table.html.erb                 |   20 ----------------
+ app/views/home/_table_match.html.erb           |   29 ------------------------
+ app/views/route_records/_route_record.html.erb |   21 -----------------
+ solr/data/development/index/_0.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_0.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_0.fnm             |    2 -
+ solr/data/development/index/_0.frq             |  Bin 98 -> 0 bytes
+ solr/data/development/index/_0.nrm             |    1 -
+ solr/data/development/index/_0.prx             |  Bin 98 -> 0 bytes
+ solr/data/development/index/_0.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_0.tis             |  Bin 573 -> 0 bytes
+ solr/data/development/index/_0_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/_1.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_1.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_1.fnm             |    2 -
+ solr/data/development/index/_1.frq             |  Bin 102 -> 0 bytes
+ solr/data/development/index/_1.nrm             |    1 -
+ solr/data/development/index/_1.prx             |  Bin 102 -> 0 bytes
+ solr/data/development/index/_1.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_1.tis             |  Bin 590 -> 0 bytes
+ solr/data/development/index/_1_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/_2.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_2.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_2.fnm             |    2 -
+ solr/data/development/index/_2.frq             |    1 -
+ solr/data/development/index/_2.nrm             |    1 -
+ solr/data/development/index/_2.prx             |  Bin 88 -> 0 bytes
+ solr/data/development/index/_2.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_2.tis             |  Bin 550 -> 0 bytes
+ solr/data/development/index/_2_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/_3.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_3.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_3.fnm             |    2 -
+ solr/data/development/index/_3.frq             |    1 -
+ solr/data/development/index/_3.nrm             |    1 -
+ solr/data/development/index/_3.prx             |  Bin 94 -> 0 bytes
+ solr/data/development/index/_3.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_3.tis             |  Bin 578 -> 0 bytes
+ solr/data/development/index/_3_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/_4.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_4.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_4.fnm             |    2 -
+ solr/data/development/index/_4.frq             |  Bin 98 -> 0 bytes
+ solr/data/development/index/_4.nrm             |    1 -
+ solr/data/development/index/_4.prx             |  Bin 98 -> 0 bytes
+ solr/data/development/index/_4.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_4.tis             |  Bin 510 -> 0 bytes
+ solr/data/development/index/_4_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/_5.fdt             |  Bin 38 -> 0 bytes
+ solr/data/development/index/_5.fdx             |  Bin 20 -> 0 bytes
+ solr/data/development/index/_5.fnm             |    2 -
+ solr/data/development/index/_5.frq             |  Bin 110 -> 0 bytes
+ solr/data/development/index/_5.nrm             |    1 -
+ solr/data/development/index/_5.prx             |  Bin 110 -> 0 bytes
+ solr/data/development/index/_5.tii             |  Bin 35 -> 0 bytes
+ solr/data/development/index/_5.tis             |  Bin 627 -> 0 bytes
+ solr/data/development/index/_5_1.del           |  Bin 31 -> 0 bytes
+ solr/data/development/index/segments_7         |  Bin 1316 -> 0 bytes
+ solr/data/development/index/segments_8         |  Bin 246 -> 0 bytes
+ 60 files changed, 0 insertions(+), 93 deletions(-)
+
+commit e5c630998f7fe5fc63e96633219b3ab6543157a4
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Tue Apr 30 16:58:02 2013 +0800
+
+    clean up view and UI
+
+ Gemfile                                            |    7 +-
+ Gemfile.lock                                       |   61 +
+ README                                             |   35 +-
+ app/admin/admin_user.rb                            |   20 +
+ app/admin/dashboard.rb                             |   33 +
+ app/admin/fav_relations.rb                         |    3 +
+ app/admin/match_relations.rb                       |    3 +
+ app/admin/match_requests.rb                        |    3 +
+ app/admin/request_relations.rb                     |    3 +
+ app/admin/route_records.rb                         |    3 +
+ app/admin/users.rb                                 |    3 +
+ app/assets/images/radio.png                        |  Bin 0 -> 2273 bytes
+ app/assets/javascripts/active_admin.js             |    1 +
+ app/assets/javascripts/application.js              |    1 +
+ app/assets/javascripts/flat-ui.js                  |   90 +
+ app/assets/javascripts/homepage.js                 |   54 +-
+ app/assets/javascripts/jquery-ui-1.10.2.custom.js  | 4163 ++++++++++++++++++++
+ app/assets/javascripts/jquery.tagsinput.js         |  354 ++
+ app/assets/javascripts/route_records.js            |   13 +
+ app/assets/stylesheets/active_admin.css.scss       |   29 +
+ app/assets/stylesheets/application.css.scss        |   19 +-
+ app/assets/stylesheets/custom.scss                 |  209 +-
+ app/assets/stylesheets/flat-ui.css                 | 2533 ++++++++++++
+ app/assets/stylesheets/typo.css                    |  259 ++
+ app/controllers/home_controller.rb                 |   64 +-
+ app/controllers/request_relations_controller.rb    |   33 +
+ app/controllers/route_records_controller.rb        |   19 +-
+ app/helpers/application_helper.rb                  |   17 +
+ app/helpers/request_relations_helper.rb            |    3 +
+ app/helpers/route_records_helper.rb                |   17 +
+ app/models/admin_user.rb                           |   11 +
+ app/models/request_relation.rb                     |    1 +
+ app/views/conversations/reply.js.erb               |    2 +-
+ app/views/conversations/update.js.erb              |    2 +-
+ app/views/home/_table_fav.html.erb                 |   25 +-
+ app/views/home/_table_match.html.haml              |    2 +
+ app/views/home/_table_mine.html.erb                |    5 +
+ app/views/home/dashboard.html.haml                 |   53 +-
+ app/views/home/index.html.erb                      |    2 +-
+ app/views/layouts/_finish_new.html.haml            |    2 +-
+ app/views/layouts/application.html.erb             |    5 +-
+ app/views/match_requests/_match_request.html.haml  |   25 +
+ app/views/match_requests/_unfold_list.html.haml    |   37 +
+ app/views/match_requests/index.js.erb              |    3 +-
+ app/views/match_requests/show.js.erb               |    4 +-
+ app/views/request_relations/accept.js.erb          |   18 +
+ app/views/route_records/_follow.html.erb           |    2 +-
+ app/views/route_records/_route_record.html.haml    |   31 +
+ app/views/route_records/_unfollow.html.erb         |    2 +-
+ app/views/route_records/index.js.erb               |    2 +
+ app/views/route_records/show.js.erb                |    8 +-
+ app/views/shared/_filter_panel.html.haml           |   33 +
+ app/views/shared/_search_panel.html.haml           |   16 +
+ .../sync/route_records/_route_record.html.erb      |   19 +
+ app/workers/match_route_record.rb                  |    2 +-
+ app/workers/route_record_crawler.rb                |   57 +
+ config/application.rb                              |    5 +
+ config/initializers/active_admin.rb                |  210 +
+ config/initializers/kaminari.rb                    |    3 +
+ config/routes.rb                                   |   18 +-
+ config/sync.yml                                    |   27 +
+ .../20130425032803_devise_create_admin_users.rb    |   52 +
+ db/migrate/20130425032814_create_admin_notes.rb    |   17 +
+ .../20130425032815_move_admin_notes_to_comments.rb |   26 +
+ db/migrate/20130428115729_change_seat_stat.rb      |    9 +
+ db/schema.rb                                       |   55 +-
+ solr/data/development/index/_7.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_7.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_7.fnm                 |    2 +
+ solr/data/development/index/_7.frq                 |    1 +
+ solr/data/development/index/_7.nrm                 |    1 +
+ solr/data/development/index/_7.prx                 |  Bin 0 -> 90 bytes
+ solr/data/development/index/_7.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_7.tis                 |  Bin 0 -> 559 bytes
+ solr/data/development/index/_7_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_8.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_8.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_8.fnm                 |    2 +
+ solr/data/development/index/_8.frq                 |    1 +
+ solr/data/development/index/_8.nrm                 |    1 +
+ solr/data/development/index/_8.prx                 |  Bin 0 -> 88 bytes
+ solr/data/development/index/_8.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_8.tis                 |  Bin 0 -> 549 bytes
+ solr/data/development/index/_8_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_9.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_9.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_9.fnm                 |    2 +
+ solr/data/development/index/_9.frq                 |    1 +
+ solr/data/development/index/_9.nrm                 |    1 +
+ solr/data/development/index/_9.prx                 |  Bin 0 -> 102 bytes
+ solr/data/development/index/_9.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_9.tis                 |  Bin 0 -> 606 bytes
+ solr/data/development/index/_9_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_a.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_a.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_a.fnm                 |    2 +
+ solr/data/development/index/_a.frq                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_a.nrm                 |    1 +
+ solr/data/development/index/_a.prx                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_a.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_a.tis                 |  Bin 0 -> 570 bytes
+ solr/data/development/index/_a_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_b.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_b.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_b.fnm                 |    2 +
+ solr/data/development/index/_b.frq                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_b.nrm                 |    1 +
+ solr/data/development/index/_b.prx                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_b.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_b.tis                 |  Bin 0 -> 574 bytes
+ solr/data/development/index/_b_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_c.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_c.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_c.fnm                 |    2 +
+ solr/data/development/index/_c.frq                 |  Bin 0 -> 116 bytes
+ solr/data/development/index/_c.nrm                 |    1 +
+ solr/data/development/index/_c.prx                 |  Bin 0 -> 116 bytes
+ solr/data/development/index/_c.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_c.tis                 |  Bin 0 -> 602 bytes
+ solr/data/development/index/_c_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_d.fdt                 |  Bin 0 -> 40 bytes
+ solr/data/development/index/_d.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_d.fnm                 |    2 +
+ solr/data/development/index/_d.frq                 |  Bin 0 -> 108 bytes
+ solr/data/development/index/_d.nrm                 |    1 +
+ solr/data/development/index/_d.prx                 |  Bin 0 -> 108 bytes
+ solr/data/development/index/_d.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_d.tis                 |  Bin 0 -> 616 bytes
+ solr/data/development/index/_d_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/segments.gen           |  Bin 20 -> 20 bytes
+ solr/data/development/index/segments_f             |  Bin 0 -> 1744 bytes
+ solr/pids/development/sunspot-solr-development.pid |    2 +-
+ spec/factories/admin_users.rb                      |    6 +
+ spec/models/admin_user_spec.rb                     |    5 +
+ sync.ru                                            |   14 +
+ 135 files changed, 8733 insertions(+), 161 deletions(-)
+
+commit 194f6c788fa732aed89a4badd6895c9627ce6474
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Wed Apr 24 22:02:56 2013 +0800
+
+    add request module
+
+ app/assets/javascripts/application.js              |    2 +-
+ app/assets/javascripts/homepage.js                 |   12 +++++---
+ app/controllers/home_controller.rb                 |    2 +-
+ app/controllers/request_relations_controller.rb    |   28 ++++++++++++++++++++
+ app/controllers/route_records_controller.rb        |    7 ++++-
+ app/models/match_request.rb                        |   17 +++++++++++-
+ app/models/request_relation.rb                     |   10 +++++++
+ app/models/route_record.rb                         |    3 +-
+ app/views/layouts/application.html.erb             |   27 +------------------
+ app/views/match_requests/_match_result.html.erb    |   17 ++++++++++++
+ app/views/match_requests/_show.html.erb            |    9 +-----
+ app/views/request_relations/create.js.erb          |    1 +
+ app/views/request_relations/destroy.js.erb         |    1 +
+ app/views/route_records/_cancel_req.html.erb       |    3 ++
+ app/views/route_records/_route_record.html.erb     |    1 +
+ app/views/route_records/_send_req.html.erb         |    5 +++
+ app/views/route_records/show.js.erb                |    1 +
+ config/routes.rb                                   |    1 +
+ .../20130424080102_create_request_relations.rb     |   11 ++++++++
+ db/schema.rb                                       |   10 ++++++-
+ solr/data/development/index/_6.fdt                 |  Bin 0 -> 72 bytes
+ solr/data/development/index/_6.fdx                 |  Bin 0 -> 36 bytes
+ solr/data/development/index/_6.fnm                 |    2 +
+ solr/data/development/index/_6.frq                 |  Bin 0 -> 191 bytes
+ solr/data/development/index/_6.nrm                 |    1 +
+ solr/data/development/index/_6.prx                 |  Bin 0 -> 191 bytes
+ solr/data/development/index/_6.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_6.tis                 |  Bin 0 -> 1011 bytes
+ solr/data/development/index/segments.gen           |  Bin 20 -> 20 bytes
+ solr/data/development/index/segments_8             |  Bin 0 -> 246 bytes
+ spec/factories/request_relations.rb                |    8 +++++
+ spec/models/request_relation_spec.rb               |    5 +++
+ 32 files changed, 139 insertions(+), 45 deletions(-)
+
+commit 8e2cbe9ed449aca797cc5bab50ae9b983e0e8489
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Wed Apr 24 15:09:36 2013 +0800
+
+    copy rails_demo repo
+
+ Gemfile                                            |   15 +-
+ Gemfile.lock                                       |   63 ++-
+ app/assets/images/glyphicons-halflings-white.png   |  Bin 0 -> 8777 bytes
+ app/assets/images/glyphicons-halflings.png         |  Bin 0 -> 12799 bytes
+ app/assets/images/loginbtn_03.png                  |  Bin 0 -> 3227 bytes
+ app/assets/images/loginbtn_04.png                  |  Bin 0 -> 2141 bytes
+ app/assets/images/rails.png                        |  Bin 0 -> 6646 bytes
+ app/assets/images/wavegrid.png                     |  Bin 0 -> 1592 bytes
+ app/assets/javascripts/homepage.js                 |  238 +++++
+ app/assets/javascripts/route_records.js.coffee     |    3 +
+ app/assets/stylesheets/custom.scss                 |  426 +++++++++
+ app/assets/stylesheets/route_records.css.scss      |    3 +
+ app/controllers/conversations_controller.rb        |   91 ++
+ app/controllers/fav_relations_controller.rb        |   21 +
+ app/controllers/home_controller.rb                 |   38 +
+ app/controllers/match_requests_controller.rb       |   42 +
+ app/controllers/messages_controller.rb             |   45 +
+ app/controllers/route_records_controller.rb        |  102 +++
+ app/helpers/route_records_helper.rb                |    2 +
+ app/models/fav_relation.rb                         |   10 +
+ app/models/match_relation.rb                       |   10 +
+ app/models/match_request.rb                        |   19 +
+ app/models/route_record.rb                         |   26 +
+ app/models/user.rb                                 |   31 +
+ app/views/conversations/_conversation.html.erb     |    6 +
+ app/views/conversations/_index.html.erb            |   31 +
+ app/views/conversations/_lastmessage.html.erb      |    6 +
+ app/views/conversations/_show.html.erb             |   24 +
+ app/views/conversations/index.js.erb               |    2 +
+ app/views/conversations/reply.js.erb               |    1 +
+ app/views/conversations/show.html.erb              |   11 +
+ app/views/conversations/show.js.erb                |    2 +
+ app/views/conversations/update.js.erb              |    1 +
+ app/views/fav_relations/create.js.erb              |    1 +
+ app/views/fav_relations/destroy.js.erb             |    1 +
+ app/views/home/_table.html.erb                     |   20 +
+ app/views/home/_table_fav.html.erb                 |   26 +
+ app/views/home/_table_match.html.erb               |   29 +
+ app/views/home/dashboard.html.haml                 |   52 ++
+ app/views/home/index.html.erb                      |   15 +-
+ app/views/layouts/_dashboard.html.haml             |   10 +
+ app/views/layouts/_finish_new.html.haml            |   98 ++
+ app/views/layouts/_footer.html.erb                 |    8 +
+ app/views/layouts/_header.html.erb                 |   28 +
+ app/views/layouts/_mailbox.html.erb                |   34 +
+ app/views/layouts/application.html.erb             |   65 +-
+ app/views/match_requests/_index.html.erb           |   29 +
+ app/views/match_requests/_show.html.erb            |   23 +
+ app/views/match_requests/index.js.erb              |    1 +
+ app/views/match_requests/show.js.erb               |    2 +
+ app/views/route_records/_follow.html.erb           |    4 +
+ app/views/route_records/_form.html.erb             |   18 +
+ app/views/route_records/_route_record.html.erb     |   20 +
+ app/views/route_records/_unfollow.html.erb         |    5 +
+ app/views/route_records/edit.html.erb              |    6 +
+ app/views/route_records/index.html.erb             |   19 +
+ app/views/route_records/index.json.rabl            |    2 +
+ app/views/route_records/search.html.erb            |   20 +
+ app/views/route_records/search.json.rabl           |    2 +
+ app/views/route_records/show.html.erb              |   19 +
+ app/views/route_records/show.json.rabl             |    2 +
+ app/views/shared/_route_record_detail.html.erb     |   15 +
+ app/views/shared/_search_form.html.haml            |   16 +
+ app/views/users/_form.html.erb                     |   34 +
+ app/views/users/edit.html.erb                      |    6 +
+ app/workers/match_route_record.rb                  |   64 ++
+ config/initializers/mailboxer.rb                   |   17 +
+ config/routes.rb                                   |   37 +-
+ config/sunspot.yml                                 |   19 +
+ db/migrate/20130423015320_create_route_records.rb  |   26 +
+ db/migrate/20130423020124_create_fav_relations.rb  |   12 +
+ db/migrate/20130423020349_create_match_requests.rb |   18 +
+ .../20130423020645_create_match_relations.rb       |   12 +
+ ...0423021503_create_mailboxer.mailboxer_engine.rb |   62 ++
+ ...3021504_add_notified_object.mailboxer_engine.rb |   18 +
+ ...21505_add_notification_code.mailboxer_engine.rb |   14 +
+ ...30423021506_add_attachments.mailboxer_engine.rb |   10 +
+ ...021507_rename_receipts_read.mailboxer_engine.rb |   10 +
+ ...global_notification_support.mailboxer_engine.rb |   10 +
+ db/migrate/20130423141414_rename_users_users_id.rb |    9 +
+ db/schema.rb                                       |  103 +++-
+ solr/conf/admin-extra.html                         |   31 +
+ solr/conf/elevate.xml                              |   36 +
+ solr/conf/mapping-ISOLatin1Accent.txt              |  246 +++++
+ solr/conf/protwords.txt                            |   21 +
+ solr/conf/schema.xml                               |  251 ++++++
+ solr/conf/scripts.conf                             |   24 +
+ solr/conf/solrconfig.xml                           |  934 ++++++++++++++++++++
+ solr/conf/spellings.txt                            |    2 +
+ solr/conf/stopwords.txt                            |   58 ++
+ solr/conf/synonyms.txt                             |   31 +
+ solr/data/development/index/_0.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_0.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_0.fnm                 |    2 +
+ solr/data/development/index/_0.frq                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_0.nrm                 |    1 +
+ solr/data/development/index/_0.prx                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_0.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_0.tis                 |  Bin 0 -> 573 bytes
+ solr/data/development/index/_0_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_1.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_1.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_1.fnm                 |    2 +
+ solr/data/development/index/_1.frq                 |  Bin 0 -> 102 bytes
+ solr/data/development/index/_1.nrm                 |    1 +
+ solr/data/development/index/_1.prx                 |  Bin 0 -> 102 bytes
+ solr/data/development/index/_1.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_1.tis                 |  Bin 0 -> 590 bytes
+ solr/data/development/index/_1_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_2.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_2.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_2.fnm                 |    2 +
+ solr/data/development/index/_2.frq                 |    1 +
+ solr/data/development/index/_2.nrm                 |    1 +
+ solr/data/development/index/_2.prx                 |  Bin 0 -> 88 bytes
+ solr/data/development/index/_2.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_2.tis                 |  Bin 0 -> 550 bytes
+ solr/data/development/index/_2_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_3.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_3.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_3.fnm                 |    2 +
+ solr/data/development/index/_3.frq                 |    1 +
+ solr/data/development/index/_3.nrm                 |    1 +
+ solr/data/development/index/_3.prx                 |  Bin 0 -> 94 bytes
+ solr/data/development/index/_3.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_3.tis                 |  Bin 0 -> 578 bytes
+ solr/data/development/index/_3_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_4.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_4.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_4.fnm                 |    2 +
+ solr/data/development/index/_4.frq                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_4.nrm                 |    1 +
+ solr/data/development/index/_4.prx                 |  Bin 0 -> 98 bytes
+ solr/data/development/index/_4.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_4.tis                 |  Bin 0 -> 510 bytes
+ solr/data/development/index/_4_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/_5.fdt                 |  Bin 0 -> 38 bytes
+ solr/data/development/index/_5.fdx                 |  Bin 0 -> 20 bytes
+ solr/data/development/index/_5.fnm                 |    2 +
+ solr/data/development/index/_5.frq                 |  Bin 0 -> 110 bytes
+ solr/data/development/index/_5.nrm                 |    1 +
+ solr/data/development/index/_5.prx                 |  Bin 0 -> 110 bytes
+ solr/data/development/index/_5.tii                 |  Bin 0 -> 35 bytes
+ solr/data/development/index/_5.tis                 |  Bin 0 -> 627 bytes
+ solr/data/development/index/_5_1.del               |  Bin 0 -> 31 bytes
+ solr/data/development/index/segments.gen           |  Bin 0 -> 20 bytes
+ solr/data/development/index/segments_7             |  Bin 0 -> 1316 bytes
+ solr/data/development/spellchecker/segments.gen    |  Bin 0 -> 20 bytes
+ solr/data/development/spellchecker/segments_1      |  Bin 0 -> 32 bytes
+ solr/pids/development/sunspot-solr-development.pid |    1 +
+ spec/controllers/route_record_controller_spec.rb   |    5 +
+ spec/factories/fav_relations.rb                    |    8 +
+ spec/factories/match_relations.rb                  |    8 +
+ spec/factories/match_requests.rb                   |    8 +
+ spec/factories/route_records.rb                    |    9 +
+ spec/models/fav_relation_spec.rb                   |    5 +
+ spec/models/match_relation_spec.rb                 |    5 +
+ spec/models/match_request_spec.rb                  |    5 +
+ spec/models/route_record_spec.rb                   |    5 +
+ 159 files changed, 4024 insertions(+), 29 deletions(-)
+
+commit 637eb499e224deab938f65b6123aeba11d10f72e
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:38 2013 +0800
+
+    rails_apps_composer: extras
+
+ Gemfile                     |   30 ------
+ app/assets/images/rails.png |  Bin 6646 -> 0 bytes
+ public/index.html           |  241 -------------------------------------------
+ 3 files changed, 0 insertions(+), 271 deletions(-)
+
+commit 93a5d3a79faf90eaf98b1b45b0e822530e5bc597
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:38 2013 +0800
+
+    rails_apps_composer: set up database
+
+ config/application.example.yml |   15 +++++++++++
+ db/schema.rb                   |   53 ++++++++++++++++++++++++++++++++++++++++
+ db/seeds.rb                    |   11 ++++++++
+ 3 files changed, 79 insertions(+), 0 deletions(-)
+
+commit d11900ba3ddbe4dbdfde80a9b935e5ce6fa0db67
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:22 2013 +0800
+
+    rails_apps_composer: rspec files
+
+ spec/controllers/home_controller_spec.rb  |    2 +-
+ spec/controllers/users_controller_spec.rb |   24 +++++++
+ spec/factories/users.rb                   |    6 ++
+ spec/models/user_spec.rb                  |  100 ++++++++++++++++++++++++++++-
+ 4 files changed, 130 insertions(+), 2 deletions(-)
+
+commit 75c9b0e6a6bb9ffad057e792ea5dbcb57009abfa
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:19 2013 +0800
+
+    rails_apps_composer: add README files
+
+ README             |   21 ++++-
+ README.rdoc        |  261 ----------------------------------------------------
+ README.textile     |   80 ++++++++++++++++
+ doc/README_FOR_APP |    2 -
+ public/humans.txt  |   20 ++++
+ 5 files changed, 118 insertions(+), 266 deletions(-)
+
+commit 297587d4887fa20aeda842dc2303b0c7607ae255
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:17 2013 +0800
+
+    rails_apps_composer: front-end framework
+
+ app/assets/javascripts/application.js              |    1 +
+ app/assets/stylesheets/application.css             |   13 ------
+ app/assets/stylesheets/application.css.scss        |   25 +++++++++++
+ .../stylesheets/bootstrap_and_overrides.css.scss   |    3 +
+ app/views/layouts/_messages.html.erb               |    8 ++++
+ app/views/layouts/_navigation.html.erb             |   26 ++++++++++++
+ app/views/layouts/application.html.erb             |   43 +++++++++++++++-----
+ 7 files changed, 95 insertions(+), 24 deletions(-)
+
+commit 344e215bb09c556f3800538b20565603e4fca7b3
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:10 2013 +0800
+
+    rails_apps_composer: routes
+
+ config/routes.rb |   66 +++++-------------------------------------------------
+ 1 files changed, 6 insertions(+), 60 deletions(-)
+
+commit f1bed3cba280ec44058796781898db874c42bf7b
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:09 2013 +0800
+
+    rails_apps_composer: views
+
+ app/helpers/application_helper.rb            |   13 +++++++++++
+ app/views/devise/registrations/edit.html.erb |   14 ++++++++++++
+ app/views/devise/registrations/new.html.erb  |   11 +++++++++
+ app/views/devise/sessions/new.html.erb       |    8 +++++++
+ app/views/devise/shared/_links.html.erb      |   25 +++++++++++++++++++++
+ app/views/home/index.html.erb                |    6 +++-
+ app/views/users/_user.html.erb               |   15 +++++++++++++
+ app/views/users/index.html.erb               |   30 ++++++++++++++++++++++++++
+ app/views/users/show.html.erb                |    3 ++
+ 9 files changed, 123 insertions(+), 2 deletions(-)
+
+commit 45f6a29e086c61b249dac6de1680a8a5f59fa86d
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:07:01 2013 +0800
+
+    rails_apps_composer: controllers
+
+ app/assets/javascripts/home.js.coffee     |    3 ++
+ app/assets/stylesheets/home.css.scss      |    3 ++
+ app/controllers/application_controller.rb |    5 ++++
+ app/controllers/home_controller.rb        |    5 ++++
+ app/controllers/users_controller.rb       |   33 +++++++++++++++++++++++++++++
+ app/helpers/home_helper.rb                |    2 +
+ app/views/home/index.html.erb             |    2 +
+ config/routes.rb                          |    2 +
+ spec/controllers/home_controller_spec.rb  |   12 ++++++++++
+ 9 files changed, 67 insertions(+), 0 deletions(-)
+
+commit 0e359cf18dbf3e1445155cf099a65b7c65a706ea
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:06:56 2013 +0800
+
+    rails_apps_composer: models
+
+ app/models/ability.rb                            |   32 +++
+ app/models/role.rb                               |    6 +
+ app/models/user.rb                               |   13 ++
+ config/application.rb                            |    2 +-
+ config/initializers/devise.rb                    |  240 ++++++++++++++++++++++
+ config/initializers/rolify.rb                    |    8 +
+ config/locales/devise.en.yml                     |   59 ++++++
+ config/routes.rb                                 |    2 +
+ db/migrate/20130422130641_devise_create_users.rb |   46 ++++
+ db/migrate/20130422130645_add_name_to_users.rb   |    5 +
+ db/migrate/20130422130656_rolify_create_roles.rb |   19 ++
+ spec/factories/users.rb                          |    6 +
+ spec/models/user_spec.rb                         |    5 +
+ 13 files changed, 442 insertions(+), 1 deletions(-)
+
+commit 43ab08eea020a0ce66f581c4604e4da3221db908
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:06:33 2013 +0800
+
+    rails_apps_composer: set email accounts
+
+ config/environments/development.rb |   21 +++++++++++++++++++--
+ config/environments/production.rb  |   20 ++++++++++++++++++++
+ config/environments/test.rb        |    4 ++++
+ 3 files changed, 43 insertions(+), 2 deletions(-)
+
+commit 05e826e467be14e89d7fc0a132c20515842ba559
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:06:33 2013 +0800
+
+    rails_apps_composer: testing framework
+
+ Guardfile                                |   36 +++++
+ config/application.rb                    |   12 ++
+ features/step_definitions/email_steps.rb |  206 ++++++++++++++++++++++++++++++
+ spec/spec_helper.rb                      |   51 ++++++++
+ spec/support/devise.rb                   |    3 +
+ 5 files changed, 308 insertions(+), 0 deletions(-)
+
+commit 5693324d0e2a3db1009a88e1b75ce43f7491c906
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:06:22 2013 +0800
+
+    rails_apps_composer: generators
+
+ .gitignore                                   |    3 +
+ config/initializers/simple_form.rb           |  142 ++++++++++++++++++++++++++
+ config/initializers/simple_form_bootstrap.rb |   45 ++++++++
+ config/locales/simple_form.en.yml            |   26 +++++
+ lib/templates/erb/scaffold/_form.html.erb    |   13 +++
+ 5 files changed, 229 insertions(+), 0 deletions(-)
+
+commit 0b3c441762a87a270b8eaef0240d33958f31d959
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:06:14 2013 +0800
+
+    rails_apps_composer: create database
+
+ .ruby-gemset  |    1 +
+ .ruby-version |    1 +
+ Gemfile       |    6 +-
+ Gemfile.lock  |  238 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 245 insertions(+), 1 deletions(-)
+
+commit 228ca4205b12130262e673076c4eaefae8884134
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:04:36 2013 +0800
+
+    rails_apps_composer: Gemfile
+
+ Gemfile |   20 +++++++++++++++++++-
+ README  |    4 ++++
+ 2 files changed, 23 insertions(+), 1 deletions(-)
+
+commit 80d5a00b722adf583590e937cda22f585f1c9d24
+Author: Josh Erich <josherichchen@gmail.com>
+Date:   Mon Apr 22 21:03:54 2013 +0800
+
+    rails_apps_composer: initial commit
+
+ .gitignore                                 |   74 ++++++++
+ Gemfile                                    |   38 ++++
+ README.rdoc                                |  261 ++++++++++++++++++++++++++++
+ Rakefile                                   |    7 +
+ app/assets/images/rails.png                |  Bin 0 -> 6646 bytes
+ app/assets/javascripts/application.js      |   15 ++
+ app/assets/stylesheets/application.css     |   13 ++
+ app/controllers/application_controller.rb  |    3 +
+ app/helpers/application_helper.rb          |    2 +
+ app/views/layouts/application.html.erb     |   14 ++
+ config.ru                                  |    4 +
+ config/application.rb                      |   70 ++++++++
+ config/boot.rb                             |    6 +
+ config/environment.rb                      |    5 +
+ config/environments/development.rb         |   37 ++++
+ config/environments/production.rb          |   67 +++++++
+ config/environments/test.rb                |   37 ++++
+ config/initializers/backtrace_silencers.rb |    7 +
+ config/initializers/generators.rb          |    2 +
+ config/initializers/inflections.rb         |   15 ++
+ config/initializers/mime_types.rb          |    5 +
+ config/initializers/secret_token.rb        |    7 +
+ config/initializers/session_store.rb       |    8 +
+ config/initializers/wrap_parameters.rb     |   14 ++
+ config/locales/en.yml                      |    5 +
+ config/routes.rb                           |   58 ++++++
+ db/seeds.rb                                |    7 +
+ doc/README_FOR_APP                         |    2 +
+ public/404.html                            |   26 +++
+ public/422.html                            |   26 +++
+ public/500.html                            |   25 +++
+ public/index.html                          |  241 +++++++++++++++++++++++++
+ public/robots.txt                          |    5 +
+ script/rails                               |    6 +
+ 34 files changed, 1112 insertions(+), 0 deletions(-)
